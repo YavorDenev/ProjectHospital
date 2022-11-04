@@ -70,7 +70,7 @@ public class Patient extends User {
         if (index >= 0) {
             int doctorId = Hospital.appointments.get(index).getDoctorId();
             String date = chooseNewDate(doctorId);
-            String time = chooseNewTime(doctorId);
+            String time = chooseNewTime(doctorId, date);
             Hospital.appointments.get(index).setDate(date);
             Hospital.appointments.get(index).setTime(time);
         } else System.out.println("You do not have an appointment with such an ID");
@@ -78,11 +78,11 @@ public class Patient extends User {
 
     private String chooseNewDate(int doctorId) { return "dddd"; }      // ------------- TODO
 
-    private String chooseNewTime(int doctorId) { return "tttt"; }      // ------------- TODO
+    private String chooseNewTime(int doctorId, String date) { return "tttt"; }      // ------------- TODO
 
     public void AddAppointment() { }     // ------------- TODO
 
-    public void showDocAppointments(int docId) { }     // ------------- TODO
+    public void showDocAppointments(int docId, String date) { }     // ------------- TODO
 
     private boolean checkIfDateTimeIsFreeByDoc(String date, String time) { return false; }      // ------------- TODO
 
