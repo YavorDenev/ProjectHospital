@@ -63,21 +63,22 @@ public class Patient extends User {
         return -1;
     }
 
-    public void changeAppointmentsDateTime(int id) {
+    public void changeAppointmentsDateTime() {
         System.out.println("Enter appointment Id to change ...");
         int idToChange = Inputs.inputPositiveInteger();
         int index = getMyAppointmentIndex(idToChange);
         if (index >= 0) {
-            String date = chooseNewDate();
-            String time = chooseNewTime();
+            int doctorId = Hospital.appointments.get(index).getDoctorId();
+            String date = chooseNewDate(doctorId);
+            String time = chooseNewTime(doctorId);
             Hospital.appointments.get(index).setDate(date);
             Hospital.appointments.get(index).setTime(time);
         } else System.out.println("You do not have an appointment with such an ID");
     }
 
-    private String chooseNewDate() { return "dddd"; }      // ------------- TODO
+    private String chooseNewDate(int doctorId) { return "dddd"; }      // ------------- TODO
 
-    private String chooseNewTime() { return "tttt"; }      // ------------- TODO
+    private String chooseNewTime(int doctorId) { return "tttt"; }      // ------------- TODO
 
     public void AddAppointment() { }     // ------------- TODO
 
