@@ -2,10 +2,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class Doctor extends User {
-    static int rights = 2;
-    private int doctorId;
 
+    static ArrayList<Integer> rights = new ArrayList<>();
+    public static String keyWordForClassRights = "Doctor"; //First word in arrayListUserRights.csv file
+    public boolean isHidden;
+
+    private int doctorId;
     private String specialty;
+
     private ArrayList<Appointment> doctorApts = new ArrayList<>();
 
     //private DocCalendar calendar = new DocCalendar();  ---------------- TODO

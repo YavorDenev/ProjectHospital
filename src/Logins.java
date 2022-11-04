@@ -31,7 +31,7 @@ public abstract class Logins {
         System.out.println("Enter you name...;");
         String name = sc.nextLine();
         System.out.println("Enter you Id...;");
-        int id = inputPositiveInteger();
+        int id = Inputs.inputPositiveInteger();
         if (     true         ) {                  // --------------------- TODO - verify
             System.out.println("Welcome!");
             Menus.showPatientMenu(id);
@@ -41,18 +41,7 @@ public abstract class Logins {
         }
     }
 
-    public static int inputPositiveInteger() {
-        while (!(scan.hasNextInt())) {
-            System.out.println("Invalid input. Try again!");
-            scan.next();
-        }
-        int num = scan.nextInt();
-        while (num < 1) {
-            System.out.println("Invalid input number. Try again!");
-            num = inputPositiveInteger();
-        }
-        return num;
-    }
+
 
     private static void loginDoctor() { }     // ------------- TODO
 

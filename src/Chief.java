@@ -1,5 +1,10 @@
+import java.util.ArrayList;
+
 public class Chief extends User implements Authorizable {
-    static int rights = 1;
+
+    static ArrayList<Integer> rights = new ArrayList<>();
+    public static String keyWordForClassRights = "Boss"; //First word in arrayListUserRights.csv file
+
     private String password;
 
     public String getPassword() {

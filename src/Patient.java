@@ -1,7 +1,11 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Patient extends User {
-    static int rights = 3;
+
+    static ArrayList<Integer> rights = new ArrayList<>();
+    public static String keyWordForClassRights = "Patient"; //First word in arrayListUserRights.csv file
+
     private int patientId;
     private int age;
     private ArrayList<Appointment> patientApts = new ArrayList<>();
@@ -33,21 +37,51 @@ public class Patient extends User {
         this.age = age;
     }
 
+    public void showMyAppointments() {
+        for (Appointment app: Hospital.appointments) {
+            if (app.getPatientId()==this.patientId) {
+                System.out.println(app);
+            }
+        }
+    }
 
+    public void removeAppointment() {
+        System.out.println("Enter appointment Id to remove ...");
+        int idToRemove = Inputs.inputPositiveInteger();
+        int index = getMyAppointmentIndex(idToRemove);
+        if (index >= 0) {
+            Hospital.appointments.remove(index);
+        } else System.out.println("You do not have an appointment with such an ID");
+    }
 
-    public void showMyAppointments() { }       // ------------- TODO
+    private int getMyAppointmentIndex(int id) {
+        for (Appointment app: Hospital.appointments) {
+            if (app.getId()==id && app.getPatientId()==this.patientId) {
+                return Hospital.appointments.indexOf(app);
+            }
+        }
+        return -1;
+    }
 
-    public void removeAppointment(int id) { }     // ------------- TODO
+    public void changeAppointmentsDateTime(int id) {
+        System.out.println("Enter appointment Id to change ...");
+        int idToChange = Inputs.inputPositiveInteger();
+        int index = getMyAppointmentIndex(idToChange);
+        if (index >= 0) {
+            String date = chooseNewDate();
+            String time = chooseNewTime();
+            Hospital.appointments.get(index).setDate(date);
+            Hospital.appointments.get(index).setTime(time);
+        } else System.out.println("You do not have an appointment with such an ID");
+    }
 
-    public void changeAppointmentsDateTime(int aptId) { }     // ------------- TODO
+    private String chooseNewDate() { return "dddd"; }      // ------------- TODO
+
+    private String chooseNewTime() { return "tttt"; }      // ------------- TODO
 
     public void AddAppointment() { }     // ------------- TODO
 
     public void showDocAppointments(int docId) { }     // ------------- TODO
-
-    private String chooseNewDate() { return ""; }      // ------------- TODO
-
-    private String chooseNewTime() { return ""; }      // ------------- TODO
 
     private boolean checkIfDateTimeIsFreeByDoc(String date, String time) { return false; }      // ------------- TODO
 
