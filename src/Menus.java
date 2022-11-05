@@ -1,8 +1,8 @@
 public abstract class Menus {
 
-    // ------------------------------------------------------ TODO
-
-
+    public static void startPoint(){
+        //check user allowedActions
+    }
 
     static void showMainMenu() {
         System.out.println("""
@@ -13,17 +13,8 @@ public abstract class Menus {
                 \t3. Login as Doctor;
                 \t4. Login as Chief;
                 \t5. Exit.""");
-        Logins.enterChoice();
+      //  Logins.enterChoice();
     }
-
-    static void showPatientMenu(int id) { }      // ------------- TODO
-
-    static void showDoctorMenu(int id) { }      // ------------- TODO
-
-    static void showChiefMenu() { }      // ------------- TODO
-
-
-// ---------------------------------------------------------------------------------- TODO
 
 
 }

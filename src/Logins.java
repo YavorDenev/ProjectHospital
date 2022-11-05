@@ -2,9 +2,12 @@ import java.util.Scanner;
 
 public abstract class Logins {
 
-    static Scanner scan = new Scanner(System.in);
+// TOQ CLASS mislq da go splitnem v dvata MENUS i AUTHORIZE
+    //i da go mahnem ot tuk. Ako dyrji6 na imeto vmesto Authorize moje da ostane kato Logins
+// Towa ste go realiziram v Menu v metod prosledqva6t Db.currentUser
 
 
+    /*
     public static void enterChoice() {
         System.out.print("Enter 1, 2, 3, 4 or 5 ... ");
         String choice = scan.next();
@@ -22,10 +25,11 @@ public abstract class Logins {
                 enterChoice();
             }
         }
-    }
+    } */
 
-    private static void addPatient() { }    // ------------- TODO
+    //Towa ste go realiziram v authorize pak spored Db.currentUser
 
+    /*
     private static void loginPatient() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter you name...;");
@@ -41,11 +45,6 @@ public abstract class Logins {
         }
     }
 
-
-
-    private static void loginDoctor() { }     // ------------- TODO
-
-    private static void loginChief() { }     // ------------- TODO
-
+*/
 
 }
