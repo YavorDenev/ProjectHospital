@@ -11,8 +11,9 @@ public class Main {
         ReadWrite.getPatientsFromFile("patients.txt");
         ReadWrite.getAppointmentsFromFile("appointments.txt");
         ReadWrite.getClassAllowedActionsFromFile("arrayListUserAllowedActions.txt");
+        Db.initializeAllowedActions();
 
-        //TestKatev.doTests(); //everything is fine :)
+        TestKatev.doTests(); //everything is fine :)
 
         Menus.startPoint(); //todo empty for now
     }

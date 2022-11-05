@@ -5,13 +5,13 @@ public abstract class TestKatev {
     public static void doTests(){
 
         //check reading specialityes
-        System.out.println("======= SPECIALITYES ======");
+        System.out.println("\n ======= SPECIALITYES ======");
         for (int i=0;i<Db.specialities.length;i++) {
             System.out.println(Db.specialities[i].id+" "+Db.specialities[i].name+" "+Db.specialities[i].isHidden);
         }
 
         //check doctors
-        System.out.println("========= DOCTORS ========");
+        System.out.println("\n ========= DOCTORS ========");
         for (int i=0;i<Db.doctors.length;i++) {
             System.out.println(Db.doctors[i].id + " " + Db.doctors[i].firstName + " " + Db.doctors[i].lastName
                     + " " + Db.doctors[i].speciality + " " +Db.doctors[i].sex + " " + Db.doctors[i].age
@@ -19,25 +19,25 @@ public abstract class TestKatev {
         }
 
         //check patients
-        System.out.println("======== PATIENTS =======");
+        System.out.println("\n ======== PATIENTS =======");
         for (int i=0;i<Db.patients.length;i++) {
             System.out.println(Db.patients[i].id + " " + Db.patients[i].firstName + " " + Db.patients[i].lastName
                     + " " + Db.patients[i].age + " " +Db.patients[i].sex);
         }
 
         //check appointments
-        System.out.println("====== appointments ======");
+        System.out.println("\n ====== APPOINTMENTS ======");
         for (int i=0;i<Db.appointments.length;i++) {
             System.out.println(Db.appointments[i].id + " patID:" + Db.appointments[i].patientID + " type:" + Db.appointments[i].typeOfExamination
                     + " date:" + Db.appointments[i].date + " time:" +Db.appointments[i].time + " docID:"+ Db.appointments[i].doctorID);
         }
 
         //Check rights
-        System.out.println("====== USER RIGHTS ======");
-        System.out.println("Права на anonymous " + showArrayList(Anonymous.allowedActions));
-        System.out.println("Права на patients " + showArrayList(Patient.allowedActions));
-        System.out.println("Права на doctors " + showArrayList(Doctor.allowedActions));
-        System.out.println("Права на boss " + showArrayList(Boss.allowedActions));
+        System.out.println("\n====== USER ALLOWED ACTIONS (Beta) =====\n");
+        System.out.println("Права на ANONYMOUS ========================= \n" + showArrayList(Anonymous.allowedActions));
+        System.out.println("Права на PATIENTS ========================= \n" + showArrayList(Patient.allowedActions));
+        System.out.println("Права на DOCTORS ========================= \n" + showArrayList(Doctor.allowedActions));
+        System.out.println("Права на BOSS ========================= \n" + showArrayList(Boss.allowedActions));
 
         //Check currentUser data
         try {
@@ -59,7 +59,7 @@ public abstract class TestKatev {
     private static String showArrayList(ArrayList<Integer> al){
         String sum = "";
         for (int x: al){
-            sum += x+" ";
+            sum += Db.allowedActions[x] + "\n";
         }
         return sum;
     }
