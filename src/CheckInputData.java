@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public abstract class Inputs {
+public abstract class CheckInputData {
 
     static Scanner scan = new Scanner(System.in);
 

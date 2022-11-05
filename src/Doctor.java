@@ -1,36 +1,22 @@
 import java.util.ArrayList;
-import java.util.Calendar;
 
 public class Doctor extends User {
 
-    static ArrayList<Integer> rights = new ArrayList<>();
-    public static String keyWordForClassRights = "Doctor"; //First word in arrayListUserRights.csv file
+    public int id;
     public boolean isHidden;
+    public String speciality;
+    static ArrayList<Integer> allowedActions = new ArrayList<>();
+    public static String keyWordForClassAllowedActions = "Doctor"; //First word in arrayListUserRights.csv file
 
-    private int doctorId;
-    private String specialty;
-
-    private ArrayList<Appointment> doctorApts = new ArrayList<>();
-
-    //private DocCalendar calendar = new DocCalendar();  ---------------- TODO
-
-
-    // ------------------------------------- TODO
-
-
-    public void readAppointments() {
-        for (Appointment ap: Hospital.appointments) {
-            if (ap.getPatientId()==this.doctorId) doctorApts.add(ap);
-        }
-    }
+    public ArrayList<Appointment> doctorApts = new ArrayList<>();
 
     @Override
     public String toString() {
         return "Doctor{" +
-                "Id=" + doctorId +
+                "Id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", specialty='" + specialty + '\'' +
+                ", specialty='" + speciality + '\'' +
                 '}';
     }
 }

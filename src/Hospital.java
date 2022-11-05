@@ -2,15 +2,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Hospital {
-    static Chief chief = new Chief();
-    static ArrayList<Doctor> doctors = new ArrayList<>();
-    static ArrayList<Patient> patients = new ArrayList<>();
+
     static ArrayList<Appointment> appointments = new ArrayList<>();
-    static ArrayList<String> examinations = new ArrayList<>(List.of(
-            "initial",
-            "secondary",
-            "consultation",
-            "procedure"));
+
+    //Wsi4ko neobhodimo e v DB. Procheteno ot vhodnite failove
+    //tezi zakomentiranite predlagam da gi mahnem
+    //dostap do tqh imame prez masiva v Db >>
+    String a = Db.specialities[1].name; // todo DELETE
+    /*
     static final ArrayList<String> specialties = new ArrayList<>(List.of(
             "Anesthesiology",
             "Internal diseases",
@@ -27,9 +26,7 @@ public abstract class Hospital {
             "Ophthalmology",
             "Urology",
             "Surgery"));
-
-
-
+*/
 
     public static void showDoctors() {
         //  ---------------------------------------------------- TODO
@@ -50,5 +47,27 @@ public abstract class Hospital {
     public static void showPatientsByDate(String date) {
         // ---------------------------------------------------- TODO
     }
+
+    //------ APPS ----
+    public void readAppointments() {  //
+        for (Doctor d : Db.doctors) {
+            for (Appointment ap: Db.appointments) {
+                if (ap.patientID==d.id) d.doctorApts.add(ap); //
+            }
+        }
+
+    }
+
+
+    // ------------- DOCTOR ---------- TODO
+
+    public void addDoctor() { }     // ------------- TODO
+
+    public void removeDoctor() { }     // ------------- TODO
+
+    public void addSpecialty() { }     // ------------- TODO
+
+    public void removeSpecialty() { }     // ------------- TODO
+
 
 }
