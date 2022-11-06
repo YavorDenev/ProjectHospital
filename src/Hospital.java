@@ -37,15 +37,15 @@ public abstract class Hospital {
     //---------------------------------------------------------------------------
     // ------------- DOCTOR ---------- TODO
 
-    public void readAppointments() {  //
+/* -------------- това е в Доктор, тук е безмислено -----------
+    public void readAppointments() {
         for (Doctor d : Db.doctors) {
             for (Appointment ap: Db.appointments) {
-                if (ap.patientID==d.id) d.doctorApts.add(ap); //
+                if (ap.patientID==d.id) d.doctorApts.add(ap);
             }
         }
-
     }
-
+ */
 
     //---------------------------------------------------------------------------
 // ---------------------BOSS-------------------------------------------------
@@ -62,38 +62,46 @@ public abstract class Hospital {
     //---------------------------------------------------------------------------
     // ------------- PATIENT ---------- TODO
 
-    public void showMyAppointments() {
+    public void showPatientAppointments(int patientId) {
+            // така кода става чуплив - ако подадеш грешно ИД, програмата ще крашне,
+            // затова мястото му е в Пациент - той без класа Пациент няма никакъв смисъл
+            // тука стои като пришит с бели конци - ТВЪРДО ДЪРЖА НА ТОВА !!!
         for (Appointment app: Hospital.appointments) {
-            if (app.getPatientId()==this.patientId) {
+            if (app.patientID==patientId) {
                 System.out.println(app);
             }
         }
     }
-    public void removeAppointment() {
+
+    public void removePatientAppointment(int patientId) {
+                // същото като за горния метод - излишно вкарване на параметъра patientId
+                // което може да счупи кода - ТУК НЯМА МЯСТО !!!
         System.out.println("Enter appointment Id to remove ...");
-        int idToRemove = Inputs.inputPositiveInteger();
-        int index = getMyAppointmentIndex(idToRemove);
+        int idToRemove = CheckInputData.inputPositiveInteger();
+        int index = getMyAppointmentIndex(idToRemove, patientId);
         if (index >= 0) {
             Hospital.appointments.remove(index);
         } else System.out.println("You do not have an appointment with such an ID");
     }
-    private int getMyAppointmentIndex(int id) {
+
+    private int getMyAppointmentIndex(int idToRemove, int patientId) {
+                // същото като за горния метод - излишно вкарване на параметъра patientId
         for (Appointment app: Hospital.appointments) {
-            if (app.getId()==id && app.getPatientId()==this.patientId) {
+            if (app.id==idToRemove && app.patientID==patientId) {
                 return Hospital.appointments.indexOf(app);
             }
         }
         return -1;
     }
-    public void changeAppointmentsDateTime() {
+    public void changeAppointmentsDateTime(int patientId) {
+                // същото като за горния метод - излишно вкарване на параметъра patientId
         System.out.println("Enter appointment Id to change ...");
-        int idToChange = Inputs.inputPositiveInteger();
-        int index = getMyAppointmentIndex(idToChange);
+        int idToChange = CheckInputData.inputPositiveInteger();
+        int index = getMyAppointmentIndex(idToChange, patientId);
         if (index >= 0) {
-            int doctorId = Hospital.appointments.get(index).getDoctorId();
+            int doctorId = Hospital.appointments.get(index).doctorID;
             String date = chooseNewDate(doctorId);
-            String time = chooseNewTime(doctorId);
-            String time = chooseNewTime(doctorId, date);
+            int time = chooseNewTime(doctorId, date);
             Hospital.appointments.get(index).setDate(date);
             Hospital.appointments.get(index).setTime(time);
         } else System.out.println("You do not have an appointment with such an ID");
@@ -101,8 +109,7 @@ public abstract class Hospital {
 
     private String chooseNewDate(int doctorId) { return "dddd"; }      // ------------- TODO
 
-    private String chooseNewTime(int doctorId) { return "tttt"; }      // ------------- TODO
-    private String chooseNewTime(int doctorId, String date) { return "tttt"; }      // ------------- TODO
+    private int chooseNewTime(int doctorId, String date) { return 0; }      // ------------- TODO
 
     public void AddAppointment() { }     // ------------- TODO
 

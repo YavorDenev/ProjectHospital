@@ -6,6 +6,18 @@ public class Appointment {
     public String date;
     public int time;
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setTime(int time) {
+        this.time = time;
+    }
+
     @Override
     public String toString() {
         return "Appointment{" +
