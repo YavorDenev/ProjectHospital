@@ -9,24 +9,7 @@ public abstract class Hospital {
     //tezi zakomentiranite predlagam da gi mahnem
     //dostap do tqh imame prez masiva v Db >>
     String a = Db.specialities[1].name; // todo DELETE
-    /*
-    static final ArrayList<String> specialties = new ArrayList<>(List.of(
-            "Anesthesiology",
-            "Internal diseases",
-            "Gastroenterology",
-            "Endocrinology",
-            "Cardiology",
-            "Dermatology",
-            "Neurology",
-            "Nephrology",
-            "Psychiatry",
-            "Rheumatology",
-            "Gynecology",
-            "Orthopedics",
-            "Ophthalmology",
-            "Urology",
-            "Surgery"));
-*/
+
 
     public static void showDoctors() {
         //  ---------------------------------------------------- TODO
