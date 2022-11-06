@@ -10,6 +10,12 @@ public class Doctor extends User {
 
     public ArrayList<Appointment> doctorApts = new ArrayList<>();
 
+    public void readAppointments() {
+        for (Appointment ap: Hospital.appointments) {
+            if (ap.patientID==this.id) doctorApts.add(ap);
+        }
+    }
+
     @Override
     public String toString() {
         return "Doctor{" +
