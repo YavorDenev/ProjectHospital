@@ -6,10 +6,6 @@ public class Patient extends User {
     static ArrayList<Integer> allowedActions = new ArrayList<>();
     public int id;
 
-    private ArrayList<Appointment> patientApts = new ArrayList<>();
-    public ArrayList<Appointment> getPatientApts() {
-        return patientApts;
-    }
 
     public Patient(){
         //put data from file
@@ -20,12 +16,6 @@ public class Patient extends User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
-    }
-
-    //Ostavqm gi, no bih iskal az da gi napravq direktno izvan klasa, poneje sa tqsno obvarzani s MENU i ReadWrite
-
-    public void setPatientApts(ArrayList<Appointment> patientApts) {
-        this.patientApts = patientApts;
     }
 
     @Override
