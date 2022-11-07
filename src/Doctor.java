@@ -18,11 +18,6 @@ public class Doctor extends User {
 
     @Override
     public String toString() {
-        return "Doctor{" +
-                "Id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", specialty='" + speciality + '\'' +
-                '}';
+        return "" + id + " " + firstName + " " + lastName + " " + speciality + " " + isHidden;
     }
 }

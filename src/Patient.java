@@ -20,11 +20,6 @@ public class Patient extends User {
 
     @Override
     public String toString() {
-        return "Patient{" +
-                "Id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", age=" + age +
-                '}';
+        return "" + id + " " + firstName + " " + lastName + " " + age + " " + sex;
     }
 }

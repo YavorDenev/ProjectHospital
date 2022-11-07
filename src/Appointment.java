@@ -20,13 +20,11 @@ public class Appointment {
 
     @Override
     public String toString() {
-        return "Appointment{" +
-                "Id=" + id +
-                ", patientId=" + patientID +
-                ", examination='" + typeOfExamination + '\'' +
-                ", date='" + date + '\'' +
-                ", time='" + time + '\'' +
-                ", doctorId=" + doctorID +
-                '}';
+        return "" + id +
+                " patientId=" + patientID +
+                " type=" + typeOfExamination +
+                " date=" + date +
+                " time=" + time +
+                " doctorId=" + doctorID ;
     }
 }

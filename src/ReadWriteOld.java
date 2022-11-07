@@ -3,13 +3,13 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public abstract class ReadWrite {
+public abstract class ReadWriteOld {
 
     public static void getSpecialityesFromFile(String filename){
         String line = "";
         String splitBy = ",";
 
-        //-------от стария вариант------  ArrayList<Specialities> specialityes = new ArrayList<>();
+        ArrayList<Specialities> specialityes = new ArrayList<>();
         int reckords = 0;
 
         try
@@ -30,7 +30,7 @@ public abstract class ReadWrite {
                     tmpSpec.isHidden = !words[2].equals("0");
 
                     //Put Object in ArrayList
-                    DBase.specialities.add(tmpSpec); //first row is header
+                    specialityes.add(tmpSpec); //first row is header
 
                 }
                 reckords++;
@@ -43,14 +43,14 @@ public abstract class ReadWrite {
             System.out.println("Incorrect data in file " +filename+ " in row: " + (reckords+1));
             System.exit(0);
         }
-        //-------от стария вариант------   Db.specialities = specialityes.toArray(new Specialities[0]);
+        Db.specialities = specialityes.toArray(new Specialities[0]);
     }
 
     public static void getDoctorsFromFile(String filename) {
         String line = "";
         String splitBy = ",";
 
-        //-------от стария вариант------  ArrayList<Doctor> doctors = new ArrayList<>();
+        ArrayList<Doctor> doctors = new ArrayList<>();
         int reckords = 0;
 
         try {
@@ -80,7 +80,7 @@ public abstract class ReadWrite {
                     tmpDoctor.isHidden = !field[6].equals("0");
 
                     //Put Object in ArrayList
-                    DBase.doctors.add(tmpDoctor); //first row is header
+                    doctors.add(tmpDoctor); //first row is header
 
                 }
                 reckords++;
@@ -92,7 +92,7 @@ public abstract class ReadWrite {
             System.out.println("Incorrect data in file " + filename +" in row: " + (reckords + 1));
             System.exit(0);
         }
-        //-------от стария вариант------  Db.doctors = doctors.toArray(new Doctor[0]);
+        Db.doctors = doctors.toArray(new Doctor[0]);
     }
 
     private static String getSexAndConvertToInteger(String sex){
@@ -105,7 +105,7 @@ public abstract class ReadWrite {
         String line = "";
         String splitBy = ",";
 
-        //-------от стария вариант------  ArrayList<Patient> patients = new ArrayList<>();
+        ArrayList<Patient> patients = new ArrayList<>();
         int reckords = 0;
 
         try {
@@ -133,7 +133,7 @@ public abstract class ReadWrite {
                     tmpPatient.sex = sx;
 
                     //Put Object in ArrayList
-                    DBase.patients.add(tmpPatient); //first row is header
+                    patients.add(tmpPatient); //first row is header
 
                 }
                 reckords++;
@@ -146,14 +146,14 @@ public abstract class ReadWrite {
             System.exit(0);
         }
 
-        //-------от стария вариант------  Db.patients = patients.toArray(new Patient[0]);
+        Db.patients = patients.toArray(new Patient[0]);
     }
 
     public static void getAppointmentsFromFile(String filename) {
         String line = "";
         String splitBy = ",";
 
-        //-------от стария вариант------  ArrayList<Appointment> appointments = new ArrayList<>();
+        ArrayList<Appointment> appointments = new ArrayList<>();
         int reckords = 0;
 
         try {
@@ -177,7 +177,7 @@ public abstract class ReadWrite {
                     tmpAppointment.doctorID = Integer.parseInt(field[5]);
 
                     //Put Object in ArrayList
-                    DBase.appointments.add(tmpAppointment); //first row is header
+                    appointments.add(tmpAppointment); //first row is header
                 }
                 reckords++;
             }
@@ -189,7 +189,7 @@ public abstract class ReadWrite {
             System.exit(0);
         }
 
-        //-------от стария вариант------  Db.appointments = appointments.toArray(new Appointment[0]);
+        Db.appointments = appointments.toArray(new Appointment[0]);
     }
 
     public static void getClassAllowedActionsFromFile(String filename){
