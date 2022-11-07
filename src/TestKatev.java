@@ -54,14 +54,14 @@ public abstract class TestKatev {
 
         //Check currentUser data
         try {
-            Db.currentUser = Db.doctors[0];
-            System.out.println(Db.currentUser.getClass().getDeclaredField("keyWordForClassAllowedActions").get(1) + " "
-                    + Db.currentUser.firstName + " " + Db.currentUser.lastName + " allowed actions:"
-                    + Db.currentUser.getClass().getDeclaredField("allowedActions").get(1));
-            Db.currentUser = Db.patients[7];
-            System.out.println(Db.currentUser.getClass().getDeclaredField("keyWordForClassAllowedActions").get(1) + " "
-                    + Db.currentUser.firstName + " " + Db.currentUser.lastName + " allowed actions:"
-                    + Db.currentUser.getClass().getDeclaredField("allowedActions").get(1));
+            DBase.currentUser = DBase.doctors.get(0);
+            System.out.println(DBase.currentUser.getClass().getDeclaredField("keyWordForClassAllowedActions").get(1) + " "
+                    + DBase.currentUser.firstName + " " + DBase.currentUser.lastName + " allowed actions:"
+                    + DBase.currentUser.getClass().getDeclaredField("allowedActions").get(1));
+            DBase.currentUser = DBase.patients.get(7);
+            System.out.println(DBase.currentUser.getClass().getDeclaredField("keyWordForClassAllowedActions").get(1) + " "
+                    + DBase.currentUser.firstName + " " + DBase.currentUser.lastName + " allowed actions:"
+                    + DBase.currentUser.getClass().getDeclaredField("allowedActions").get(1));
         }
         catch (Exception e){
             //getDeclared i get(1) хвърлят ексепшъни //todo katev
@@ -72,7 +72,7 @@ public abstract class TestKatev {
     private static String showArrayList(ArrayList<Integer> al){
         String sum = "";
         for (int x: al){
-            sum += Db.allowedActions[x] + "\n";
+            sum += DBase.allowedActions[x] + "\n";
         }
         return sum;
     }
