@@ -42,10 +42,14 @@ public abstract class DBase {
         allowedActions[14] = "show sorted calendar by speciality"; //boss, doctor > Down
         allowedActions[15] = "show sorted calendar by datetime"; //boss, doctor > Down
         allowedActions[16] = "change appointment by app_id"; //patient
+        //-----------------
         allowedActions[17] = "reject appointment by app_id"; //boss, doctor, patient
+        // номер 17 ще реализирам с 3 различни метода, защото
+        // Пациент и Доктор могат да трият само своите часове, а Шефът - всички
         allowedActions[18] = "make doctor inactive (hidden)"; //boss
         allowedActions[19] = "add new doctor"; //boss
         allowedActions[20] = "change users allowed actions"; //boss
+        // липсва: 21. "add new doctor"; //patient
 
     }
 

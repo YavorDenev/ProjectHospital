@@ -18,13 +18,13 @@ public class Patient extends User {
         this.age = age;
     }
 
-    public void showAppointments() {
+    public void showMyAppointments() {
         for (Appointment app: DBase.appointments) {
             if (app.patientID==this.id) System.out.println(app);
         }
     }
 
-    public void removeAppointment() {
+    public void removeMyAppointment() {
         System.out.println("Enter appointment Id to remove ...");
         int idToRemove = CheckInputData.inputPositiveInteger();
         int index = getMyAppointmentIndex(idToRemove);
