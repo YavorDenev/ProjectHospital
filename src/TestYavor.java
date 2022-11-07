@@ -7,5 +7,9 @@ public abstract class TestYavor {
         DBase.patients.get(0).showAppointments();
         DBase.patients.get(0).removeAppointment();
         DBase.patients.get(0).showAppointments();
+        DBase.patients.get(0).AddAppointment(999, "xxxx", "dddd", 0000);
+
+        DBase.patients.get(0).showAppointments();
+
     }
 }
