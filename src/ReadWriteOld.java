@@ -43,7 +43,7 @@ public abstract class ReadWriteOld {
             System.out.println("Incorrect data in file " +filename+ " in row: " + (reckords+1));
             System.exit(0);
         }
-        Db.specialities = specialityes.toArray(new Specialities[0]);
+        //Db.specialities = specialityes.toArray(new Specialities[0]);
     }
 
     public static void getDoctorsFromFile(String filename) {
@@ -92,7 +92,7 @@ public abstract class ReadWriteOld {
             System.out.println("Incorrect data in file " + filename +" in row: " + (reckords + 1));
             System.exit(0);
         }
-        Db.doctors = doctors.toArray(new Doctor[0]);
+        //Db.doctors = doctors.toArray(new Doctor[0]);
     }
 
     private static String getSexAndConvertToInteger(String sex){
@@ -146,7 +146,7 @@ public abstract class ReadWriteOld {
             System.exit(0);
         }
 
-        Db.patients = patients.toArray(new Patient[0]);
+        //Db.patients = patients.toArray(new Patient[0]);
     }
 
     public static void getAppointmentsFromFile(String filename) {
@@ -189,7 +189,7 @@ public abstract class ReadWriteOld {
             System.exit(0);
         }
 
-        Db.appointments = appointments.toArray(new Appointment[0]);
+        //Db.appointments = appointments.toArray(new Appointment[0]);
     }
 
     public static void getClassAllowedActionsFromFile(String filename){
