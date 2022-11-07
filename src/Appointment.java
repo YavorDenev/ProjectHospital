@@ -18,6 +18,26 @@ public class Appointment {
         this.time = time;
     }
 
+    public Appointment() {
+    }
+
+    public Appointment(int patientID, int doctorID, String typeOfExamination, String date, int time) {
+        this.id = generateAppId();
+        this.patientID = patientID;
+        this.doctorID = doctorID;
+        this.typeOfExamination = typeOfExamination;
+        this.date = date;
+        this.time = time;
+    }
+
+    private int generateAppId() {
+        int id = 0;
+        for (Appointment app: DBase.appointments) {
+            if (id < app.id) id = app.id;
+        }
+        return id + 1;
+    }
+
     @Override
     public String toString() {
         return "" + id +

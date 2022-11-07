@@ -58,8 +58,8 @@ public class Patient extends User {
         return true;
     }
 
-    public void AddAppointment() {              // ------------------------ TODO
-        System.out.println("=====  UNDER CONSTRUCTION  =====");
+    public void AddAppointment(int docId, String typeOfExam, String date, int time) {
+        DBase.appointments.add(new Appointment(this.id, docId, typeOfExam, date, time));
     }
 
     @Override
