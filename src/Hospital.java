@@ -39,13 +39,13 @@ public abstract class Hospital {
 
     public static void showPatientsBySpecialty(String specialty) {
         System.out.println("------------  list of patients by specialty " + specialty + "  --------------");
-        for (Doctor doc: DBase.doctors) {
-            if (doc.speciality.equals(specialty)) {
-                for (Patient p: DBase.patients) {
+        //for (Doctor doc: DBase.doctors) {
+            //if (doc.speciality.equals(specialty)) {
+                //for (Patient p: DBase.patients) {
                     // ---------------------------------------------------- TODO
-                }
-            }
-        }
+                //}
+            //}
+        //}
     }
 
     public static void showPatientsByDate(String date) {
