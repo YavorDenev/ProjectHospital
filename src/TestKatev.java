@@ -4,6 +4,8 @@ public abstract class TestKatev {
 
     public static void doTests(){
 
+        DBase.patients.get(0).showAppointments();
+
         //check reading specialityes
 
         System.out.println("\n ======= SPECIALITYES ======");

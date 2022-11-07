@@ -11,7 +11,7 @@ public class Doctor extends User {
     public ArrayList<Appointment> doctorApts = new ArrayList<>();
 
     public void readAppointments() {
-        for (Appointment ap: Hospital.appointments) {
+        for (Appointment ap: DBase.appointments) {
             if (ap.patientID==this.id) doctorApts.add(ap);
         }
     }

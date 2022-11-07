@@ -18,6 +18,50 @@ public class Patient extends User {
         this.age = age;
     }
 
+    public void showAppointments() {
+        for (Appointment app: DBase.appointments) {
+            if (app.patientID==this.id) System.out.println(app);
+        }
+    }
+
+    public void removeAppointment() {
+        System.out.println("Enter appointment Id to remove ...");
+        int idToRemove = CheckInputData.inputPositiveInteger();
+        int index = getMyAppointmentIndex(idToRemove);
+        if (index >= 0) {
+            DBase.appointments.remove(index);
+        } else System.out.println("You do not have an appointment with such an ID");
+    }
+
+    private int getMyAppointmentIndex(int idToRemove) {
+        for (Appointment app: DBase.appointments) {
+            if (app.id==idToRemove && app.patientID==this.id) {
+                return DBase.appointments.indexOf(app);
+            }
+        }
+        return -1;
+    }
+    public void changeAppointmentsDateTime(int apptIdToChange, String date, int time) {
+        int index = getMyAppointmentIndex(apptIdToChange);
+        if (index >= 0) {
+            if (checkIfDateTimeIsFreeByMe(date, time)) {
+                DBase.appointments.get(index).setDate(date);
+                DBase.appointments.get(index).setTime(time);
+            } else System.out.println("You have another appointment booked at the same time.");
+        } else System.out.println("You do not have an appointment with such an ID");
+    }
+
+    private boolean checkIfDateTimeIsFreeByMe(String date, int time) {
+        for (Appointment app: DBase.appointments) {
+            if (app.patientID==this.id && app.date.equals(date) && app.time==time) return false;
+        }
+        return true;
+    }
+
+    public void AddAppointment() {              // ------------------------ TODO
+        System.out.println("=====  UNDER CONSTRUCTION  =====");
+    }
+
     @Override
     public String toString() {
         return "" + id + " " + firstName + " " + lastName + " " + age + " " + sex;
