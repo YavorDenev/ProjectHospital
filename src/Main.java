@@ -11,7 +11,7 @@ public class Main {
         ReadWrite.getPatientsFromFile("patients.txt");
         ReadWrite.getAppointmentsFromFile("appointments.txt");
         ReadWrite.getClassAllowedActionsFromFile("arrayListUserAllowedActions.txt");
-        Db.initializeAllowedActions();
+        DBase.initializeAllowedActions();
 
           TestKatev.doTests(); //everything is fine :)
           TestYavor.doTests();
