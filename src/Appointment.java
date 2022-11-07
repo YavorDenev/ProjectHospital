@@ -36,7 +36,7 @@ public class Appointment {
 
     @Override
     public String toString() {
-        return "" + id +
+        return "id=" + id +
                 " patientId=" + patientID +
                 " type=" + typeOfExamination +
                 " date=" + date +

@@ -24,8 +24,6 @@ public class Doctor extends User {
 
 
 
-
-
     public void removeDocAppointment() {
         System.out.println("Enter appointment Id to remove ...");
         int idToRemove = CheckInputData.inputPositiveInteger();
@@ -46,6 +44,11 @@ public class Doctor extends User {
 
     @Override
     public String toString() {
-        return "" + id + " " + firstName + " " + lastName + " " + speciality + " " + isHidden;
+        return "id=" + id +
+                ", firstName='" + firstName +
+                ", lastName='" + lastName +
+                ", speciality='" + speciality +
+                ", isHidden=" + isHidden;
     }
+
 }
