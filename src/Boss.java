@@ -16,4 +16,12 @@ public class Boss extends User{
         }
     }
 
+    public void addDoctor() { }     // ------------- TODO
+
+    public void removeDoctor() { }     // ------------- TODO
+
+    public void addSpecialty() { }     // ------------- TODO
+
+    public void removeSpecialty() { }     // ------------- TODO
+
 }

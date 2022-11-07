@@ -16,7 +16,7 @@ public abstract class TestKatev {
 
         //check doctors
         System.out.println("\n ========= DOCTORS ========");
-        for (Doctor d : DBase.doctors) {System.out.println(d);}
+        Hospital.showDoctors();
         /*
         for (int i=0;i<Db.doctors.length;i++) {
             System.out.println(Db.doctors[i].id + " " + Db.doctors[i].firstName + " " + Db.doctors[i].lastName
@@ -27,7 +27,7 @@ public abstract class TestKatev {
 
         //check patients
         System.out.println("\n ======== PATIENTS =======");
-        for (Patient p : DBase.patients) {System.out.println(p);}
+        Hospital.showPatients();
         /*
         for (int i=0;i<Db.patients.length;i++) {
             System.out.println(Db.patients[i].id + " " + Db.patients[i].firstName + " " + Db.patients[i].lastName

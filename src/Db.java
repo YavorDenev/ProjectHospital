@@ -1,5 +1,5 @@
 public abstract class Db {
-
+/*
     public static User currentUser;
 
     public static Boss[] boss;
@@ -53,5 +53,6 @@ public abstract class Db {
         static final String consultation = "consultation";
         static final String procedure = "procedure";
     }
+ */
 
 }

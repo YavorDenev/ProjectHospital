@@ -18,10 +18,10 @@ public abstract class DBase {
     public static String[] allowedActions = new String[21];
 
     static String[] examinations = new String[] {
-            Db.constAppointments.initial,
-            Db.constAppointments.consultation,
-            Db.constAppointments.secondary,
-            Db.constAppointments.procedure
+            constAppointments.initial,
+            constAppointments.consultation,
+            constAppointments.secondary,
+            constAppointments.procedure
     };
 
     public static void initializeAllowedActions(){
@@ -31,6 +31,9 @@ public abstract class DBase {
         allowedActions[3] = "login as boss"; //anonymous
         allowedActions[4] = "show list of doctors"; //boss, doctor, patient, anonymous
         allowedActions[5] = "show list of patients"; //boss, doctor
+        // липсва:  "show Patients By Doctor"; //boss, doctor  <-------------------------- ИСКА СЕ ПО УСЛОВИЕ
+        // липсва:  "show Patients By Speciality"; //boss, doctor  <---------------------- ИСКА СЕ ПО УСЛОВИЕ
+        // липсва:  "show Patients By Date"; //boss, doctor   <--------------------------- ИСКА СЕ ПО УСЛОВИЕ
         allowedActions[6] = "show doctor calendar by doctor_id"; //boss, doctor
         allowedActions[7] = "show my calendar"; //doctor
         allowedActions[8] = "show my appointments"; //patient
@@ -42,14 +45,15 @@ public abstract class DBase {
         allowedActions[14] = "show sorted calendar by speciality"; //boss, doctor > Down
         allowedActions[15] = "show sorted calendar by datetime"; //boss, doctor > Down
         allowedActions[16] = "change appointment by app_id"; //patient
-        //-----------------
+        // липсва:  "add new appointment"; //patient   <-------------------------- НЕ СЕ ИСКА ПО УСЛОВИЕ
         allowedActions[17] = "reject appointment by app_id"; //boss, doctor, patient
         // номер 17 ще реализирам с 3 различни метода, защото
         // Пациент и Доктор могат да трият само своите часове, а Шефът - всички
-        allowedActions[18] = "make doctor inactive (hidden)"; //boss
-        allowedActions[19] = "add new doctor"; //boss
+        allowedActions[18] = "make doctor inactive (hidden)"; //boss    <---------- НЕ СЕ ИСКА ПО УСЛОВИЕ
+        allowedActions[19] = "add new doctor"; //boss     <--------------------- НЕ СЕ ИСКА ПО УСЛОВИЕ
+        // липсва:  "add speciality"; //boss       <------------------------ НЕ СЕ ИСКА ПО УСЛОВИЕ
+        // липсва:  "remove speciality"; //boss       <-------------------- НЕ СЕ ИСКА ПО УСЛОВИЕ
         allowedActions[20] = "change users allowed actions"; //boss
-        // липсва: 21. "add new doctor"; //patient
 
     }
 
