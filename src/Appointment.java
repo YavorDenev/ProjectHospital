@@ -1,16 +1,12 @@
 public class Appointment {
-    public int id;
-    public int patientID;
-    public int doctorID;
-    public String typeOfExamination;
-    public String date;
-    public int time;
+    int id;
+    int patientID;
+    int doctorID;
+    String typeOfExamination;
+    String date;
+    int time;
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setDate(String date) {
+    void setDate(String date) {
         this.date = date;
     }
 
