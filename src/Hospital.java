@@ -13,16 +13,11 @@ public abstract class Hospital {
         for (Patient p: DBase.patients) {System.out.println(p);}
     }
 
-    public static void showAppointmentsByPatientId(int patientId) {
-        for (Appointment app: DBase.appointments) {
-            if (app.patientID==patientId) System.out.println(app);
-        }
-    }
-
     public static void showPatientsByDocNames(String firstName, String lastName) {
         boolean f = true;
         for (Doctor doc: DBase.doctors) {
-            if (doc.firstName.equals(firstName) && doc.lastName.equals(lastName)) {
+            if (doc.firstName.toLowerCase().equals(firstName.toLowerCase()) &&
+                    doc.lastName.toLowerCase().equals(lastName.toLowerCase())) {
                 System.out.println("--------  doctor's " + firstName + " " + lastName + " ID: " + doc.id + " patient sheet  --------");
                 doc.showMyPatients();
                 f = false;

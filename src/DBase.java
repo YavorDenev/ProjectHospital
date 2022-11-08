@@ -25,36 +25,37 @@ public abstract class DBase {
     };
 
     public static void initializeAllowedActions(){
-        allowedActions[0] = "logout"; //boss, doctor, patient
-        allowedActions[1] = "login as patient"; //anonymous
-        allowedActions[2] = "login as doctor"; //anonymous
-        allowedActions[3] = "login as boss"; //anonymous
-        allowedActions[4] = "show list of doctors"; //boss, doctor, patient, anonymous ==========> Hospital.showDoctors()
-        allowedActions[5] = "show list of patients"; //boss, doctor =============================> Hospital.showPatients()
-        // липсва:  "show Patients By Doctor"; //boss, doctor  <-------- ИСКА СЕ ПО УСЛОВИЕ =====> Hospital.showPatientsByDocNames()
-        // липсва:  "show Patients By Speciality"; //boss, doctor  <---- ИСКА СЕ ПО УСЛОВИЕ
-        // липсва:  "show Patients By Date"; //boss, doctor   <--------- ИСКА СЕ ПО УСЛОВИЕ
-        allowedActions[6] = "show doctor calendar by doctor_id"; //boss, doctor  ===============> Doctor.showDocAppointments(docId)
-        allowedActions[7] = "show my calendar"; //doctor  ======================================> doctors.get(index).showDocAppointments()
-        allowedActions[8] = "show my appointments"; //patient ==================================> patients.get(index).showMyAppointments()
-        allowedActions[9] = "show patient appointments by patient_id"; //boss, doctor
-        allowedActions[10] = "show sorted calendar on doctor_id by time"; //boss, doctor  > Up; Down
-        allowedActions[11] = "show sorted calendar on doctor_id by patient_name"; //boss, doctor > Up; Down
-        allowedActions[12] = "show sorted calendar on doctor_id by patient_id"; //boss, doctor > Up; Down
-        allowedActions[13] = "show sorted calendar by doctor_firstName"; //boss, doctor > Down
-        allowedActions[14] = "show sorted calendar by speciality"; //boss, doctor > Down
-        allowedActions[15] = "show sorted calendar by datetime"; //boss, doctor > Down
-        allowedActions[16] = "change appointment by app_id"; //patient
-        // липсва:  "add new appointment"; //patient   <-------------------------- НЕ СЕ ИСКА ПО УСЛОВИЕ
-        allowedActions[17] = "reject appointment by app_id"; //boss, doctor, patient
-        // номер 17 ще реализирам с 3 различни метода, защото
-        // Пациент и Доктор могат да трият само своите часове, а Шефът - всички
-        allowedActions[18] = "make doctor inactive (hidden)"; //boss    <---------- НЕ СЕ ИСКА ПО УСЛОВИЕ
-        allowedActions[19] = "add new doctor"; //boss     <--------------------- НЕ СЕ ИСКА ПО УСЛОВИЕ
-        // липсва:  "add speciality"; //boss       <------------------------ НЕ СЕ ИСКА ПО УСЛОВИЕ
-        // липсва:  "remove speciality"; //boss       <-------------------- НЕ СЕ ИСКА ПО УСЛОВИЕ
-        allowedActions[20] = "change users allowed actions"; //boss
-
+        allowedActions[0] = "logout"; //boss, doctor, patient  ----------> MARTIN - TODO
+        allowedActions[1] = "login as patient"; //anonymous  ------------> MARTIN - TODO
+        allowedActions[2] = "login as doctor"; //anonymous  -------------> MARTIN - TODO
+        allowedActions[3] = "login as boss"; //anonymous  ---------------> MARTIN - TODO
+        allowedActions[4] = "show list of doctors"; //boss, doctor, patient, anonymous ============> Hospital.showDoctors()
+        allowedActions[5] = "show list of patients"; //boss, doctor ===============================> Hospital.showPatients()
+        allowedActions[6] = "show doctor calendar by doctor_id"; //boss, doctor  ==================> Doctor.showDocAppointments(docId)
+        allowedActions[7] = "show my calendar"; //doctor  =========================================> doctors.get(index).showDocAppointments()
+        allowedActions[8] = "show my appointments"; //patient =====================================> patients.get(index).showMyAppointments()
+        allowedActions[9] = "show patient appointments by patient_id"; //boss, doctor =============> Patient.showAppointmentsByPatientId(patientId)
+        allowedActions[10] = "show sorted calendar on doctor_id by time"; //boss, doctor > Up/Down ============> TODO
+        allowedActions[11] = "show sorted calendar on doctor_id by patient_name"; //boss, doctor > Up/Down ====> TODO
+        allowedActions[12] = "show sorted calendar on doctor_id by patient_id"; //boss, doctor > Up/Down ======> TODO
+        allowedActions[13] = "show sorted calendar by doctor_firstName"; //boss, doctor > Down  <---------- НЕ СЕ ИСКА, НЕ ГО ПРАВЯ
+        allowedActions[14] = "show sorted calendar by speciality"; //boss, doctor > Down  <---------------- НЕ СЕ ИСКА, НЕ ГО ПРАВЯ
+        allowedActions[15] = "show sorted calendar by datetime"; //boss, doctor > Down  <------------------ НЕ СЕ ИСКА, НЕ ГО ПРАВЯ
+        // ----- ВМЕСТО ГОРНИТЕ ТРИ МЕТОДА ДОБАВЯМ: ------
+        // "show patients by doctor names"; //boss, doctor <--- ИСКА СЕ ПО УСЛОВИЕ ====> Hospital.showPatientsByDocNames(firstName, lastName)
+        // "show patients by speciality"; //boss, doctor <----- ИСКА СЕ ПО УСЛОВИЕ ====> Hospital.showPatientsBySpecialty(speciality) --- TODO
+        // "show patients by date"; //boss, doctor  <---------- ИСКА СЕ ПО УСЛОВИЕ ====> Hospital.showPatientsByDate(date) -------------- TODO
+        allowedActions[16] = "change appointment by app_id"; //patient ================> patients.get(index).changeAppointmentsDateTime()
+        // липсва:  "add new appointment"; //patient   <---- НЕ СЕ ИСКА ПО УСЛОВИЕ ====> patients.get(index).AddAppointment(docId, typeOfExam, date, time)
+        allowedActions[17] = "reject appointment by app_id"; // patient ===============> patients.get(index).removeMyAppointment()
+                             // doctor  <------- НЕ СЕ ИСКА ПО УСЛОВИЕ ================> doctors.get(index).removeDocAppointment()
+                             // boss  <------- НЕ СЕ ИСКА ПО УСЛОВИЕ ==================> bosses.get(index).removeAppointment()
+        // ----- ЗАБЕЛЕЖКА: No 17 е реализиран с 3 различни метода, защото Пациент и Доктор могат да трият само свои часове, а Шефът - всички
+        allowedActions[18] = "make doctor inactive (hidden)"; //boss  <---- НЕ СЕ ИСКА ПО УСЛОВИЕ =======> TODO - ако има време
+        allowedActions[19] = "add new doctor"; //boss  <------------------- НЕ СЕ ИСКА ПО УСЛОВИЕ =======> TODO - ако има време
+        // липсва:  "add speciality"; //boss  <---------------------------- НЕ СЕ ИСКА ПО УСЛОВИЕ =======> TODO - ако има време
+        // липсва:  "make speciality inactive (hidden)"; //boss   <-------- НЕ СЕ ИСКА ПО УСЛОВИЕ =======> TODO - ако има време
+        allowedActions[20] = "change users allowed actions"; //boss  -------> MARTIN - TODO
     }
 
     static class constSex{
