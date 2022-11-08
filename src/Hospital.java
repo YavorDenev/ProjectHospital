@@ -42,8 +42,19 @@ public abstract class Hospital {
 
     public static void showPatientsByDate(String date) {
         System.out.println("------------  list of patients by date " + date + "  --------------");
+        boolean f = true;
+        for (Patient p : DBase.patients) {
+            for (Appointment app: DBase.appointments) {
+                if (app.date.equals(date) && app.patientID==p.id) {
+                    System.out.println(p);
+                    f = false;
+                    break;
+                }
+            }
+        }
+        if (f) System.out.println("There are no patients for this date.");
 
-        // ---------------------------------------------------- TODO
+
     }
 
 
