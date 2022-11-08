@@ -43,7 +43,7 @@ public abstract class DBase {
         allowedActions[15] = "show sorted calendar by datetime"; //boss, doctor > Down  <------------------ НЕ СЕ ИСКА, НЕ ГО ПРАВЯ
         // ----- ВМЕСТО ГОРНИТЕ ТРИ МЕТОДА ДОБАВЯМ: ------
         // "show patients by doctor names"; //boss, doctor <--- ИСКА СЕ ПО УСЛОВИЕ ====> Hospital.showPatientsByDocNames(firstName, lastName)
-        // "show patients by speciality"; //boss, doctor <----- ИСКА СЕ ПО УСЛОВИЕ ====> Hospital.showPatientsBySpecialty(speciality) --- TODO
+        // "show patients by speciality"; //boss, doctor <----- ИСКА СЕ ПО УСЛОВИЕ ====> Hospital.showPatientsBySpeciality(speciality)
         // "show patients by date"; //boss, doctor  <---------- ИСКА СЕ ПО УСЛОВИЕ ====> Hospital.showPatientsByDate(date) -------------- TODO
         allowedActions[16] = "change appointment by app_id"; //patient ================> patients.get(index).changeAppointmentsDateTime()
         // липсва:  "add new appointment"; //patient   <---- НЕ СЕ ИСКА ПО УСЛОВИЕ ====> patients.get(index).AddAppointment(docId, typeOfExam, date, time)

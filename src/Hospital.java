@@ -27,15 +27,17 @@ public abstract class Hospital {
         if (f) System.out.println("There is no doctor with such names.");
     }
 
-    public static void showPatientsBySpecialty(String specialty) {
-        System.out.println("------------  list of patients by specialty " + specialty + "  --------------");
-        //for (Doctor doc: DBase.doctors) {
-            //if (doc.speciality.equals(specialty)) {
-                //for (Patient p: DBase.patients) {
-                    // ---------------------------------------------------- TODO
-                //}
-            //}
-        //}
+    public static void showPatientsBySpeciality(String speciality) {
+        boolean f = true;
+        for (Specialities s: DBase.specialities) {
+            if (s.name.toLowerCase().equals(speciality.toLowerCase())) {
+                System.out.println("------------  list of patients by speciality " + speciality + "  --------------");
+                s.showPatients();
+                f = false;
+                break;
+            }
+        }
+        if (f) System.out.println("There is no speciality with such name.");
     }
 
     public static void showPatientsByDate(String date) {

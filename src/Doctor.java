@@ -44,14 +44,17 @@ public class Doctor extends User {
     }
 
     public void showMyPatients() {
+        boolean f = true;
         for (Patient p : DBase.patients) {
             for (Appointment app: DBase.appointments) {
                 if (app.doctorID==this.id && app.patientID==p.id) {
                     System.out.println(p);
+                    f = false;
                     break;
                 }
             }
         }
+        if (f) System.out.println("The doctor doesn't have any patients.");
     }
 
     @Override

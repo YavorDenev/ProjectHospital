@@ -16,5 +16,7 @@ public abstract class TestYavor {
         //DBase.doctors.get(1).showDocAppointments();
         //DBase.doctors.get(1).showMyPatients();
         //Hospital.showPatientsByDocNames("Martin", "Katev");
+        //Hospital.showPatientsByDocNames("Yavor", "Denev");
+        Hospital.showPatientsBySpeciality("neurology");
     }
 }
