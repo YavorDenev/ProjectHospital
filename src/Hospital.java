@@ -29,7 +29,7 @@ public abstract class Hospital {
 
     public static void showPatientsBySpeciality(String speciality) {
         boolean f = true;
-        for (Specialities s: DBase.specialities) {
+        for (Speciality s: DBase.specialities) {
             if (s.name.toLowerCase().equals(speciality.toLowerCase())) {
                 System.out.println("------------  list of patients by speciality " + speciality + "  --------------");
                 s.showPatients();

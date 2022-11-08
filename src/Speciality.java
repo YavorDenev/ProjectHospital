@@ -1,4 +1,4 @@
-public class Specialities {
+public class Speciality {
 
     public int id;
     public String name;

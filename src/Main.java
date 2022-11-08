@@ -6,7 +6,7 @@ public class Main {
         DBase.currentUser = new Anonymous();
 
         //setDatabaseFromFiles();
-        ReadWrite.getSpecialityesFromFile("specialities.txt");
+        ReadWrite.getSpecialitiesFromFile("specialities.txt");
         ReadWrite.getDoctorsFromFile("doctors.txt");
         ReadWrite.getPatientsFromFile("patients.txt");
         ReadWrite.getAppointmentsFromFile("appointments.txt");

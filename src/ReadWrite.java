@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public abstract class ReadWrite {
 
-    public static void getSpecialityesFromFile(String filename){
+    public static void getSpecialitiesFromFile(String filename){
         String line = "";
         String splitBy = ",";
 
@@ -24,7 +24,7 @@ public abstract class ReadWrite {
                 if (reckords > 0)
                 {
                     //Read current Object
-                    Specialities tmpSpec = new Specialities();
+                    Speciality tmpSpec = new Speciality();
                     tmpSpec.id = Integer.parseInt(words[0]); //todo catch Exception
                     tmpSpec.name = words[1];
                     tmpSpec.isHidden = !words[2].equals("0");

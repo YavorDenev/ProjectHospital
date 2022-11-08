@@ -11,7 +11,7 @@ public abstract class DBase {
 
     public static List<Patient> patients = new ArrayList<>();
 
-    public static List<Specialities> specialities = new ArrayList<>();
+    public static List<Speciality> specialities = new ArrayList<>();
 
     public static List<Appointment> appointments = new ArrayList<>();
 
