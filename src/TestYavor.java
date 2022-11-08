@@ -11,8 +11,10 @@ public abstract class TestYavor {
         DBase.patients.get(0).AddAppointment(999, "xxxx", "dddd", 0000);
         DBase.patients.get(0).showMyAppointments();
          */
-        DBase.doctors.get(1).showDocAppointments();
-        DBase.doctors.get(1).removeDocAppointment();
-        DBase.doctors.get(1).showDocAppointments();
+        //DBase.doctors.get(1).showDocAppointments();
+        //DBase.doctors.get(1).removeDocAppointment();
+        //DBase.doctors.get(1).showDocAppointments();
+        //DBase.doctors.get(1).showMyPatients();
+        Hospital.showPatientsByDocNames("Martin", "Katev");
     }
 }

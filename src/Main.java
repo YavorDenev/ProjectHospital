@@ -3,7 +3,7 @@ public class Main {
     public static void main(String[] args) {
 
         //Create objects
-        Db.currentUser = new Anonymous();
+        DBase.currentUser = new Anonymous();
 
         //setDatabaseFromFiles();
         ReadWrite.getSpecialityesFromFile("specialities.txt");

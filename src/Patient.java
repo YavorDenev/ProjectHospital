@@ -18,8 +18,6 @@ public class Patient extends User {
         this.age = age;
     }
 
-
-
     public void showMyAppointments() {
         for (Appointment app: DBase.appointments) {
             if (app.patientID==this.id) System.out.println(app);

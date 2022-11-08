@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Doctor extends User {
 
@@ -10,16 +12,15 @@ public class Doctor extends User {
 
     //public ArrayList<Appointment> doctorApts = new ArrayList<>();
 
-    public void showDocAppointments(int docId) {
-        for (Appointment app: DBase.appointments) {
-            if (app.doctorID==docId) System.out.println(app);;
-        }
-    }
-
     public void showDocAppointments() {
         showDocAppointments(this.id);
     }
 
+    public void showDocAppointments(int docId) {
+        for (Appointment app: DBase.appointments) {
+            if (app.doctorID==docId) System.out.println(app);
+        }
+    }
 
 
 
@@ -40,6 +41,17 @@ public class Doctor extends User {
             }
         }
         return -1;
+    }
+
+    public void showMyPatients() {
+        for (Patient p : DBase.patients) {
+            for (Appointment app: DBase.appointments) {
+                if (app.doctorID==this.id && app.patientID==p.id) {
+                    System.out.println(p);
+                    break;
+                }
+            }
+        }
     }
 
     @Override
