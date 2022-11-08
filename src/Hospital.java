@@ -1,8 +1,5 @@
 public abstract class Hospital {
 
-
-// ---------------------common-------------------------------------------------
-
     public static void showDoctors() {                              //------------- allowedActions[4]
         System.out.println("----------------  list of doctors  --------------------");
         for (Doctor d: DBase.doctors) {System.out.println(d);}
