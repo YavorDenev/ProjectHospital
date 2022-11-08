@@ -31,7 +31,7 @@ public abstract class Hospital {
         boolean f = true;
         for (Specialities s: DBase.specialities) {
             if (s.name.toLowerCase().equals(speciality.toLowerCase())) {
-                System.out.println("------------  list of patients by specialty " + speciality + "  --------------");
+                System.out.println("------------  list of patients by speciality " + speciality + "  --------------");
                 s.showPatients();
                 f = false;
                 break;

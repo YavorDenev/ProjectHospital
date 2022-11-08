@@ -10,27 +10,25 @@ public class Specialities {
     }
 
     public void showPatients() {
+        boolean f = true;
         for (Patient p : DBase.patients) {
             for (Appointment app: DBase.appointments) {
+                String sp = getDocSpeciality(app.doctorID).toLowerCase();
+                if (sp.equals(this.name.toLowerCase()) && app.patientID==p.id) {
+                    System.out.println(p);
+                    f = false;
+                    break;
+                }
+            }
+        }
+        if (f) System.out.println("There are no patients in this specialty.");
+    }
 
-                if (  app.patientID==p.id) {
-                    System.out.println(p);
-                    break;
-                }
-            }
+    private String getDocSpeciality(int doctorID) {
+        for (Doctor d: DBase.doctors) {
+            if (d.id==doctorID) return d.speciality;
         }
-        /*
-        for (Patient p : DBase.patients) {
-            for (Doctor doc: DBase.doctors) {
-                for (Appointment app: DBase.appointments) {
-                    if (doc.speciality.equals(this.name) && app.doctorID==doc.id && app.patientID==p.id) {
-                    System.out.println(p);
-                    break;
-                    }
-                }
-            }
-        }
-         */
+        return "";
     }
 
 }
