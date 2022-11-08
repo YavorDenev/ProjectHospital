@@ -19,8 +19,12 @@ public class Patient extends User {
     }
 
     public void showMyAppointments() {
+        showAppointmentsByPatientId(this.id);
+    }
+
+    public static void showAppointmentsByPatientId(int patientId) {
         for (Appointment app: DBase.appointments) {
-            if (app.patientID==this.id) System.out.println(app);
+            if (app.patientID==patientId) System.out.println(app);
         }
     }
 
