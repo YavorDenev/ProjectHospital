@@ -16,7 +16,7 @@ public class Doctor extends User {
         showDocAppointments(this.id);
     }
 
-    public void showDocAppointments(int docId) {
+    public static void showDocAppointments(int docId) {
         for (Appointment app: DBase.appointments) {
             if (app.doctorID==docId) System.out.println(app);
         }

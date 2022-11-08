@@ -29,14 +29,14 @@ public abstract class DBase {
         allowedActions[1] = "login as patient"; //anonymous
         allowedActions[2] = "login as doctor"; //anonymous
         allowedActions[3] = "login as boss"; //anonymous
-        allowedActions[4] = "show list of doctors"; //boss, doctor, patient, anonymous
-        allowedActions[5] = "show list of patients"; //boss, doctor
-        // липсва:  "show Patients By Doctor"; //boss, doctor  <-------------------------- ИСКА СЕ ПО УСЛОВИЕ
-        // липсва:  "show Patients By Speciality"; //boss, doctor  <---------------------- ИСКА СЕ ПО УСЛОВИЕ
-        // липсва:  "show Patients By Date"; //boss, doctor   <--------------------------- ИСКА СЕ ПО УСЛОВИЕ
-        allowedActions[6] = "show doctor calendar by doctor_id"; //boss, doctor
-        allowedActions[7] = "show my calendar"; //doctor
-        allowedActions[8] = "show my appointments"; //patient
+        allowedActions[4] = "show list of doctors"; //boss, doctor, patient, anonymous ==========> Hospital.showDoctors()
+        allowedActions[5] = "show list of patients"; //boss, doctor =============================> Hospital.showPatients()
+        // липсва:  "show Patients By Doctor"; //boss, doctor  <-------- ИСКА СЕ ПО УСЛОВИЕ =====> Hospital.showPatientsByDocNames()
+        // липсва:  "show Patients By Speciality"; //boss, doctor  <---- ИСКА СЕ ПО УСЛОВИЕ
+        // липсва:  "show Patients By Date"; //boss, doctor   <--------- ИСКА СЕ ПО УСЛОВИЕ
+        allowedActions[6] = "show doctor calendar by doctor_id"; //boss, doctor  ===============> Doctor.showDocAppointments(docId)
+        allowedActions[7] = "show my calendar"; //doctor  ======================================> doctors.get(index).showDocAppointments()
+        allowedActions[8] = "show my appointments"; //patient ==================================> patients.get(index).showMyAppointments()
         allowedActions[9] = "show patient appointments by patient_id"; //boss, doctor
         allowedActions[10] = "show sorted calendar on doctor_id by time"; //boss, doctor  > Up; Down
         allowedActions[11] = "show sorted calendar on doctor_id by patient_name"; //boss, doctor > Up; Down
