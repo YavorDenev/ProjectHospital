@@ -1,8 +1,5 @@
 public abstract class Hospital {
 
-
-// ---------------------common-------------------------------------------------
-
     public static void showDoctors() {                              //------------- allowedActions[4]
         System.out.println("----------------  list of doctors  --------------------");
         for (Doctor d: DBase.doctors) {System.out.println(d);}
@@ -29,7 +26,7 @@ public abstract class Hospital {
 
     public static void showPatientsBySpeciality(String speciality) {
         boolean f = true;
-        for (Specialities s: DBase.specialities) {
+        for (Speciality s: DBase.specialities) {
             if (s.name.toLowerCase().equals(speciality.toLowerCase())) {
                 System.out.println("------------  list of patients by speciality " + speciality + "  --------------");
                 s.showPatients();
@@ -42,8 +39,19 @@ public abstract class Hospital {
 
     public static void showPatientsByDate(String date) {
         System.out.println("------------  list of patients by date " + date + "  --------------");
+        boolean f = true;
+        for (Patient p : DBase.patients) {
+            for (Appointment app: DBase.appointments) {
+                if (app.date.equals(date) && app.patientID==p.id) {
+                    System.out.println(p);
+                    f = false;
+                    break;
+                }
+            }
+        }
+        if (f) System.out.println("There are no patients for this date.");
 
-        // ---------------------------------------------------- TODO
+
     }
 
 

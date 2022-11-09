@@ -6,8 +6,8 @@ public abstract class TestKatev {
 
         //check reading specialityes
 
-        System.out.println("\n ======= SPECIALITYES ======");
-        for (Specialities s : DBase.specialities) {System.out.println(s);}
+        System.out.println("\n ======= SPECIALITIES ======");
+        for (Speciality s : DBase.specialities) {System.out.println(s);}
         /*
         for (int i=0;i<Db.specialities.length;i++) {
             System.out.println(Db.specialities[i].id+" "+Db.specialities[i].name+" "+Db.specialities[i].isHidden);

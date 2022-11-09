@@ -9,7 +9,7 @@ public abstract class ReadWriteOld {
         String line = "";
         String splitBy = ",";
 
-        ArrayList<Specialities> specialityes = new ArrayList<>();
+        ArrayList<Speciality> specialityes = new ArrayList<>();
         int reckords = 0;
 
         try
@@ -24,7 +24,7 @@ public abstract class ReadWriteOld {
                 if (reckords > 0)
                 {
                     //Read current Object
-                    Specialities tmpSpec = new Specialities();
+                    Speciality tmpSpec = new Speciality();
                     tmpSpec.id = Integer.parseInt(words[0]); //todo catch Exception
                     tmpSpec.name = words[1];
                     tmpSpec.isHidden = !words[2].equals("0");

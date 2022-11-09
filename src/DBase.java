@@ -11,7 +11,7 @@ public abstract class DBase {
 
     public static List<Patient> patients = new ArrayList<>();
 
-    public static List<Specialities> specialities = new ArrayList<>();
+    public static List<Speciality> specialities = new ArrayList<>();
 
     public static List<Appointment> appointments = new ArrayList<>();
 
@@ -44,7 +44,7 @@ public abstract class DBase {
         // ----- ВМЕСТО ГОРНИТЕ ТРИ МЕТОДА ДОБАВЯМ: ------
         // "show patients by doctor names"; //boss, doctor <--- ИСКА СЕ ПО УСЛОВИЕ ====> Hospital.showPatientsByDocNames(firstName, lastName)
         // "show patients by speciality"; //boss, doctor <----- ИСКА СЕ ПО УСЛОВИЕ ====> Hospital.showPatientsBySpeciality(speciality)
-        // "show patients by date"; //boss, doctor  <---------- ИСКА СЕ ПО УСЛОВИЕ ====> Hospital.showPatientsByDate(date) -------------- TODO
+        // "show patients by date"; //boss, doctor  <---------- ИСКА СЕ ПО УСЛОВИЕ ====> Hospital.showPatientsByDate(date)
         allowedActions[16] = "change appointment by app_id"; //patient ================> patients.get(index).changeAppointmentsDateTime()
         // липсва:  "add new appointment"; //patient   <---- НЕ СЕ ИСКА ПО УСЛОВИЕ ====> patients.get(index).AddAppointment(docId, typeOfExam, date, time)
         allowedActions[17] = "reject appointment by app_id"; // patient ===============> patients.get(index).removeMyAppointment()
