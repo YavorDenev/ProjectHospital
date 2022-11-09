@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,6 +25,30 @@ public class Doctor extends User {
 
 
 
+
+
+    public void showDocApptsByPatientId(String upDown) {
+        showDocApptsByPatientId(this.id, upDown);
+    }
+
+    public static void showDocApptsByPatientId(int docId, String upDown) {
+        ArrayList<Appointment> docAppts = new ArrayList<>();
+        for (Appointment app: DBase.appointments) {
+            if (app.doctorID==docId) docAppts.add(app);
+        }
+        if (docAppts.size()!=0) {
+            if (upDown.equalsIgnoreCase("up")){
+                System.out.println("------------- appointments up by patient ID -----------------");
+                docAppts.sort(Comparator.comparing(Appointment::getPatientID));
+            } else if (upDown.equalsIgnoreCase("down")) {
+                System.out.println("------------- appointments down by patient ID -----------------");
+                docAppts.sort(Comparator.comparing(Appointment::getPatientID).reversed());
+            }
+            for (Appointment app: docAppts) {
+                System.out.println(app);
+            }
+        } else System.out.println("The doctor doesn't have any appointments.");
+    }
 
     public void removeDocAppointment() {
         System.out.println("Enter appointment Id to remove ...");

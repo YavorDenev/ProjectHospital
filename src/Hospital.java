@@ -13,9 +13,9 @@ public abstract class Hospital {
     public static void showPatientsByDocNames(String firstName, String lastName) {
         boolean f = true;
         for (Doctor doc: DBase.doctors) {
-            if (doc.firstName.toLowerCase().equals(firstName.toLowerCase()) &&
-                    doc.lastName.toLowerCase().equals(lastName.toLowerCase())) {
-                System.out.println("--------  doctor's " + firstName + " " + lastName + " ID: " + doc.id + " patient sheet  --------");
+            if (doc.firstName.equalsIgnoreCase(firstName) &&
+                    doc.lastName.equalsIgnoreCase(lastName)) {
+                System.out.println("--------  doctor's ID: " + doc.id + " " + doc.firstName + " " + doc.lastName + " patient list  --------");
                 doc.showMyPatients();
                 f = false;
                 break;
@@ -27,8 +27,8 @@ public abstract class Hospital {
     public static void showPatientsBySpeciality(String speciality) {
         boolean f = true;
         for (Speciality s: DBase.specialities) {
-            if (s.name.toLowerCase().equals(speciality.toLowerCase())) {
-                System.out.println("------------  list of patients by speciality " + speciality + "  --------------");
+            if (s.name.equalsIgnoreCase(speciality)) {
+                System.out.println("------------  list of patients by speciality " + s.name + "  --------------");
                 s.showPatients();
                 f = false;
                 break;
