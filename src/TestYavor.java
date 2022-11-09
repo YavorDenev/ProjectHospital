@@ -18,6 +18,7 @@ public abstract class TestYavor {
         //Hospital.showPatientsByDocNames("Martin", "Katev");
         //Hospital.showPatientsByDocNames("Yavor", "Denev");
         //Hospital.showPatientsBySpeciality("neurology");
+        Hospital.showPatientsByDate("21-06-2021");
 
     }
 }
