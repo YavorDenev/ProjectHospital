@@ -6,6 +6,30 @@ public class Appointment {
     String date;
     int time;
 
+    public int getId() {
+        return id;
+    }
+
+    public int getPatientID() {
+        return patientID;
+    }
+
+    public int getDoctorID() {
+        return doctorID;
+    }
+
+    public String getTypeOfExamination() {
+        return typeOfExamination;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public int getTime() {
+        return time;
+    }
+
     void setDate(String date) {
         this.date = date;
     }
