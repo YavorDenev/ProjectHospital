@@ -11,8 +11,6 @@ public class Doctor extends User {
     static ArrayList<Integer> allowedActions = new ArrayList<>();
     public static String keyWordForClassAllowedActions = "Doctor"; //First word in arrayListUserRights.csv file
 
-    //public ArrayList<Appointment> doctorApts = new ArrayList<>();
-
     public void showDocAppointments() {
         showDocAppointments(this.id);
     }
@@ -26,6 +24,27 @@ public class Doctor extends User {
 
 
 
+
+    public void showDocApptsByDateTime(String upDown) {
+        showDocApptsByDateTime(this.id, upDown);
+    }
+
+    public static void showDocApptsByDateTime(int docId, String upDown) {
+        ArrayList<Appointment> docAppts = new ArrayList<>();
+        for (Appointment app: DBase.appointments) {
+            if (app.doctorID==docId) docAppts.add(app);
+        }
+        if (!docAppts.isEmpty()) {
+            if (upDown.equalsIgnoreCase("up")){
+                System.out.println("------------- appointments up by date and time -----------------");
+                docAppts.sort(Comparator.comparing(Appointment::getDateTimeComparingKey));
+            } else if (upDown.equalsIgnoreCase("down")) {
+                System.out.println("------------- appointments down by date and time -----------------");
+                docAppts.sort(Comparator.comparing(Appointment::getDateTimeComparingKey).reversed());
+            }
+            for (Appointment app: docAppts) { System.out.println(app); }
+        } else System.out.println("The doctor doesn't have any appointments.");
+    }
 
     public void showDocApptsByPatientId(String upDown) {
         showDocApptsByPatientId(this.id, upDown);
@@ -44,9 +63,7 @@ public class Doctor extends User {
                 System.out.println("------------- appointments down by patient ID -----------------");
                 docAppts.sort(Comparator.comparing(Appointment::getPatientID).reversed());
             }
-            for (Appointment app: docAppts) {
-                System.out.println(app);
-            }
+            for (Appointment app: docAppts) { System.out.println(app); }
         } else System.out.println("The doctor doesn't have any appointments.");
     }
 

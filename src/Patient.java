@@ -6,7 +6,6 @@ public class Patient extends User {
     static ArrayList<Integer> allowedActions = new ArrayList<>();
     public int id;
 
-
     public Patient(){
         //put data from file
     }
