@@ -21,9 +21,26 @@ public class Doctor extends User {
         }
     }
 
+    public void showDocApptsByPatientNames(String upDown) {
+        showDocApptsByPatientNames(this.id, upDown);
+    }
 
-
-
+    public static void showDocApptsByPatientNames(int docId, String upDown) {
+        ArrayList<Appointment> docAppts = new ArrayList<>();
+        for (Appointment app: DBase.appointments) {
+            if (app.doctorID==docId) docAppts.add(app);
+        }
+        if (!docAppts.isEmpty()) {
+            if (upDown.equalsIgnoreCase("up")){
+                System.out.println("------------- appointments up by patient names -----------------");
+                docAppts.sort(Comparator.comparing(Appointment::getPatientNames));
+            } else if (upDown.equalsIgnoreCase("down")) {
+                System.out.println("------------- appointments down by patient names -----------------");
+                docAppts.sort(Comparator.comparing(Appointment::getPatientNames).reversed());
+            }
+            for (Appointment app: docAppts) { System.out.println(app.getPatientNames() + " - appointment " + app); }
+        } else System.out.println("The doctor doesn't have any appointments.");
+    }
 
     public void showDocApptsByDateTime(String upDown) {
         showDocApptsByDateTime(this.id, upDown);

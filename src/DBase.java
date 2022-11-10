@@ -37,8 +37,8 @@ public abstract class DBase {
         allowedActions[9] = "show patient appointments by patient_id"; //boss, doctor =============> Patient.showAppointmentsByPatientId(patientId)
         allowedActions[10] = "show sorted calendar on doctor_id by time"; //boss, doctor > Up/Down ============> Doctor.showDocApptsByDateTime(docId, Up/Down);
                                                                                                       // ======> doctors.get(index).showDocApptsByDateTime(Up/Down)
-        allowedActions[11] = "show sorted calendar on doctor_id by patient_name"; //boss, doctor > Up/Down ====> TODO
-                                                                                                        // ====> TODO
+        allowedActions[11] = "show sorted calendar on doctor_id by patient_name"; //boss, doctor > Up/Down ====> Doctor.showDocApptsByPatientNames(docId, Up/Down)
+                                                                                                        // ====> doctors.get(index).showDocApptsByPatientNames(Up/Down)
         allowedActions[12] = "show sorted calendar on doctor_id by patient_id"; //boss, doctor > Up/Down ======> Doctor.showDocApptsByPatientId(docId, Up/Down)
                                                                                                       // ======> doctors.get(index).showDocApptsByPatientId(Up/Down)
         allowedActions[13] = "show sorted calendar by doctor_firstName"; //boss, doctor > Down  <---------- НЕ СЕ ИСКА, НЕ ГО ПРАВЯ

@@ -62,6 +62,15 @@ public class Appointment {
         return id + 1;
     }
 
+    public String getPatientNames() {
+        for (Patient p: DBase.patients) {
+            if (this.patientID==p.id) {
+                return p.lastName + ", " + p.firstName;
+            }
+        }
+        return "";
+    }
+
     public long getDateTimeComparingKey() {
         String[] d = this.date.split("-");
         return this.time + 10000 * Long.parseLong(d[2] + d[1] + d[0]);
@@ -76,4 +85,6 @@ public class Appointment {
                 " time=" + time +
                 " doctorId=" + doctorID ;
     }
+
+
 }
