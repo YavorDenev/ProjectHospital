@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public abstract class TestYavor {
 
@@ -27,8 +29,10 @@ public abstract class TestYavor {
         //Hospital.showPatientsByDate("21-06-2021");
         //Doctor.showDocApptsByPatientId(2, "up");
         //DBase.doctors.get(1).showDocApptsByPatientId("up");
-        Doctor.showDocApptsByPatientNames(2, "up");
+        //Doctor.showDocApptsByPatientNames(2, "up");
 
+        //Doctor.showDocApptsByDateTime(2, "down");
+        //DBase.appointments.stream().filter(appointment -> appointment.doctorID==2).sorted(Comparator.comparing(Appointment::getDateTimeComparingKey).reversed()).peek(System.out::println).toList();
 
     }
 }

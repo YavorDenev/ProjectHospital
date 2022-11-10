@@ -138,7 +138,7 @@ public class Doctor extends User {
         return "id:" + id +
                 " " + firstName +
                 " " + lastName +
-                " - " + speciality;
+                " - " + speciality ;
     }
 
 }
