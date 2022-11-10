@@ -1,3 +1,7 @@
+import java.awt.*;
+import java.sql.Array;
+import java.util.Arrays;
+
 public class Appointment {
     int id;
     int patientID;
@@ -56,6 +60,11 @@ public class Appointment {
             if (id < app.id) id = app.id;
         }
         return id + 1;
+    }
+
+    public long getDateTimeComparingKey() {
+        String[] d = this.date.split("-");
+        return this.time + 10000 * Long.parseLong(d[2] + d[1] + d[0]);
     }
 
     @Override

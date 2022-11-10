@@ -1,3 +1,5 @@
+import java.util.Comparator;
+
 public abstract class TestYavor {
 
     public static void doTests() {
@@ -24,6 +26,11 @@ public abstract class TestYavor {
         //Hospital.showPatientsByDate("21-06-2021");
         //Doctor.showDocApptsByPatientId(2, "up");
         //DBase.doctors.get(1).showDocApptsByPatientId("up");
+
+        //DBase.appointments.sort(Comparator.comparing(Appointment::getDateTimeComparingKey));
+        //for (Appointment a : DBase.appointments) {System.out.println(a);}
+
+
 
     }
 }

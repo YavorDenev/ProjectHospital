@@ -3,6 +3,6 @@ appointment_id, patient_id, type_of_examination, date, time, doctor_id
 2,5,secondary,21-06-2021,1230,5
 3,7,consultation,15-06-2021,1030,2
 4,1,initial,15-06-2021,1030,4
-5,3,procedure,15-06-2021,1030,2
+5,3,procedure,15-06-2021,930,2
 6,7,procedure,21-06-2021,1100,2
 7,6,consultation,01-08-2021,1200,1
