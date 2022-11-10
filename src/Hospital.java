@@ -1,11 +1,16 @@
 public abstract class Hospital {
 
-    public static void showDoctors() {                              //------------- allowedActions[4]
+    public static void showDoctors() {
         System.out.println("----------------  list of doctors  --------------------");
         for (Doctor d: DBase.doctors) {System.out.println(d);}
     }
 
-    public static void showPatients() {                             //------------- allowedActions[5]
+    public static void showSpecialities() {
+        System.out.println("----------------  list of specialities  --------------------");
+        for (Speciality s: DBase.specialities) {System.out.println(s);}
+    }
+
+    public static void showPatients() {
         System.out.println("----------------  list of patients  --------------------");
         for (Patient p: DBase.patients) {System.out.println(p);}
     }

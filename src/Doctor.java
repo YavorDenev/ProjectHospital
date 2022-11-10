@@ -135,11 +135,10 @@ public class Doctor extends User {
 
     @Override
     public String toString() {
-        return "id=" + id +
-                ", firstName='" + firstName +
-                ", lastName='" + lastName +
-                ", speciality='" + speciality +
-                ", isHidden=" + isHidden;
+        return "id:" + id +
+                " " + firstName +
+                " " + lastName +
+                " - " + speciality;
     }
 
 }

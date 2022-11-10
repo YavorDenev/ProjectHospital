@@ -44,7 +44,6 @@ public class Speciality {
 
     @Override
     public String toString() {
-        return "" + id + " " + name + " " + isHidden;
+        return "id:" +  id + " " + name;
     }
-
 }

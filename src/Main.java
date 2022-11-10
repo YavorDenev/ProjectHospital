@@ -13,7 +13,7 @@ public class Main {
         ReadWrite.getClassAllowedActionsFromFile("arrayListUserAllowedActions.txt");
         DBase.initializeAllowedActions();
 
-          TestKatev.doTests(); //everything is fine :)
+          //TestKatev.doTests(); //everything is fine :)
           TestYavor.doTests();
 
         Menus.startPoint(); //todo empty for now

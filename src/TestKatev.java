@@ -6,8 +6,9 @@ public abstract class TestKatev {
 
         //check reading specialityes
 
-        System.out.println("\n ======= SPECIALITIES ======");
-        for (Speciality s : DBase.specialities) {System.out.println(s);}
+        //System.out.println("\n ======= SPECIALITIES ======");
+        System.out.println();
+        Hospital.showSpecialities();
         /*
         for (int i=0;i<Db.specialities.length;i++) {
             System.out.println(Db.specialities[i].id+" "+Db.specialities[i].name+" "+Db.specialities[i].isHidden);
@@ -15,7 +16,8 @@ public abstract class TestKatev {
          */
 
         //check doctors
-        System.out.println("\n ========= DOCTORS ========");
+        //System.out.println("\n ========= DOCTORS ========");
+        System.out.println();
         Hospital.showDoctors();
         /*
         for (int i=0;i<Db.doctors.length;i++) {
@@ -26,7 +28,9 @@ public abstract class TestKatev {
          */
 
         //check patients
-        System.out.println("\n ======== PATIENTS =======");
+        //
+        // System.out.println("\n ======== PATIENTS =======");
+        System.out.println();
         Hospital.showPatients();
         /*
         for (int i=0;i<Db.patients.length;i++) {

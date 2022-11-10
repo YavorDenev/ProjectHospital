@@ -67,11 +67,11 @@ public class Patient extends User {
 
     @Override
     public String toString() {
-        return "id=" + id +
-                ", firstName='" + firstName +
-                ", lastName='" + lastName +
-                ", age=" + age +
-                ", sex='" + sex;
+        return "id:" + id +
+                " " + firstName +
+                " " + lastName +
+                ", age: " + age +
+                ", sex: " + sex;
     }
 
 }

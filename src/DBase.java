@@ -31,6 +31,7 @@ public abstract class DBase {
         allowedActions[3] = "login as boss"; //anonymous  ---------------> MARTIN - TODO
         allowedActions[4] = "show list of doctors"; //boss, doctor, patient, anonymous ============> Hospital.showDoctors()
         allowedActions[5] = "show list of patients"; //boss, doctor ===============================> Hospital.showPatients()
+        // липсва:  "show list of specialities"; //boss, doctor, patient, anonymous <---- НЕ СЕ ИСКА ПО УСЛОВИЕ =====> Hospital.showSpecialities();
         allowedActions[6] = "show doctor calendar by doctor_id"; //boss, doctor  ==================> Doctor.showDocAppointments(docId)
         allowedActions[7] = "show my calendar"; //doctor  =========================================> doctors.get(index).showDocAppointments()
         allowedActions[8] = "show my appointments"; //patient =====================================> patients.get(index).showMyAppointments()

@@ -78,12 +78,13 @@ public class Appointment {
 
     @Override
     public String toString() {
-        return "id=" + id +
-                " patientId=" + patientID +
-                " type=" + typeOfExamination +
-                " date=" + date +
-                " time=" + time +
-                " doctorId=" + doctorID ;
+        String leadingZero = (time%100 < 10) ? "0" : "";
+        return "id:" + id +
+                ", patient id:" + patientID +
+                ", type: " + typeOfExamination +
+                ", date: " + date +
+                ", time: " + time/100 + ":" + leadingZero + time%100 +
+                ", doctor id:" + doctorID ;
     }
 
 
