@@ -4,11 +4,6 @@ public class Speciality {
     public String name;
     public boolean isHidden;
 
-    @Override
-    public String toString() {
-        return "" + id + " " + name + " " + isHidden;
-    }
-
     public void showPatients() {
         boolean f = true;
         for (Patient p : DBase.patients) {
@@ -29,6 +24,11 @@ public class Speciality {
             if (d.id==doctorID) return d.speciality;
         }
         return "";
+    }
+
+    @Override
+    public String toString() {
+        return "" + id + " " + name + " " + isHidden;
     }
 
 }
