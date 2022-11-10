@@ -13,6 +13,9 @@ public abstract class TestYavor {
         //DBase.doctors.get(1).showDocAppointments();
         //DBase.doctors.get(1).removeDocAppointment();
         //DBase.doctors.get(1).showDocAppointments();
+        //for (Appointment a : DBase.appointments) {System.out.println(a);}
+        //Boss.removeAppointment();
+        //for (Appointment a : DBase.appointments) {System.out.println(a);}
         //Doctor.showDocAppointments(2);
         //DBase.doctors.get(1).showMyPatients();
         //Hospital.showPatientsByDocNames("martin", "Katev");
