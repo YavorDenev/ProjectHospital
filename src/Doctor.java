@@ -36,7 +36,7 @@ public class Doctor extends User {
         for (Appointment app: DBase.appointments) {
             if (app.doctorID==docId) docAppts.add(app);
         }
-        if (docAppts.size()!=0) {
+        if (!docAppts.isEmpty()) {
             if (upDown.equalsIgnoreCase("up")){
                 System.out.println("------------- appointments up by patient ID -----------------");
                 docAppts.sort(Comparator.comparing(Appointment::getPatientID));
