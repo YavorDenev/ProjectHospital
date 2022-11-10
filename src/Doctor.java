@@ -11,6 +11,23 @@ public class Doctor extends User {
     static ArrayList<Integer> allowedActions = new ArrayList<>();
     public static String keyWordForClassAllowedActions = "Doctor"; //First word in arrayListUserRights.csv file
 
+    public Doctor() {}
+
+    public Doctor(String firstName, String lastName, int age, String sex, String speciality) {
+        super(firstName, lastName, age, sex);
+        this.id = generateDoctorId();
+        this.isHidden = false;
+        this.speciality = speciality;
+    }
+
+    private int generateDoctorId() {
+        int id = 0;
+        for (Doctor d: DBase.doctors) {
+            if (id < d.id) id = d.id;
+        }
+        return id + 1;
+    }
+
     public void showDocAppointments() {
         showDocAppointments(this.id);
     }

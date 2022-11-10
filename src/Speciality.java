@@ -4,6 +4,22 @@ public class Speciality {
     public String name;
     public boolean isHidden;
 
+    public Speciality() {}
+
+    public Speciality(String name) {
+        this.id = generateSpecialityId();
+        this.name = name;
+        this.isHidden = false;
+    }
+
+    private int generateSpecialityId() {
+        int id = 0;
+        for (Speciality s: DBase.specialities) {
+            if (id < s.id) id = s.id;
+        }
+        return id + 1;
+    }
+
     public void showPatients() {
         boolean f = true;
         for (Patient p : DBase.patients) {
