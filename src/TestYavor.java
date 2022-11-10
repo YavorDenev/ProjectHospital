@@ -27,7 +27,7 @@ public abstract class TestYavor {
         //Hospital.showPatientsByDate("21-06-2021");
         //Doctor.showDocApptsByPatientId(2, "up");
         //DBase.doctors.get(1).showDocApptsByPatientId("up");
-        //Doctor.showDocApptsByPatientNames(2, "up");
+        Doctor.showDocApptsByPatientNames(2, "up");
 
 
     }
