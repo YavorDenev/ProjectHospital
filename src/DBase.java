@@ -54,10 +54,10 @@ public abstract class DBase {
                              // doctor  <------- НЕ СЕ ИСКА ПО УСЛОВИЕ ================> doctors.get(index).removeDocAppointment()
                              // boss  <------- НЕ СЕ ИСКА ПО УСЛОВИЕ ==================> bosses.get(index).removeAppointment()
         // ----- ЗАБЕЛЕЖКА: No 17 е реализиран с 3 различни метода, защото Пациент и Доктор могат да трият само свои часове, а Шефът - всички
-        allowedActions[18] = "make doctor inactive (hidden)"; //boss  <---- НЕ СЕ ИСКА ПО УСЛОВИЕ =======> TODO - ако има време
-        allowedActions[19] = "add new doctor"; //boss  <------------------- НЕ СЕ ИСКА ПО УСЛОВИЕ =======> TODO - ако има време
-        // липсва:  "add speciality"; //boss  <---------------------------- НЕ СЕ ИСКА ПО УСЛОВИЕ =======> TODO - ако има време
-        // липсва:  "make speciality inactive (hidden)"; //boss   <-------- НЕ СЕ ИСКА ПО УСЛОВИЕ =======> TODO - ако има време
+        allowedActions[18] = "make doctor inactive (hidden)"; //boss  <---- НЕ СЕ ИСКА ПО УСЛОВИЕ =======> bosses.get(index).makeDoctorInactive()
+        allowedActions[19] = "add new doctor"; //boss  <------------------- НЕ СЕ ИСКА ПО УСЛОВИЕ =======> bosses.get(index).addDoctor(firstName, lastName, age, sex, speciality)
+        // липсва:  "add speciality"; //boss  <---------------------------- НЕ СЕ ИСКА ПО УСЛОВИЕ =======> bosses.get(index).addSpeciality(name)
+        // липсва:  "make speciality inactive (hidden)"; //boss   <-------- НЕ СЕ ИСКА ПО УСЛОВИЕ =======> bosses.get(index).makeSpecialityInactive()
         allowedActions[20] = "change users allowed actions"; //boss  -------> MARTIN - TODO
     }
 
