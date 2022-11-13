@@ -1,41 +1,94 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public abstract class Menus {
 
+    static Scanner scn = new Scanner(System.in);
+    static ArrayList<Integer> allowedActions = new ArrayList<>();
+
     public static void startPoint(){
-        //check user allowedActions
+
+        int lastAction = -1;
+        while (lastAction!=21) {
+            System.out.println("\n======= WELCOME " + DBase.currentUser.firstName + " "
+                    + DBase.currentUser.lastName + " ========");
+
+            showCurrenUserAllowedActions();
+            int choice = enterUserChoice();
+            doRequest(choice);
+            lastAction = choice;
+        }
+
     }
 
-    static void showMainMenu() {
-        System.out.println("""
+    static void showCurrenUserAllowedActions(){
+        if (DBase.currentUser instanceof Anonymous) {
+            allowedActions = ((Anonymous) DBase.currentUser).allowedActions;
+        }
+        if (DBase.currentUser instanceof Patient) {
+            allowedActions = ((Patient) DBase.currentUser).allowedActions;
+        }
+        if (DBase.currentUser instanceof Doctor) {
+            allowedActions = ((Doctor) DBase.currentUser).allowedActions;
+        }
+        if (DBase.currentUser instanceof Boss) {
+            allowedActions = ((Boss) DBase.currentUser).allowedActions;
+        }
 
-                What do you want to do?
-                \t1. Add new Patient;
-                \t2. Login as Patient;
-                \t3. Login as Doctor;
-                \t4. Login as Chief;
-                \t5. Exit.""");
-      //  Logins.enterChoice();
+        for (int act: allowedActions){
+            System.out.println(act + ") "+ DBase.allowedActions[act]);
+        }
     }
 
-// Towa ste go realiziram v Menu v metod prosledqva6t Db.currentUser
-    /*
-    public static void enterChoice() {
-        System.out.print("Enter 1, 2, 3, 4 or 5 ... ");
-        String choice = scan.next();
+    static int enterUserChoice(){
+        System.out.print("Please enter your choice:");
+        int ch = scn.nextInt();
+        return ch;
+    }
+
+    static void doRequest(int choice){
+
         switch (choice) {
-            case "1" -> addPatient();
-            case "2" -> loginPatient();
-            case "3" -> loginDoctor();
-            case "4" -> loginChief();
-            case "5" -> {
-                System.out.println("Good bye!");
-                //-------------------------------------- TODO ----> saving the data to a files
+            case 0: DBase.currentUser =  new Anonymous(); break;
+            case 1: Authorize.loginAsPatient(); break;
+            case 2: Authorize.loginAsDoctor(); break;
+            case 3: Authorize.loginAsBoss(); break;
+            case 4: Hospital.showDoctors(); break;
+            case 5: Hospital.showPatients(); break;
+            case 6: {
+                System.out.println("Please enter doctor_id:");
+                int docId = scn.nextInt();
+                Doctor.showDocAppointments(docId);
+                break;
             }
-            default -> {
-                System.out.println("Invalid input. Try again!");
-                enterChoice();
+            case 7: {
+                ((Doctor) DBase.currentUser).showDocAppointments(); break;
+                //не ми харесва тоя метод. Кастването ще рече че само този тип потребител може да го прави
+                //ако бе в хоспитал директно става с showDocApps(docID), което си го и имаме принципно
+            }
+            case 8: {
+                ((Patient) DBase.currentUser).showMyAppointments(); break;
+                //Също като по-горното
+            }
+            case 9: {
+                System.out.println("Please enter patient_id:");
+                int patId = scn.nextInt();
+                Patient.showAppointmentsByPatientId(patId);
+                break;
+            }
+            case 10:{
+                System.out.println("Please enter doctor_id:");
+                int docId = scn.nextInt();
+                int chSort=0;
+                while (chSort!=1&& chSort!=2){
+                    System.out.println("1-Up 2-Down. Enter your option:");
+                    chSort = scn.nextInt();
+                }
+                String upDown = (chSort==1) ? "Up":"Down";
+                Doctor.showDocApptsByDateTime(docId, upDown);
+                break;
             }
         }
     }
-    */
 
 }

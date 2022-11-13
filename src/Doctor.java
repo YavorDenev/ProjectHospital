@@ -9,7 +9,7 @@ public class Doctor extends User {
     public boolean isHidden;
     public String speciality;
     static ArrayList<Integer> allowedActions = new ArrayList<>();
-    public static String keyWordForClassAllowedActions = "Doctor"; //First word in arrayListUserRights.csv file
+    public static String userType = "Doctor"; //First word in arrayListUserRights.csv file
 
     public Doctor() {}
 

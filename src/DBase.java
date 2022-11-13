@@ -15,7 +15,7 @@ public abstract class DBase {
 
     public static List<Appointment> appointments = new ArrayList<>();
 
-    public static String[] allowedActions = new String[21];
+    public static String[] allowedActions = new String[22];
 
     static String[] examinations = new String[] {
             constAppointments.initial,
@@ -60,6 +60,7 @@ public abstract class DBase {
         // липсва:  "add speciality"; //boss  <---------------------------- НЕ СЕ ИСКА ПО УСЛОВИЕ =======> bosses.get(index).addSpeciality(name)
         // липсва:  "make speciality inactive (hidden)"; //boss   <-------- НЕ СЕ ИСКА ПО УСЛОВИЕ =======> bosses.get(index).makeSpecialityInactive() - TODO
         allowedActions[20] = "change users allowed actions"; //boss  -------> MARTIN - TODO
+        allowedActions[21] = "EXIT"; //boss, doctor, patient, anonymous  ----------> MARTIN - TODO
     }
 
     static class constSex{

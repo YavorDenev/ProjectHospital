@@ -13,8 +13,11 @@ public class Main {
         ReadWrite.getClassAllowedActionsFromFile("arrayListUserAllowedActions.txt");
         DBase.initializeAllowedActions();
 
+        Boss Yavor = new Boss("Yavor", "Denev", 54, "m", "Denev" );
+        Boss Katev = new Boss("Martin", "Katev", 46, "m", "Katev" );
+
           //TestKatev.doTests(); //everything is fine :)
-          TestYavor.doTests();
+          //TestYavor.doTests();
 
         Menus.startPoint(); //todo empty for now
     }
