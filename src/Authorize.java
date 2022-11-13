@@ -27,6 +27,7 @@ public abstract class Authorize {
     public static void loginAsDoctor() {
         System.out.print("Please enter your first name:");
         String fName = scn.nextLine();
+
         System.out.print("Please enter your doctor_id:");
         int id = scn.nextInt();
 

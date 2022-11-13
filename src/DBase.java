@@ -1,10 +1,14 @@
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public abstract class DBase {
 
     public static User currentUser;
+
+    public static Map<Integer, String> patientsMap = new HashMap<Integer, String>();
 
     public static List<Boss> bosses = new ArrayList<>();
 

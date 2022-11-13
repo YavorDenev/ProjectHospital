@@ -134,6 +134,8 @@ public abstract class ReadWrite {
 
                     //Put Object in ArrayList
                     DBase.patients.add(tmpPatient); //first row is header
+                    DBase.patientsMap.put(tmpPatient.id,tmpPatient.firstName + " "
+                            +tmpPatient.lastName + " " + tmpPatient.sex + " (id "+tmpPatient.id+")" );
 
                 }
                 reckords++;

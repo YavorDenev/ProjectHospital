@@ -79,6 +79,25 @@ public class Appointment {
     @Override
     public String toString() {
         String leadingZero = (time%100 < 10) ? "0" : "";
+        return fixLengthIn("appID:" + id,12) +
+                fixLengthIn(DBase.patientsMap.get(patientID),40) + //mojem da napravim po pregledna spravkata
+                fixLengthIn(typeOfExamination,15) +
+                fixLengthIn(date,14) +
+                fixLengthIn(time/100 + ":" + leadingZero + time%100,8)+
+                fixLengthIn("doctor id:" + doctorID,16) ;
+    }
+
+    private String fixLengthIn(String str, int length)
+    {
+        if (str.length()==4) str = " " + str; // just for time > right alingment
+        String result = " | "+str;
+        while(result.length()<length) {
+            result += " ";
+        }
+        return result;
+    }
+    public String toStringOld() {
+        String leadingZero = (time%100 < 10) ? "0" : "";
         return "id:" + id +
                 ", patient id:" + patientID +
                 ", type: " + typeOfExamination +
@@ -86,6 +105,7 @@ public class Appointment {
                 ", time: " + time/100 + ":" + leadingZero + time%100 +
                 ", doctor id:" + doctorID ;
     }
+
 
 
 }

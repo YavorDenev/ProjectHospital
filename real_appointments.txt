@@ -6,7 +6,7 @@ appointment_id, patient_id, type_of_examination, date, time, doctor_id
 5,102,procedure,28-11-2022,1500,6
 6,106,initial,28-11-2022,1320,4
 7,113,secondary,28-11-2022,1520,8
-8,170,procedure,28-11-2022,0920,9
+8,170,procedure,28-11-2022,0920,7
 9,186,initial,28-11-2022,1800,10
 10,190,secondary,28-11-2022,1300,3
 11,3,procedure,29-11-2022,1640,3
@@ -34,7 +34,7 @@ appointment_id, patient_id, type_of_examination, date, time, doctor_id
 33,6,secondary,30-11-2022,1100,5
 34,11,initial,30-11-2022,1840,5
 35,16,procedure,30-11-2022,0920,10
-36,43,secondary,30-11-2022,0900,9
+36,43,secondary,30-11-2022,0900,3
 37,65,initial,30-11-2022,0920,1
 38,80,secondary,30-11-2022,1620,6
 39,90,initial,30-11-2022,1340,5
@@ -129,7 +129,7 @@ appointment_id, patient_id, type_of_examination, date, time, doctor_id
 128,14,initial,07-12-2022,1800,4
 129,28,initial,07-12-2022,1140,10
 130,73,consultation,07-12-2022,1540,5
-131,83,consultation,07-12-2022,1700,9
+131,83,consultation,07-12-2022,1700,2
 132,109,consultation,07-12-2022,1620,8
 133,131,procedure,07-12-2022,1700,7
 134,147,consultation,07-12-2022,1000,4
@@ -146,13 +146,13 @@ appointment_id, patient_id, type_of_examination, date, time, doctor_id
 145,88,consultation,08-12-2022,1720,2
 146,100,secondary,08-12-2022,1100,6
 147,107,secondary,08-12-2022,0900,10
-148,123,consultation,08-12-2022,1000,9
+148,123,consultation,08-12-2022,1000,1
 149,137,initial,08-12-2022,1500,5
 150,154,procedure,08-12-2022,1140,7
 151,159,procedure,08-12-2022,1700,4
 152,180,consultation,08-12-2022,1420,1
 153,181,consultation,08-12-2022,1840,4
-154,199,secondary,08-12-2022,1020,9
+154,199,secondary,08-12-2022,1020,6
 155,21,secondary,09-12-2022,1340,2
 156,52,initial,09-12-2022,1600,4
 157,55,initial,09-12-2022,1540,7
@@ -198,4 +198,4 @@ appointment_id, patient_id, type_of_examination, date, time, doctor_id
 197,174,consultation,11-12-2022,1520,5
 198,175,consultation,11-12-2022,1400,9
 199,183,consultation,11-12-2022,1620,6
-200,189,secondary,11-12-2022,1640,9
+200,189,secondary,11-12-2022,1640,5
