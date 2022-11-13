@@ -80,11 +80,25 @@ public class Appointment {
     public String toString() {
         String leadingZero = (time%100 < 10) ? "0" : "";
         return fixLengthIn("appID:" + id,12) +
-                fixLengthIn(DBase.patientsMap.get(patientID),40) + //mojem da napravim po pregledna spravkata
+                getColorBySex(DBase.patientsMap.get(patientID)) + //set color
+                fixLengthIn(DBase.patientsMap.get(patientID),44) +
+                "\033[0m" + //reset color
                 fixLengthIn(typeOfExamination,15) +
                 fixLengthIn(date,14) +
                 fixLengthIn(time/100 + ":" + leadingZero + time%100,8)+
                 fixLengthIn("doctor id:" + doctorID,16) ;
+    }
+
+    private String getColorBySex(String sex){
+        String[] ms = sex.split(" ");
+        try {
+            if (ms[3].equals("female")) return "\033[1;31m"; //red bold bright
+            if (ms[3].equals("male")) return "\033[1;36m"; //cyan bold
+        }
+        catch (Exception exc) {
+
+        }
+        return "";
     }
 
     private String fixLengthIn(String str, int length)
