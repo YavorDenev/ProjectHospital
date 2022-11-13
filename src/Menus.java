@@ -21,19 +21,12 @@ public abstract class Menus {
 
     }
 
-    static void showCurrenUserAllowedActions(){
-        if (DBase.currentUser instanceof Anonymous) {
-            allowedActions = Anonymous.allowedActions;
-        }
-        if (DBase.currentUser instanceof Patient) {
-            allowedActions = Patient.allowedActions;
-        }
-        if (DBase.currentUser instanceof Doctor) {
-            allowedActions = Doctor.allowedActions;
-        }
-        if (DBase.currentUser instanceof Boss) {
-            allowedActions = Boss.allowedActions;
-        }
+    static void showCurrenUserAllowedActions() {
+
+        if (DBase.currentUser instanceof Anonymous)  allowedActions = Anonymous.allowedActions;
+        if (DBase.currentUser instanceof Patient)  allowedActions = Patient.allowedActions;
+        if (DBase.currentUser instanceof Doctor)  allowedActions = Doctor.allowedActions;
+        if (DBase.currentUser instanceof Boss)  allowedActions = Boss.allowedActions;
 
         for (int act: allowedActions){
             System.out.println(act + ") "+ DBase.allowedActions[act]);
