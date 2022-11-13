@@ -49,38 +49,41 @@ public abstract class Menus {
             case 4: Hospital.showDoctors(); break;
             case 5: Hospital.showPatients(); break;
             case 6: {
-                System.out.println("Please enter doctor_id:");
+                System.out.print("Please enter doctor_id:");
                 int docId = scn.nextInt();
                 Doctor.showDocAppointments(docId);
                 break;
             }
             case 7: {
-                ((Doctor) DBase.currentUser).showDocAppointments(); break;
-                //не ми харесва тоя метод. Кастването ще рече че само този тип потребител може да го прави
-                //ако бе в хоспитал директно става с showDocApps(docID), което си го и имаме принципно
+                Doctor.showDocAppointments(((Doctor) DBase.currentUser).id); break;
+                //((Doctor) DBase.currentUser).showDocAppointments(); break;
+                //showDocAppointments() тоя метод е излишен, а класическия по id бе добре да е в Хоспитал
             }
             case 8: {
-                ((Patient) DBase.currentUser).showMyAppointments(); break;
-                //Също като по-горното
+                Patient.showAppointmentsByPatientId(((Patient) DBase.currentUser).id); break;
+                //Същото важи и за този. Сега ако искам да ги викам от други потребители
+                //не мога през тези опции и се бъгва заради несъответсвието на типа в currentUser
             }
             case 9: {
-                System.out.println("Please enter patient_id:");
+                System.out.print("Please enter patient_id:");
                 int patId = scn.nextInt();
                 Patient.showAppointmentsByPatientId(patId);
                 break;
             }
             case 10:{
-                System.out.println("Please enter doctor_id:");
+                System.out.print("Please enter doctor_id:");
                 int docId = scn.nextInt();
                 int chSort=0;
                 while (chSort!=1&& chSort!=2){
-                    System.out.println("1-Up 2-Down. Enter your option:");
+                    System.out.print("1-Up 2-Down. Enter your option:");
                     chSort = scn.nextInt();
                 }
                 String upDown = (chSort==1) ? "Up":"Down";
                 Doctor.showDocApptsByDateTime(docId, upDown);
                 break;
             }
+
+
         }
     }
 
