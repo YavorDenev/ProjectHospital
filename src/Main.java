@@ -16,9 +16,9 @@ public class Main {
         Boss Yavor = new Boss("Yavor", "Denev", 54, "m", "Denev" );
         Boss Katev = new Boss("Martin", "Katev", 46, "m", "Katev" );
 
-          //TestKatev.doTests(); //everything is fine :)
-          //TestYavor.doTests();
+        //TestKatev.doTests(); //everything is fine :)
+        //TestYavor.doTests();
 
-        Menus.startPoint(); //todo empty for now
+        Menus.startPoint();
     }
 }

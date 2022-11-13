@@ -23,16 +23,16 @@ public abstract class Menus {
 
     static void showCurrenUserAllowedActions(){
         if (DBase.currentUser instanceof Anonymous) {
-            allowedActions = ((Anonymous) DBase.currentUser).allowedActions;
+            allowedActions = Anonymous.allowedActions;
         }
         if (DBase.currentUser instanceof Patient) {
-            allowedActions = ((Patient) DBase.currentUser).allowedActions;
+            allowedActions = Patient.allowedActions;
         }
         if (DBase.currentUser instanceof Doctor) {
-            allowedActions = ((Doctor) DBase.currentUser).allowedActions;
+            allowedActions = Doctor.allowedActions;
         }
         if (DBase.currentUser instanceof Boss) {
-            allowedActions = ((Boss) DBase.currentUser).allowedActions;
+            allowedActions = Boss.allowedActions;
         }
 
         for (int act: allowedActions){
