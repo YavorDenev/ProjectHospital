@@ -6,6 +6,8 @@ public class Anonymous extends User{
     public static String userType = "Anonymous"; //First word in arrayListUserRights.csv file
 
     Anonymous(){
+
         this.firstName = "Anonymous";
+        this.lastName = "";
     }
 }
