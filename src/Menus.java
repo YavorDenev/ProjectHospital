@@ -8,10 +8,14 @@ public abstract class Menus {
 
     public static void startPoint(){
 
+        String GREEN = "\033[1;32m";
+        String RESET_COLOR = "\033[0m";
+
         int lastAction = -1;
         while (lastAction!=21) {
-            System.out.println("\n======= WELCOME " + DBase.currentUser.firstName + " "
-                    + DBase.currentUser.lastName + " ========");
+            System.out.println("\n======== " + GREEN + "WELCOME " + DBase.currentUser.firstName
+                    + " " + DBase.currentUser.lastName
+                    + RESET_COLOR + " ========");
 
             showCurrenUserAllowedActions();
             int choice = enterUserChoice();

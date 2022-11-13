@@ -135,7 +135,7 @@ appointment_id, patient_id, type_of_examination, date, time, doctor_id
 134,147,consultation,07-12-2022,1000,4
 135,191,consultation,07-12-2022,1320,2
 136,5,consultation,08-12-2022,1720,10
-137,32,consultation,08-12-2022,1420,2
+137,32,consultation,08-12-2022,1440,2
 138,40,consultation,08-12-2022,1420,8
 139,41,secondary,08-12-2022,1500,5
 140,50,secondary,08-12-2022,1840,9
