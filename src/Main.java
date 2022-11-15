@@ -8,14 +8,17 @@ public class Main {
         //setDatabaseFromFiles();
         ReadWrite.getSpecialitiesFromFile("specialities.txt");
         ReadWrite.getDoctorsFromFile("doctors.txt");
-        ReadWrite.getPatientsFromFile("patients.txt");
-        ReadWrite.getAppointmentsFromFile("appointments.txt");
+        ReadWrite.getPatientsFromFile("real_patients.txt");
+        ReadWrite.getAppointmentsFromFile("real_appointments.txt");
         ReadWrite.getClassAllowedActionsFromFile("arrayListUserAllowedActions.txt");
         DBase.initializeAllowedActions();
 
-          //TestKatev.doTests(); //everything is fine :)
-          TestYavor.doTests();
+        Boss Yavor = new Boss("Yavor", "Denev", 54, "m", "Denev" );
+        Boss Katev = new Boss("Martin", "Katev", 46, "m", "Katev" );
 
-        Menus.startPoint(); //todo empty for now
+        //TestKatev.doTests(); //everything is fine :)
+        //TestYavor.doTests();
+
+        Menus.startPoint();
     }
 }
