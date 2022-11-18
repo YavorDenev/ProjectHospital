@@ -46,7 +46,7 @@ public class Appointment {
     }
 
     public Appointment(int patientID, int doctorID, String typeOfExamination, String date, int time) {
-        this.id = generateAppId(); //why? sled kato getId e public //todo
+        this.id = generateAppId();
         this.patientID = patientID;
         this.doctorID = doctorID;
         this.typeOfExamination = typeOfExamination;
