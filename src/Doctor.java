@@ -55,7 +55,7 @@ public class Doctor extends User {
                 System.out.println("------------- appointments down by patient names -----------------");
                 docAppts.sort(Comparator.comparing(Appointment::getPatientNames).reversed());
             }
-            for (Appointment app: docAppts) { System.out.println(app.getPatientNames() + " - appointment " + app); }
+            for (Appointment app: docAppts) { System.out.println(app); }
         } else System.out.println("The doctor doesn't have any appointments.");
     }
 

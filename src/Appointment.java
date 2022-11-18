@@ -46,7 +46,7 @@ public class Appointment {
     }
 
     public Appointment(int patientID, int doctorID, String typeOfExamination, String date, int time) {
-        this.id = generateAppId();
+        this.id = generateAppId(); //why? sled kato getId e public //todo
         this.patientID = patientID;
         this.doctorID = doctorID;
         this.typeOfExamination = typeOfExamination;
@@ -65,7 +65,7 @@ public class Appointment {
     public String getPatientNames() {
         for (Patient p: DBase.patients) {
             if (this.patientID==p.id) {
-                return p.lastName + ", " + p.firstName;
+                return p.firstName + ", " + p.lastName;
             }
         }
         return "";

@@ -86,6 +86,18 @@ public abstract class Menus {
                 Doctor.showDocApptsByDateTime(docId, upDown);
                 break;
             }
+            case 11:{
+                System.out.print("Please enter doctor_id:");
+                int docId = scn.nextInt();
+                int chSort=0;
+                while (chSort!=1&& chSort!=2){
+                    System.out.print("1-Up 2-Down. Enter your option:");
+                    chSort = scn.nextInt();
+                }
+                String upDown = (chSort==1) ? "Up":"Down";
+                Doctor.showDocApptsByPatientNames(docId, upDown);
+                break;
+            }
 
 
         }

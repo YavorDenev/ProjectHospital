@@ -72,7 +72,7 @@ public abstract class ReadWrite {
                     tmpDoctor.speciality = field[3];
                     tmpDoctor.age = Integer.parseInt(field[4]);
 
-                    String sx = getSexAndConvertToInteger(field[5]);
+                    String sx = getSex(field[5]);
                     if (sx.equals("unknown")) {
                         System.out.println("Wrong sex field in " + filename + ". Sex must be marked as f or m");
                     }
@@ -95,7 +95,7 @@ public abstract class ReadWrite {
         //-------от стария вариант------  Db.doctors = doctors.toArray(new Doctor[0]);
     }
 
-    private static String getSexAndConvertToInteger(String sex){
+    private static String getSex(String sex){
         if (sex.toUpperCase().equals("F")) return "female";
         if (sex.toUpperCase().equals("M")) return "male";
         return "unknown"; //Can't recognize sex
@@ -126,7 +126,7 @@ public abstract class ReadWrite {
                     tmpPatient.lastName = field[2];
                     tmpPatient.age = Integer.parseInt(field[3]);
 
-                    String sx = getSexAndConvertToInteger(field[4]);
+                    String sx = getSex(field[4]);
                     if (sx.equals("unknown")) {
                         System.out.println("Wrong sex field in " + filename + ". Sex must be marked as f or m");
                     }
