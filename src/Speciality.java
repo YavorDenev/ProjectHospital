@@ -24,8 +24,8 @@ public class Speciality {
         boolean f = true;
         for (Patient p : DBase.patients) {
             for (Appointment app: DBase.appointments) {
-                String sp = getDocSpeciality(app.doctorID).toLowerCase();
-                if (sp.equals(this.name.toLowerCase()) && app.patientID==p.id) {
+                String sp = getDocSpeciality(app.getDoctorID()).toLowerCase();
+                if (sp.equals(this.name.toLowerCase()) && app.getPatientID()==p.id) {
                     System.out.println(p);
                     f = false;
                     break;
