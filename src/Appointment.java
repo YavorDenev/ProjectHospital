@@ -110,16 +110,5 @@ public class Appointment {
         }
         return result;
     }
-    public String toStringOld() {
-        String leadingZero = (time%100 < 10) ? "0" : "";
-        return "id:" + id +
-                ", patient id:" + patientID +
-                ", type: " + typeOfExamination +
-                ", date: " + date +
-                ", time: " + time/100 + ":" + leadingZero + time%100 +
-                ", doctor id:" + doctorID ;
-    }
-
-
 
 }
