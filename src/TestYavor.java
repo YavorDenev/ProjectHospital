@@ -25,7 +25,7 @@ public abstract class TestYavor {
         //DBase.doctors.get(1).showMyPatients();
         //Hospital.showPatientsByDocNames("martin", "Katev");
         //Hospital.showPatientsByDocNames("Yavor", "Denev");
-        //Hospital.showPatientsBySpeciality("neUrology");
+        //Hospital.showPatientsBySpeciality("neurology");
         //Hospital.showPatientsByDate("21-06-2021");
         //Doctor.showDocApptsByPatientId(2, "up");
         //DBase.doctors.get(1).showDocApptsByPatientId("up");
