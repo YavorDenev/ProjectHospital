@@ -26,6 +26,7 @@ public class Doctor extends User {
         return id + 1;
     }
 
+    /*
     public void showDocAppointments() {
         showDocAppointments(this.id);
     }
@@ -36,6 +37,7 @@ public class Doctor extends User {
             if (app.doctorID==docId) System.out.println(app);
         }
     }
+     */
 
     public void showDocApptsByDateTime(String upDown) {
         showDocApptsByDateTime(this.id, upDown);
