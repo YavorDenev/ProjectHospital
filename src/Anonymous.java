@@ -7,7 +7,7 @@ public class Anonymous extends User{
 
     Anonymous(){
 
-        this.firstName = "Anonymous";
+        this.firstName = "";
         this.lastName = "";
     }
 }

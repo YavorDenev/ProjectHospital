@@ -65,13 +65,37 @@ public class Patient extends User {
         DBase.appointments.add(new Appointment(this.id, docId, typeOfExam, date, time));
     }
 
-    @Override
-    public String toString() {
+    public String toStringOld() {  //todo delete later
         return "id:" + id +
                 " " + firstName +
                 " " + lastName +
                 ", age: " + age +
                 ", sex: " + sex;
+    }
+
+    @Override
+    public String toString() {
+
+        return fixLengthIn("id:" + id,9) +
+                getColorBySex(this.sex) + //set color
+                fixLengthIn(this.firstName+" "+this.lastName+" "+this.age+"y "+this.sex,44)+
+                "\033[0m" ; //reset color
+    }
+
+    private String getColorBySex(String sex){
+        if (sex.equals("female")) return "\033[1;31m"; //red bold bright
+        if (sex.equals("male")) return "\033[1;36m"; //cyan bold
+        return "";
+    }
+
+    private String fixLengthIn(String str, int length)
+    {
+        if (str.length()==4) str = " " + str; // just for time > right alingment
+        String result = " | "+str;
+        while(result.length()<length) {
+            result += " ";
+        }
+        return result;
     }
 
 }

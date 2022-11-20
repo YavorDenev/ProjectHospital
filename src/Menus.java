@@ -9,14 +9,24 @@ public abstract class Menus {
     static Scanner scn = new Scanner(System.in);
     static ArrayList<Integer> allowedActions = new ArrayList<>();
 
-    public static void startPoint(){
+    public static void startPoint() {
 
         String GREEN = "\033[1;32m";
         String RESET_COLOR = "\033[0m";
 
+        String userType = "";
+
         int lastAction = -1;
         while (lastAction!=21) {
-            System.out.println("\n======== " + GREEN + "WELCOME " + DBase.currentUser.firstName
+
+            try {
+                userType = String.valueOf(DBase.currentUser.getClass().getField("userType").get(DBase.currentUser));
+            }
+            catch (Exception exc){
+                System.out.println(exc.getMessage());
+            }
+
+            System.out.println("\n======== " + GREEN + "WELCOME " + userType + " " + DBase.currentUser.firstName
                     + " " + DBase.currentUser.lastName
                     + RESET_COLOR + " ========");
 
@@ -58,18 +68,15 @@ public abstract class Menus {
             case 6: {
                 System.out.print("Please enter doctor_id:");
                 int docId = scn.nextInt();
-                Doctor.showDocAppointments(docId);
+                Doctor.showDocApptsByDateTime(docId, "Up");
                 break;
             }
             case 7: {
-                Doctor.showDocAppointments(((Doctor) DBase.currentUser).id); break;
-                //((Doctor) DBase.currentUser).showDocAppointments(); break;
-                //showDocAppointments() тоя метод е излишен, а класическия по id бе добре да е в Хоспитал
+                Doctor.showDocApptsByDateTime(((Doctor) DBase.currentUser).id,"Up"); break;
+
             }
             case 8: {
                 Patient.showAppointmentsByPatientId(((Patient) DBase.currentUser).id); break;
-                //Същото важи и за този. Сега ако искам да ги викам от други потребители
-                //не мога през тези опции и се бъгва заради несъответсвието на типа в currentUser
             }
             case 9: {
                 System.out.print("Please enter patient_id:");
@@ -92,6 +99,10 @@ public abstract class Menus {
                 Doctor.showDocApptsByPatientId(chosenDoctorID,sortedByUpDown);
                 break;
             }
+            case 13:{
+                Hospital.showPatientsByDocNames("Martin", "Katev");
+            }
+
         }
     }
 

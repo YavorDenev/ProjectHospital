@@ -20,7 +20,8 @@ public abstract class Hospital {
         for (Doctor doc: DBase.doctors) {
             if (doc.firstName.equalsIgnoreCase(firstName) &&
                     doc.lastName.equalsIgnoreCase(lastName)) {
-                System.out.println("--------  doctor's ID: " + doc.id + " " + doc.firstName + " " + doc.lastName + " patient list  --------");
+                Doctor.showDocHeader(doc.id," (patients list)");
+                //System.out.println("--------  doctor's ID: " + doc.id + " " + doc.firstName + " " + doc.lastName + " patient list  --------");
                 doc.showMyPatients();
                 f = false;
                 break;
