@@ -4,7 +4,7 @@ public abstract class TestKatev {
 
     public static void doTests(){
 
-        //check reading specialityes
+        //check reading specialities
 
         //System.out.println("\n ======= SPECIALITIES ======");
         System.out.println();

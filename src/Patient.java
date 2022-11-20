@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Patient extends User {
 
-    public static String keyWordForClassAllowedActions = "Patient"; //First word in arrayListUserRights.csv file
+    public static String userType = "Patient"; //First word in arrayListUserRights.csv file
     static ArrayList<Integer> allowedActions = new ArrayList<>();
     public int id;
 

@@ -1,7 +1,11 @@
 doctor_id,first_name,last_name,speciality,age,sex,is_active
 1,Yavor,Denev,neurology,55,m,1
-2,Martin,Katev,neurology,46,m,1
-3,Krasen,Borislavov,anesthesiology,58,m,1
-4,Milena,Stefanova,anesthesiology,28,f,1
+2,Martin,Katev,psychiatry,46,m,1
+3,Krasen,Borislavov,ortopedics,58,m,1
+4,Milena,Stefanova,endocrinology,28,f,1
 5,Kalina,Kovacheva,anesthesiology,25,f,1
 6,Stefan,Mitev,gastroenterology,28,m,1
+7,Ventsislav,Mutafchiiski,Internal diseases,65,m,1
+8,Alexander,Simidchiev,gastroenterology,28,m,1
+9,Valeri,Bojinov,gynecology,34,m,1
+10,Marin,Kerchev,urology,53,m,1

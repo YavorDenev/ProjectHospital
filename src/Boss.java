@@ -3,10 +3,13 @@ import java.util.ArrayList;
 public class Boss extends User{
     //fields
     static ArrayList<Integer> allowedActions = new ArrayList<>();
-    public static String keyWordForClassAllowedActions = "Boss"; //First word in arrayListUserRights.csv file
+    public static String userType = "Boss"; //First word in arrayListUserRights.csv file
+    public String password;
 
-    public Boss(String firstName, String lastName, int age, String sex) {
+    public Boss(String firstName, String lastName, int age, String sex, String password) {
         super(firstName, lastName, age, sex);
+        this.password = password;
+        DBase.bosses.add(this);
     }
 
     public void removeAppointment() {

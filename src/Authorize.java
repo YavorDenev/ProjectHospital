@@ -1,26 +1,67 @@
+import java.util.Scanner;
+
 public abstract class Authorize {
 
-    public static void startPoint() {
+    static Scanner scn = new Scanner(System.in);
 
-    }
+    public static void loginAsPatient() {
+        System.out.print("Please enter your first name:");
+        String fName = scn.nextLine();
+        System.out.print("Please enter your patient_id:");
+        int id = scn.nextInt();
 
-
-//Towa ste go realiziram v authorize pak spored Db.currentUser
-    /*
-    private static void loginPatient() {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter you name...;");
-        String name = sc.nextLine();
-        System.out.println("Enter you Id...;");
-        int id = Inputs.inputPositiveInteger();
-        if (     true         ) {                  // --------------------- TODO - verify
-            System.out.println("Welcome!");
-            Menus.showPatientMenu(id);
-        } else {
-            System.out.println("Invalid Username or Id!");
-            Menus.showMainMenu();
+        Patient foundUser = null;
+        boolean successLogin = false;
+        for (Patient p : DBase.patients){
+           if (p.id == id && p.firstName.toUpperCase().equals(fName.toUpperCase())){
+               successLogin = true;
+               foundUser = p;
+               break;
+           }
         }
-    }
-*/
 
+        if (!successLogin) System.out.println("wrong id or password, please try again!");
+        else DBase.currentUser = foundUser;
+    }
+
+    public static void loginAsDoctor() {
+        System.out.print("Please enter your first name:");
+        String fName = scn.nextLine();
+
+        System.out.print("Please enter your doctor_id:");
+        int id = scn.nextInt();
+
+        Doctor foundUser = null;
+        boolean successLogin = false;
+        for (Doctor doc : DBase.doctors){
+            if (doc.id == id && doc.firstName.toUpperCase().equals(fName.toUpperCase())){
+                successLogin = true;
+                foundUser = doc;
+                break;
+            }
+        }
+
+        if (!successLogin) System.out.println("wrong id or password, please try again!");
+        else DBase.currentUser = foundUser;
+    }
+
+    public static void loginAsBoss() {
+        System.out.print("Please enter your first name:");
+        String fName = scn.nextLine();
+        System.out.print("Please enter your password:");
+        String password = scn.nextLine();
+
+        Boss foundUser = null;
+        boolean successLogin = false;
+        for (Boss usr : DBase.bosses){
+            if (usr.firstName.equals(fName) && usr.password.equals(password)){
+                successLogin = true;
+                foundUser = usr;
+                break;
+            }
+        }
+
+        if (!successLogin) System.out.println("Wrong name or password, please try again!");
+        else DBase.currentUser = foundUser;
+    }
 }
