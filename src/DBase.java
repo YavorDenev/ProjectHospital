@@ -9,6 +9,7 @@ public abstract class DBase {
     public static User currentUser;
 
     public static Map<Integer, String> patientsMap = new HashMap<Integer, String>();
+    public static Map<Integer, Doctor> doctorsMap = new HashMap<Integer, Doctor>();
 
     public static List<Boss> bosses = new ArrayList<>();
 
@@ -21,6 +22,8 @@ public abstract class DBase {
     public static List<Appointment> appointments = new ArrayList<>();
 
     public static String[] allowedActions = new String[22];
+
+    public static int maxDoctorID = 0;
 
     static String[] examinations = new String[] {
             constAppointments.initial,

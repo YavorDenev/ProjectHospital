@@ -30,7 +30,6 @@ public abstract class ReadWrite {
 
                     //Put Object in ArrayList
                     DBase.specialities.add(tmpSpec); //first row is header
-
                 }
                 records++;
             }
@@ -57,9 +56,10 @@ public abstract class ReadWrite {
                 String[] field = line.split(splitBy);
 
                 ArrayIndexOutOfBoundsException eArrayOB = new ArrayIndexOutOfBoundsException();
-                if (field.length != 7) throw eArrayOB;
+                if (field.length != 7) throw eArrayOB; //csv must contain 7 fields
 
-                if (records > 0) {
+                if (records > 0) { //first row is header
+
                     //Read current Object
                     Doctor tmpDoctor = new Doctor();
                     tmpDoctor.id = Integer.parseInt(field[0]); //todo catch Exception
@@ -75,9 +75,10 @@ public abstract class ReadWrite {
                     tmpDoctor.sex = sx;
                     tmpDoctor.isHidden = !field[6].equals("0");
 
-                    //Put Object in ArrayList
-                    DBase.doctors.add(tmpDoctor); //first row is header
+                    DBase.doctors.add(tmpDoctor);  //Put this doctor in ArrayList
+                    DBase.doctorsMap.put(tmpDoctor.id,tmpDoctor); //Put this doctor in Map
 
+                    if (tmpDoctor.id>DBase.maxDoctorID) DBase.maxDoctorID = tmpDoctor.id;
                 }
                 records++;
             }

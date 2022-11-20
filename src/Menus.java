@@ -3,6 +3,9 @@ import java.util.Scanner;
 
 public abstract class Menus {
 
+    static int chosenDoctorID = 0;
+    static String sortedByUpDown = "";
+
     static Scanner scn = new Scanner(System.in);
     static ArrayList<Integer> allowedActions = new ArrayList<>();
 
@@ -75,32 +78,38 @@ public abstract class Menus {
                 break;
             }
             case 10:{
-                System.out.print("Please enter doctor_id:");
-                int docId = scn.nextInt();
-                int chSort=0;
-                while (chSort!=1&& chSort!=2){
-                    System.out.print("1-Up 2-Down. Enter your option:");
-                    chSort = scn.nextInt();
-                }
-                String upDown = (chSort==1) ? "Up":"Down";
-                Doctor.showDocApptsByDateTime(docId, upDown);
+                selectDoctorAndSortDirection();
+                Doctor.showDocApptsByDateTime(chosenDoctorID,sortedByUpDown);
                 break;
             }
             case 11:{
-                System.out.print("Please enter doctor_id:");
-                int docId = scn.nextInt();
-                int chSort=0;
-                while (chSort!=1&& chSort!=2){
-                    System.out.print("1-Up 2-Down. Enter your option:");
-                    chSort = scn.nextInt();
-                }
-                String upDown = (chSort==1) ? "Up":"Down";
-                Doctor.showDocApptsByPatientNames(docId, upDown);
+                selectDoctorAndSortDirection();
+                Doctor.showDocApptsByPatientNames(chosenDoctorID,sortedByUpDown);
                 break;
             }
-
-
+            case 12:{
+                selectDoctorAndSortDirection();
+                Doctor.showDocApptsByPatientId(chosenDoctorID,sortedByUpDown);
+                break;
+            }
         }
+    }
+
+    private static void selectDoctorAndSortDirection(){
+        int docID = 0;
+        int chSort = 0;
+
+        while (docID> DBase.maxDoctorID || docID<1){
+            System.out.print("Please enter doctor_id:");
+            docID = scn.nextInt();
+        }
+        while (chSort!=1 && chSort!=2){
+            System.out.print("1-Up 2-Down. Enter your option:");
+            chSort = scn.nextInt();
+        }
+
+        chosenDoctorID = docID;
+        sortedByUpDown = (chSort==1) ? "Up":"Down";
     }
 
 }
