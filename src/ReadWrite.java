@@ -9,8 +9,7 @@ public abstract class ReadWrite {
         String line = "";
         String splitBy = ",";
 
-        //-------от стария вариант------  ArrayList<Specialities> specialityes = new ArrayList<>();
-        int reckords = 0;
+        int records = 0;
 
         try
         {
@@ -21,7 +20,7 @@ public abstract class ReadWrite {
                 ArrayIndexOutOfBoundsException eArrayOB = new ArrayIndexOutOfBoundsException();
                 if (words.length!=3) throw eArrayOB;
 
-                if (reckords > 0)
+                if (records > 0)
                 {
                     //Read current Object
                     Speciality tmpSpec = new Speciality();
@@ -33,37 +32,34 @@ public abstract class ReadWrite {
                     DBase.specialities.add(tmpSpec); //first row is header
 
                 }
-                reckords++;
+                records++;
             }
         }
         catch (IOException e1 ) {
             System.out.println("File "+ filename +" not found!"); System.exit(0);
         }
         catch (ArrayIndexOutOfBoundsException | NumberFormatException e2){
-            System.out.println("Incorrect data in file " +filename+ " in row: " + (reckords+1));
+            System.out.println("Incorrect data in file " +filename+ " in row: " + (records+1));
             System.exit(0);
         }
-        //-------от стария вариант------   Db.specialities = specialityes.toArray(new Specialities[0]);
+
     }
 
     public static void getDoctorsFromFile(String filename) {
         String line = "";
         String splitBy = ",";
 
-        //-------от стария вариант------  ArrayList<Doctor> doctors = new ArrayList<>();
-        int reckords = 0;
+        int records = 0;
 
         try {
             BufferedReader br = new BufferedReader(new FileReader(filename));
             while ((line = br.readLine()) != null) {
                 String[] field = line.split(splitBy);
-                //  System.out.println("ID=" + field[0] + ", FirstName=" + field[1] + ", Family=" + field[2]
-                //          + ", Spec=" + field[3] + " Age:" + field[4] + " sex:" + field[5] + " isHidden:" + field[6]);
 
                 ArrayIndexOutOfBoundsException eArrayOB = new ArrayIndexOutOfBoundsException();
                 if (field.length != 7) throw eArrayOB;
 
-                if (reckords > 0) {
+                if (records > 0) {
                     //Read current Object
                     Doctor tmpDoctor = new Doctor();
                     tmpDoctor.id = Integer.parseInt(field[0]); //todo catch Exception
@@ -72,7 +68,7 @@ public abstract class ReadWrite {
                     tmpDoctor.speciality = field[3];
                     tmpDoctor.age = Integer.parseInt(field[4]);
 
-                    String sx = getSexAndConvertToInteger(field[5]);
+                    String sx = getSex(field[5]);
                     if (sx.equals("unknown")) {
                         System.out.println("Wrong sex field in " + filename + ". Sex must be marked as f or m");
                     }
@@ -83,19 +79,19 @@ public abstract class ReadWrite {
                     DBase.doctors.add(tmpDoctor); //first row is header
 
                 }
-                reckords++;
+                records++;
             }
         } catch (IOException e1) {
             System.out.println("File " + filename + " not found!");
             System.exit(0);
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException e2) {
-            System.out.println("Incorrect data in file " + filename +" in row: " + (reckords + 1));
+            System.out.println("Incorrect data in file " + filename +" in row: " + (records + 1));
             System.exit(0);
         }
         //-------от стария вариант------  Db.doctors = doctors.toArray(new Doctor[0]);
     }
 
-    private static String getSexAndConvertToInteger(String sex){
+    private static String getSex(String sex){
         if (sex.toUpperCase().equals("F")) return "female";
         if (sex.toUpperCase().equals("M")) return "male";
         return "unknown"; //Can't recognize sex
@@ -104,21 +100,18 @@ public abstract class ReadWrite {
     public static void getPatientsFromFile(String filename) {
         String line = "";
         String splitBy = ",";
-
-        //-------от стария вариант------  ArrayList<Patient> patients = new ArrayList<>();
-        int reckords = 0;
+        
+        int records = 0;
 
         try {
             BufferedReader br = new BufferedReader(new FileReader(filename));
             while ((line = br.readLine()) != null) {
                 String[] field = line.split(splitBy);  // use comma as separator
-                //System.out.println("ID=" + field[0] + ", FirstName=" + field[1] + ", Family=" + field[2]
-                //        + " Age:" + field[3] + " sex:" + field[4]);
 
                 ArrayIndexOutOfBoundsException eArrayOB = new ArrayIndexOutOfBoundsException();
                 if (field.length != 5) throw eArrayOB;
 
-                if (reckords > 0) {
+                if (records > 0) {
                     //Read current Object
                     Patient tmpPatient = new Patient();
                     tmpPatient.id = Integer.parseInt(field[0]); //todo catch Exception
@@ -126,7 +119,7 @@ public abstract class ReadWrite {
                     tmpPatient.lastName = field[2];
                     tmpPatient.age = Integer.parseInt(field[3]);
 
-                    String sx = getSexAndConvertToInteger(field[4]);
+                    String sx = getSex(field[4]);
                     if (sx.equals("unknown")) {
                         System.out.println("Wrong sex field in " + filename + ". Sex must be marked as f or m");
                     }
@@ -139,13 +132,14 @@ public abstract class ReadWrite {
                             + tmpPatient.sex + " (id:"+tmpPatient.id+")" );
 
                 }
-                reckords++;
+                records++;
+
             }
         } catch (IOException e1) {
             System.out.println("File " + filename + " not found!");
             System.exit(0);
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException e2) {
-            System.out.println("Incorrect data in file " + filename + " in row: " + (reckords + 1));
+            System.out.println("Incorrect data in file " + filename + " in row: " + (records + 1));
             System.exit(0);
         }
 
