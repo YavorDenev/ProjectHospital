@@ -27,7 +27,17 @@ public class Boss extends User{
     }
 
     public void addDoctor(String firstName, String lastName, int age, String sex, String speciality) {
-        DBase.doctors.add(new Doctor(firstName, lastName, age, sex, speciality));
+        boolean f = true;
+        for (Doctor d: DBase.doctors) {
+            if (d.firstName.equalsIgnoreCase(firstName) && d.lastName.equalsIgnoreCase(lastName) && d.age==age && d.speciality.equalsIgnoreCase(speciality)) {
+                f = false;
+                break;
+            }
+        }
+        if (f) {
+            addSpeciality(speciality);
+            DBase.doctors.add(new Doctor(firstName, lastName, age, sex, speciality));
+        }
     }
 
     public void makeDoctorInactive() {
@@ -45,7 +55,14 @@ public class Boss extends User{
     }
 
     public void addSpeciality(String name) {
-        DBase.specialities.add(new Speciality(name));
+        boolean f = true;
+        for (Speciality s: DBase.specialities) {
+            if (s.name.equalsIgnoreCase(name)) {
+                f = false;
+                break;
+            }
+        }
+        if (f) DBase.specialities.add(new Speciality(name));
     }
 
     public void makeSpecialityInactive() {

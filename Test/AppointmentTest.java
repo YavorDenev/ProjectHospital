@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class AppointmentTest {
 
     @Test
-    public void generateAppId() {
+    public void testGenerateAppId() {
         DBase.appointments = new ArrayList<>();
         DBase.appointments.add(new Appointment());
         DBase.appointments.get(0).id = 1000;
@@ -18,7 +18,7 @@ public class AppointmentTest {
     }
 
     @Test
-    public void generateAppIdWhenAppointmentsIsEmpty() {
+    public void testGenerateAppIdWhenAppointmentsIsEmpty() {
         DBase.appointments = new ArrayList<>();
         Appointment app = new Appointment(0,0,"x","x", 0);
         int expected = 1;
