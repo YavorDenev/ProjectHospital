@@ -33,37 +33,10 @@ public class Doctor extends User {
     }
 
     public static void showDocAppointments(int docId) {
-
-        showDocHeader(docId);
-
+        showDocHeader(docId, "");
         for (Appointment app: DBase.appointments) {
             if (app.doctorID==docId) System.out.println(app);
         }
-    }
-
-    public void showDocApptsByPatientNames(String upDown) {
-        showDocApptsByPatientNames(this.id, upDown);
-    }
-
-    public static void showDocApptsByPatientNames(int docId, String upDown) {
-        ArrayList<Appointment> docAppts = new ArrayList<>();
-        showDocHeader(docId);
-
-        for (Appointment app: DBase.appointments) {
-            if (app.doctorID==docId) docAppts.add(app);
-        }
-
-        if (!docAppts.isEmpty()) {
-            if (upDown.equalsIgnoreCase("up")){
-                System.out.println("-------------- appointments up by patient names -----------------");
-                docAppts.sort(Comparator.comparing(Appointment::getPatientNames));
-            } else if (upDown.equalsIgnoreCase("down")) {
-                System.out.println("-------------- appointments down by patient names -----------------");
-                docAppts.sort(Comparator.comparing(Appointment::getPatientNames).reversed());
-            }
-            for (Appointment app: docAppts) { System.out.println(app); }
-        }
-        else System.out.println("The doctor doesn't have any appointments.");
     }
 
     public void showDocApptsByDateTime(String upDown) {
@@ -71,24 +44,15 @@ public class Doctor extends User {
     }
 
     public static void showDocApptsByDateTime(int docId, String upDown) {
-        ArrayList<Appointment> docAppts = new ArrayList<>();
-        showDocHeader(docId);
+        universalAppByDocIDComparator(docId,upDown,1); //1 for DateTime
+    }
 
-        for (Appointment app: DBase.appointments) {
-            if (app.doctorID==docId) docAppts.add(app);
-        }
+    public void showDocApptsByPatientNames(String upDown) {
+        showDocApptsByPatientNames(this.id, upDown);
+    }
 
-        if (!docAppts.isEmpty()) {
-            if (upDown.equalsIgnoreCase("up")){
-                System.out.println("------------- appointments up by date and time -----------------");
-                docAppts.sort(Comparator.comparing(Appointment::getDateTimeComparingKey));
-            } else if (upDown.equalsIgnoreCase("down")) {
-                System.out.println("------------- appointments down by date and time -----------------");
-                docAppts.sort(Comparator.comparing(Appointment::getDateTimeComparingKey).reversed());
-            }
-            for (Appointment app: docAppts) { System.out.println(app); }
-        }
-        else System.out.println("The doctor doesn't have any appointments.");
+    public static void showDocApptsByPatientNames(int docId, String upDown) {
+        universalAppByDocIDComparator(docId,upDown,2); //2 for Patient Names
     }
 
     public void showDocApptsByPatientId(String upDown) {
@@ -96,19 +60,52 @@ public class Doctor extends User {
     }
 
     public static void showDocApptsByPatientId(int docId, String upDown) {
+        universalAppByDocIDComparator(docId,upDown,3); //3 for PatientID
+    }
+
+    public static void universalAppByDocIDComparator(int docId, String upDown, int compareType){
+        //compareType = 1 byDateTime
+        //compareType = 2 byPatientName
+        //compareType = 3 byPatientID
+
         ArrayList<Appointment> docAppts = new ArrayList<>();
-        showDocHeader(docId);
+
+        int sortDirection = 0;
+        String notice = "(appointments ";
+
+        if (upDown.equalsIgnoreCase("up")) {
+            sortDirection = 1; notice += "up by";
+        }
+        if (upDown.equalsIgnoreCase("down")) {
+            sortDirection = 2; notice += "down by";
+        }
+
+        switch (compareType) {
+            case 1 -> notice += " date time)";
+            case 2 -> notice += " patient name)";
+            case 3 -> notice += " patient id)";
+            default -> {
+            }
+        }
+
+        showDocHeader(docId, notice);
 
         for (Appointment app: DBase.appointments) {
             if (app.doctorID==docId) docAppts.add(app);
         }
         if (!docAppts.isEmpty()) {
-            if (upDown.equalsIgnoreCase("up")){
-                System.out.println("-------------- appointments up by patient ID --------------------");
-                docAppts.sort(Comparator.comparing(Appointment::getPatientID));
-            } else if (upDown.equalsIgnoreCase("down")) {
-                System.out.println("-------------- appointments down by patient ID --------------------");
-                docAppts.sort(Comparator.comparing(Appointment::getPatientID).reversed());
+            if (sortDirection==1){
+                switch (compareType) {
+                    case 1 -> docAppts.sort(Comparator.comparing(Appointment::getDateTimeComparingKey));
+                    case 2 -> docAppts.sort(Comparator.comparing(Appointment::getPatientNames));
+                    case 3 -> docAppts.sort(Comparator.comparing(Appointment::getPatientID));
+                }
+            } else if (sortDirection==2) {
+                switch(compareType){
+                    case 1 -> docAppts.sort(Comparator.comparing(Appointment::getDateTimeComparingKey).reversed());
+                    case 2 -> docAppts.sort(Comparator.comparing(Appointment::getPatientNames).reversed());
+                    case 3 -> docAppts.sort(Comparator.comparing(Appointment::getPatientID).reversed());
+                }
             }
             for (Appointment app: docAppts) { System.out.println(app); }
         }
@@ -155,12 +152,23 @@ public class Doctor extends User {
                 " (" + speciality +")" ;
     }
 
-    public static void showDocHeader(int docId){
+    public String toString50() {
+        //for good looking in sort orders
+        String txt = "";
+        txt += firstName + " " + lastName + " id:" + id +  " (" + speciality +") " ;
+
+        while (txt.length()<50) txt += "=";
+        return txt;
+
+    }
+
+
+    public static void showDocHeader(int docId, String notice){
         String blueColor = "\033[1;32m";
         String resetColor = "\033[0m";
 
-        System.out.println("\n"+ blueColor +"============== Doctor " + DBase.doctorsMap.get(docId).toString() +
-                " =================" +resetColor);
+        System.out.println("\n"+ blueColor +"============== Doctor " + DBase.doctorsMap.get(docId).toString50() +
+                " " + notice + resetColor);
     }
 
 }

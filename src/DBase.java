@@ -23,6 +23,8 @@ public abstract class DBase {
 
     public static String[] allowedActions = new String[22];
 
+    public static int maxDoctorID = 0;
+
     static String[] examinations = new String[] {
             constAppointments.initial,
             constAppointments.consultation,

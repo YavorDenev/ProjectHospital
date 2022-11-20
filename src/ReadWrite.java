@@ -78,6 +78,7 @@ public abstract class ReadWrite {
                     DBase.doctors.add(tmpDoctor);  //Put this doctor in ArrayList
                     DBase.doctorsMap.put(tmpDoctor.id,tmpDoctor); //Put this doctor in Map
 
+                    if (tmpDoctor.id>DBase.maxDoctorID) DBase.maxDoctorID = tmpDoctor.id;
                 }
                 records++;
             }
