@@ -33,6 +33,9 @@ public class Doctor extends User {
     }
 
     public static void showDocAppointments(int docId) {
+
+        showDocHeader(docId);
+
         for (Appointment app: DBase.appointments) {
             if (app.doctorID==docId) System.out.println(app);
         }
@@ -44,19 +47,23 @@ public class Doctor extends User {
 
     public static void showDocApptsByPatientNames(int docId, String upDown) {
         ArrayList<Appointment> docAppts = new ArrayList<>();
+        showDocHeader(docId);
+
         for (Appointment app: DBase.appointments) {
             if (app.doctorID==docId) docAppts.add(app);
         }
+
         if (!docAppts.isEmpty()) {
             if (upDown.equalsIgnoreCase("up")){
-                System.out.println("------------- appointments up by patient names -----------------");
+                System.out.println("-------------- appointments up by patient names -----------------");
                 docAppts.sort(Comparator.comparing(Appointment::getPatientNames));
             } else if (upDown.equalsIgnoreCase("down")) {
-                System.out.println("------------- appointments down by patient names -----------------");
+                System.out.println("-------------- appointments down by patient names -----------------");
                 docAppts.sort(Comparator.comparing(Appointment::getPatientNames).reversed());
             }
             for (Appointment app: docAppts) { System.out.println(app); }
-        } else System.out.println("The doctor doesn't have any appointments.");
+        }
+        else System.out.println("The doctor doesn't have any appointments.");
     }
 
     public void showDocApptsByDateTime(String upDown) {
@@ -65,9 +72,12 @@ public class Doctor extends User {
 
     public static void showDocApptsByDateTime(int docId, String upDown) {
         ArrayList<Appointment> docAppts = new ArrayList<>();
+        showDocHeader(docId);
+
         for (Appointment app: DBase.appointments) {
             if (app.doctorID==docId) docAppts.add(app);
         }
+
         if (!docAppts.isEmpty()) {
             if (upDown.equalsIgnoreCase("up")){
                 System.out.println("------------- appointments up by date and time -----------------");
@@ -77,7 +87,8 @@ public class Doctor extends User {
                 docAppts.sort(Comparator.comparing(Appointment::getDateTimeComparingKey).reversed());
             }
             for (Appointment app: docAppts) { System.out.println(app); }
-        } else System.out.println("The doctor doesn't have any appointments.");
+        }
+        else System.out.println("The doctor doesn't have any appointments.");
     }
 
     public void showDocApptsByPatientId(String upDown) {
@@ -86,19 +97,22 @@ public class Doctor extends User {
 
     public static void showDocApptsByPatientId(int docId, String upDown) {
         ArrayList<Appointment> docAppts = new ArrayList<>();
+        showDocHeader(docId);
+
         for (Appointment app: DBase.appointments) {
             if (app.doctorID==docId) docAppts.add(app);
         }
         if (!docAppts.isEmpty()) {
             if (upDown.equalsIgnoreCase("up")){
-                System.out.println("------------- appointments up by patient ID -----------------");
+                System.out.println("-------------- appointments up by patient ID --------------------");
                 docAppts.sort(Comparator.comparing(Appointment::getPatientID));
             } else if (upDown.equalsIgnoreCase("down")) {
-                System.out.println("------------- appointments down by patient ID -----------------");
+                System.out.println("-------------- appointments down by patient ID --------------------");
                 docAppts.sort(Comparator.comparing(Appointment::getPatientID).reversed());
             }
             for (Appointment app: docAppts) { System.out.println(app); }
-        } else System.out.println("The doctor doesn't have any appointments.");
+        }
+        else System.out.println("The doctor doesn't have any appointments.");
     }
 
     public void removeDocAppointment() {
@@ -107,7 +121,8 @@ public class Doctor extends User {
         int index = getDocAppointmentIndex(idToRemove);
         if (index >= 0) {
             DBase.appointments.remove(index);
-        } else System.out.println("You do not have an appointment with such an ID");
+        }
+        else System.out.println("You do not have an appointment with such an ID");
     }
 
     private int getDocAppointmentIndex(int idToRemove) {
@@ -135,10 +150,17 @@ public class Doctor extends User {
 
     @Override
     public String toString() {
-        return "id:" + id +
-                " " + firstName +
-                " " + lastName +
-                " - " + speciality ;
+        return firstName +
+                " " + lastName + " id:"+id+
+                " (" + speciality +")" ;
+    }
+
+    public static void showDocHeader(int docId){
+        String blueColor = "\033[1;32m";
+        String resetColor = "\033[0m";
+
+        System.out.println("\n"+ blueColor +"============== Doctor " + DBase.doctorsMap.get(docId).toString() +
+                " =================" +resetColor);
     }
 
 }

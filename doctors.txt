@@ -5,7 +5,17 @@ doctor_id,first_name,last_name,speciality,age,sex,is_active
 4,Milena,Stefanova,endocrinology,28,f,1
 5,Kalina,Kovacheva,anesthesiology,25,f,1
 6,Stefan,Mitev,gastroenterology,28,m,1
-7,Ventsislav,Mutafchiiski,Internal diseases,65,m,1
+7,Ventsislav,Mutafchiiski,nephrology,65,m,1
 8,Alexander,Simidchiev,gastroenterology,28,m,1
 9,Valeri,Bojinov,gynecology,34,m,1
 10,Marin,Kerchev,urology,53,m,1
+11,Anna-Victoria,Galeva,cardiology,45,f,1
+12,Mihaela,Dacheva,anesthesiology,33,f,1
+13,Georgi,Konstantinov,internal diseases,40,m,1
+14,Mert,Mehmedov,cardiology,37,m,1
+15,Anatoli,Mihaylov,dermatology,52,m,1
+16,Malena,Dimitrova,urology,28,f,1
+17,Tsvetomira,Parvanova,rheumatology,34,f,1
+18,Selin,Kenan,ophthalmology,27,f,1
+19,Nazli,Kerim,surgery,25,f,1
+20,Ali,Vefa,surgery,27,m,1

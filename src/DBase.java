@@ -9,6 +9,7 @@ public abstract class DBase {
     public static User currentUser;
 
     public static Map<Integer, String> patientsMap = new HashMap<Integer, String>();
+    public static Map<Integer, Doctor> doctorsMap = new HashMap<Integer, Doctor>();
 
     public static List<Boss> bosses = new ArrayList<>();
 
