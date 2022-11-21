@@ -28,6 +28,7 @@ public class Doctor extends User {
         return id + 1;
     }
 
+    /*
     public void showDocApptsSortedByDateTime(String upDown) {
         showDocApptsSortedByDateTime(this.id, upDown);
     }
@@ -51,17 +52,22 @@ public class Doctor extends User {
     public static void showDocApptsSortedByPatientId(int docId, String upDown) {
         showSortedDocApptsByCriteria(docId,upDown,"PatientID");
     }
+     */
 
-    private static void showSortedDocApptsByCriteria(int docId, String upDown, String criterion){
+    public void showSortedDocApptsByCriteria(String upDown, SortCriteria criterion){
+        showSortedDocApptsByCriteria(this.id, upDown, criterion);
+    }
+
+    public static void showSortedDocApptsByCriteria(int docId, String upDown, SortCriteria criterion){
         String notice = "(appointments ";
         switch (upDown.toLowerCase()) {
             case "up" -> notice += "up by";
             case "down" -> notice += "down by";
         }
         switch (criterion) {
-            case "DateTime" -> notice += " date time)";
-            case "PatientNames" -> notice += " patient name)";
-            case "PatientID" -> notice += " patient id)";
+            case DATE_TIME -> notice += " date time)";
+            case PATIENT_NAMES -> notice += " patient name)";
+            case PATIENT_ID -> notice += " patient id)";
         }
         showDocHeader(docId, notice);
 
@@ -75,11 +81,11 @@ public class Doctor extends User {
         } else System.out.println("The doctor doesn't have any appointments.");
     }
 
-    private static void sortApptsByCriteria(List<Appointment> docAppts, String upDown, String criterion){
+    private static void sortApptsByCriteria(List<Appointment> docAppts, String upDown, SortCriteria criterion){
             switch (criterion) {
-                case "DateTime" -> docAppts.sort(Comparator.comparing(Appointment::getDateTimeComparingKey));
-                case "PatientNames" -> docAppts.sort(Comparator.comparing(Appointment::getPatientNames));
-                case "PatientID" -> docAppts.sort(Comparator.comparing(Appointment::getPatientID));
+                case DATE_TIME -> docAppts.sort(Comparator.comparing(Appointment::getDateTimeComparingKey));
+                case PATIENT_NAMES -> docAppts.sort(Comparator.comparing(Appointment::getPatientNames));
+                case PATIENT_ID -> docAppts.sort(Comparator.comparing(Appointment::getPatientID));
             }
         if (upDown.equalsIgnoreCase("down")) Collections.reverse(docAppts);
     }
