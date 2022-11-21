@@ -17,5 +17,18 @@ public abstract class CheckInputData {
         return num;
     }
 
+    public static int inputNotNegativeInteger() {
+        while (!(scan.hasNextInt())) {
+            System.out.println("Invalid input. Try again!");
+            scan.next();
+        }
+        int num = scan.nextInt();
+        while (num < 0) {
+            System.out.println("Invalid input number. Try again!");
+            num = inputPositiveInteger();
+        }
+        return num;
+    }
+
 
 }
