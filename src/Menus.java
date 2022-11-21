@@ -52,7 +52,6 @@ public abstract class Menus {
 
     static int enterUserChoice(){
         System.out.print("Please enter your choice:");
-        //int ch = scn.nextInt();
         int ch = CheckInputData.inputNotNegativeInteger();
         return ch;
     }
@@ -60,50 +59,37 @@ public abstract class Menus {
     static void doRequest(int choice){
 
         switch (choice) {
-            case 0: DBase.currentUser =  new Anonymous(); break;
-            case 1: Authorize.loginAsPatient(); break;
-            case 2: Authorize.loginAsDoctor(); break;
-            case 3: Authorize.loginAsBoss(); break;
-            case 4: Hospital.showDoctors(); break;
-            case 5: Hospital.showPatients(); break;
-            case 6: {
+            case 0 -> DBase.currentUser = new Anonymous();
+            case 1 -> Authorize.loginAsPatient();
+            case 2 -> Authorize.loginAsDoctor();
+            case 3 -> Authorize.loginAsBoss();
+            case 4 -> Hospital.showDoctors();
+            case 5 -> Hospital.showPatients();
+            case 6 -> {
                 System.out.print("Please enter doctor_id:");
-                int docId = scn.nextInt();
-                Doctor.showDocApptsSortedByDateTime(docId, "Up");
-                break;
+                int docId = CheckInputData.inputPositiveInteger();
+                Doctor.showSortedDocApptsByCriteria(docId, "Up", SortCriteria.DATE_TIME);
             }
-            case 7: {
-                Doctor.showDocApptsSortedByDateTime(((Doctor) DBase.currentUser).id,"Up"); break;
-
-            }
-            case 8: {
-                Patient.showAppointmentsByPatientId(((Patient) DBase.currentUser).id); break;
-            }
-            case 9: {
+            case 7 -> Doctor.showSortedDocApptsByCriteria(((Doctor) DBase.currentUser).id, "Up", SortCriteria.DATE_TIME);
+            case 8 -> Patient.showAppointmentsByPatientId(((Patient) DBase.currentUser).id);
+            case 9 -> {
                 System.out.print("Please enter patient_id:");
-                int patId = scn.nextInt();
+                int patId = CheckInputData.inputPositiveInteger();
                 Patient.showAppointmentsByPatientId(patId);
-                break;
             }
-            case 10:{
+            case 10 -> {
                 selectDoctorAndSortDirection();
-                Doctor.showDocApptsSortedByDateTime(chosenDoctorID,sortedByUpDown);
-                break;
+                Doctor.showSortedDocApptsByCriteria(chosenDoctorID, sortedByUpDown, SortCriteria.DATE_TIME);
             }
-            case 11:{
+            case 11 -> {
                 selectDoctorAndSortDirection();
-                Doctor.showDocApptsSortedByPatientNames(chosenDoctorID,sortedByUpDown);
-                break;
+                Doctor.showSortedDocApptsByCriteria(chosenDoctorID, sortedByUpDown, SortCriteria.PATIENT_NAMES);
             }
-            case 12:{
+            case 12 -> {
                 selectDoctorAndSortDirection();
-                Doctor.showDocApptsSortedByPatientId(chosenDoctorID,sortedByUpDown);
-                break;
+                Doctor.showSortedDocApptsByCriteria(chosenDoctorID, sortedByUpDown, SortCriteria.PATIENT_ID);
             }
-            case 13:{
-                Hospital.showPatientsByDocNames("Martin", "Katev");
-            }
-
+            case 13 -> Hospital.showPatientsByDocNames("Martin", "Katev");
         }
     }
 
@@ -113,12 +99,10 @@ public abstract class Menus {
 
         while (docID> DBase.maxDoctorID || docID<1){
             System.out.print("Please enter doctor_id:");
-            //docID = scn.nextInt();
             docID = CheckInputData.inputPositiveInteger();
         }
         while (chSort!=1 && chSort!=2){
             System.out.print("1-Up 2-Down. Enter your option:");
-            //chSort = scn.nextInt();
             chSort = CheckInputData.inputPositiveInteger();
         }
 

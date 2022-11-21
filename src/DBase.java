@@ -40,16 +40,16 @@ public abstract class DBase {
         allowedActions[4] = "show list of doctors"; //boss, doctor, patient, anonymous ============> Hospital.showDoctors()
         allowedActions[5] = "show list of patients"; //boss, doctor ===============================> Hospital.showPatients()
         // липсва:  "show list of specialities"; //boss, doctor, patient, anonymous <---- НЕ СЕ ИСКА ПО УСЛОВИЕ =====> Hospital.showSpecialities();
-        allowedActions[6] = "show doctor calendar by doctor_id"; //boss, doctor  ==================> Doctor.showDocAppointments(docId)
-        allowedActions[7] = "show my calendar"; //doctor  =========================================> doctors.get(index).showDocAppointments()
+        allowedActions[6] = "show doctor calendar by doctor_id"; //boss, doctor  ==================> Doctor.showSortedDocApptsByCriteria(docId, Up/Down, SortCriteria.DATE_TIME);
+        allowedActions[7] = "show my calendar"; //doctor  =========================================> Doctor.showSortedDocApptsByCriteria(Up/Down, SortCriteria.DATE_TIME);
         allowedActions[8] = "show my appointments"; //patient =====================================> patients.get(index).showMyAppointments()
         allowedActions[9] = "show patient appointments by patient_id"; //boss, doctor =============> Patient.showAppointmentsByPatientId(patientId)
-        allowedActions[10] = "show sorted calendar on doctor_id by time"; //boss, doctor > Up/Down ============> Doctor.showDocApptsByDateTime(docId, Up/Down);
-                                                                                                      // ======> doctors.get(index).showDocApptsByDateTime(Up/Down)
-        allowedActions[11] = "show sorted calendar on doctor_id by patient_name"; //boss, doctor > Up/Down ====> Doctor.showDocApptsByPatientNames(docId, Up/Down)
-                                                                                                        // ====> doctors.get(index).showDocApptsByPatientNames(Up/Down)
-        allowedActions[12] = "show sorted calendar on doctor_id by patient_id"; //boss, doctor > Up/Down ======> Doctor.showDocApptsByPatientId(docId, Up/Down)
-                                                                                                      // ======> doctors.get(index).showDocApptsByPatientId(Up/Down)
+        allowedActions[10] = "show sorted calendar on doctor_id by time"; //boss, doctor > Up/Down ============> Doctor.showSortedDocApptsByCriteria(docId, Up/Down, SortCriteria.DATE_TIME);
+                                                                                                      // ======> Doctor.showSortedDocApptsByCriteria(Up/Down, SortCriteria.DATE_TIME);
+        allowedActions[11] = "show sorted calendar on doctor_id by patient_name"; //boss, doctor > Up/Down ====> Doctor.showSortedDocApptsByCriteria(docId, Up/Down, SortCriteria.PATIENT_NAMES);
+                                                                                                        // ====> Doctor.showSortedDocApptsByCriteria(Up/Down, SortCriteria.PATIENT_NAMES);
+        allowedActions[12] = "show sorted calendar on doctor_id by patient_id"; //boss, doctor > Up/Down ======> Doctor.showSortedDocApptsByCriteria(docId, Up/Down, SortCriteria.PATIENT_ID);
+                                                                                                      // ======> Doctor.showSortedDocApptsByCriteria(Up/Down, SortCriteria.PATIENT_ID);
         allowedActions[13] = "show sorted calendar by doctor_firstName"; //boss, doctor > Down  <---------- НЕ СЕ ИСКА, НЕ ГО ПРАВЯ
         allowedActions[14] = "show sorted calendar by speciality"; //boss, doctor > Down  <---------------- НЕ СЕ ИСКА, НЕ ГО ПРАВЯ
         allowedActions[15] = "show sorted calendar by datetime"; //boss, doctor > Down  <------------------ НЕ СЕ ИСКА, НЕ ГО ПРАВЯ
