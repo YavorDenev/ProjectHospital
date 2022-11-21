@@ -30,7 +30,7 @@ public abstract class Menus {
                     + " " + DBase.currentUser.lastName
                     + RESET_COLOR + " ========");
 
-            showCurrenUserAllowedActions();
+            showCurrentUserAllowedActions();
             int choice = enterUserChoice();
             doRequest(choice);
             lastAction = choice;
@@ -38,7 +38,7 @@ public abstract class Menus {
 
     }
 
-    static void showCurrenUserAllowedActions() {
+    static void showCurrentUserAllowedActions() {
 
         if (DBase.currentUser instanceof Anonymous)  allowedActions = Anonymous.allowedActions;
         if (DBase.currentUser instanceof Patient)  allowedActions = Patient.allowedActions;
@@ -52,7 +52,8 @@ public abstract class Menus {
 
     static int enterUserChoice(){
         System.out.print("Please enter your choice:");
-        int ch = scn.nextInt();
+        //int ch = scn.nextInt();
+        int ch = CheckInputData.inputNotNegativeInteger();
         return ch;
     }
 
@@ -68,11 +69,11 @@ public abstract class Menus {
             case 6: {
                 System.out.print("Please enter doctor_id:");
                 int docId = scn.nextInt();
-                Doctor.showDocApptsByDateTime(docId, "Up");
+                Doctor.showDocApptsSortedByDateTime(docId, "Up");
                 break;
             }
             case 7: {
-                Doctor.showDocApptsByDateTime(((Doctor) DBase.currentUser).id,"Up"); break;
+                Doctor.showDocApptsSortedByDateTime(((Doctor) DBase.currentUser).id,"Up"); break;
 
             }
             case 8: {
@@ -86,17 +87,17 @@ public abstract class Menus {
             }
             case 10:{
                 selectDoctorAndSortDirection();
-                Doctor.showDocApptsByDateTime(chosenDoctorID,sortedByUpDown);
+                Doctor.showDocApptsSortedByDateTime(chosenDoctorID,sortedByUpDown);
                 break;
             }
             case 11:{
                 selectDoctorAndSortDirection();
-                Doctor.showDocApptsByPatientNames(chosenDoctorID,sortedByUpDown);
+                Doctor.showDocApptsSortedByPatientNames(chosenDoctorID,sortedByUpDown);
                 break;
             }
             case 12:{
                 selectDoctorAndSortDirection();
-                Doctor.showDocApptsByPatientId(chosenDoctorID,sortedByUpDown);
+                Doctor.showDocApptsSortedByPatientId(chosenDoctorID,sortedByUpDown);
                 break;
             }
             case 13:{
@@ -112,11 +113,13 @@ public abstract class Menus {
 
         while (docID> DBase.maxDoctorID || docID<1){
             System.out.print("Please enter doctor_id:");
-            docID = scn.nextInt();
+            //docID = scn.nextInt();
+            docID = CheckInputData.inputPositiveInteger();
         }
         while (chSort!=1 && chSort!=2){
             System.out.print("1-Up 2-Down. Enter your option:");
-            chSort = scn.nextInt();
+            //chSort = scn.nextInt();
+            chSort = CheckInputData.inputPositiveInteger();
         }
 
         chosenDoctorID = docID;

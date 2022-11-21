@@ -39,36 +39,34 @@ public class Doctor extends User {
     }
      */
 
-    public void showDocApptsByDateTime(String upDown) {
-        showDocApptsByDateTime(this.id, upDown);
+    public void showDocApptsSortedByDateTime(String upDown) {
+        showDocApptsSortedByDateTime(this.id, upDown);
     }
 
-    public static void showDocApptsByDateTime(int docId, String upDown) {
-        universalAppByDocIDComparator(docId,upDown,1); //1 for DateTime
+    public static void showDocApptsSortedByDateTime(int docId, String upDown) {
+        showSortedDocApptsByCriteria(docId,upDown,1); //1 for DateTime
     }
 
-    public void showDocApptsByPatientNames(String upDown) {
-        showDocApptsByPatientNames(this.id, upDown);
+    public void showDocApptsSortedByPatientNames(String upDown) {
+        showDocApptsSortedByPatientNames(this.id, upDown);
     }
 
-    public static void showDocApptsByPatientNames(int docId, String upDown) {
-        universalAppByDocIDComparator(docId,upDown,2); //2 for Patient Names
+    public static void showDocApptsSortedByPatientNames(int docId, String upDown) {
+        showSortedDocApptsByCriteria(docId,upDown,2); //2 for Patient Names
     }
 
-    public void showDocApptsByPatientId(String upDown) {
-        showDocApptsByPatientId(this.id, upDown);
+    public void showDocApptsSortedByPatientId(String upDown) {
+        showDocApptsSortedByPatientId(this.id, upDown);
     }
 
-    public static void showDocApptsByPatientId(int docId, String upDown) {
-        universalAppByDocIDComparator(docId,upDown,3); //3 for PatientID
+    public static void showDocApptsSortedByPatientId(int docId, String upDown) {
+        showSortedDocApptsByCriteria(docId,upDown,3); //3 for PatientID
     }
 
-    public static void universalAppByDocIDComparator(int docId, String upDown, int compareType){
+    private static void showSortedDocApptsByCriteria(int docId, String upDown, int compareType){
         //compareType = 1 byDateTime
         //compareType = 2 byPatientName
         //compareType = 3 byPatientID
-
-        ArrayList<Appointment> docAppts = new ArrayList<>();
 
         int sortDirection = 0;
         String notice = "(appointments ";
@@ -79,7 +77,6 @@ public class Doctor extends User {
         if (upDown.equalsIgnoreCase("down")) {
             sortDirection = 2; notice += "down by";
         }
-
         switch (compareType) {
             case 1 -> notice += " date time)";
             case 2 -> notice += " patient name)";
@@ -87,13 +84,15 @@ public class Doctor extends User {
             default -> {
             }
         }
-
         showDocHeader(docId, notice);
 
+        ArrayList<Appointment> docAppts = new ArrayList<>();
         for (Appointment app: DBase.appointments) {
             if (app.doctorID==docId) docAppts.add(app);
         }
+
         if (!docAppts.isEmpty()) {
+            //----------------------------------------------------------------
             if (sortDirection==1){
                 switch (compareType) {
                     case 1 -> docAppts.sort(Comparator.comparing(Appointment::getDateTimeComparingKey));
@@ -107,9 +106,9 @@ public class Doctor extends User {
                     case 3 -> docAppts.sort(Comparator.comparing(Appointment::getPatientID).reversed());
                 }
             }
+           //---------------------------------------------------------------------
             for (Appointment app: docAppts) { System.out.println(app); }
-        }
-        else System.out.println("The doctor doesn't have any appointments.");
+        } else System.out.println("The doctor doesn't have any appointments.");
     }
 
     public void removeDocAppointment() {
