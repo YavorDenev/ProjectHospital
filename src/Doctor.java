@@ -30,11 +30,7 @@ public class Doctor extends User {
     }
 
     public static void showSortedDocApptsByCriteria(int docId, String upDown, SortCriteria criterion){
-        String notice = "(appointments ";
-        switch (upDown.toLowerCase()) {
-            case "up" -> notice += "up by";
-            case "down" -> notice += "down by";
-        }
+        String notice = "(appointments " + upDown.toLowerCase() + " by";
         switch (criterion) {
             case DATE_TIME -> notice += " date time)";
             case PATIENT_NAMES -> notice += " patient name)";
