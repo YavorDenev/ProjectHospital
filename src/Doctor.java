@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 public class Doctor extends User {
 
@@ -26,25 +28,12 @@ public class Doctor extends User {
         return id + 1;
     }
 
-    /*
-    public void showDocAppointments() {
-        showDocAppointments(this.id);
-    }
-
-    public static void showDocAppointments(int docId) {
-        showDocHeader(docId, "");
-        for (Appointment app: DBase.appointments) {
-            if (app.doctorID==docId) System.out.println(app);
-        }
-    }
-     */
-
     public void showDocApptsSortedByDateTime(String upDown) {
         showDocApptsSortedByDateTime(this.id, upDown);
     }
 
     public static void showDocApptsSortedByDateTime(int docId, String upDown) {
-        showSortedDocApptsByCriteria(docId,upDown,1); //1 for DateTime
+        showSortedDocApptsByCriteria(docId,upDown,"DateTime");
     }
 
     public void showDocApptsSortedByPatientNames(String upDown) {
@@ -52,7 +41,7 @@ public class Doctor extends User {
     }
 
     public static void showDocApptsSortedByPatientNames(int docId, String upDown) {
-        showSortedDocApptsByCriteria(docId,upDown,2); //2 for Patient Names
+        showSortedDocApptsByCriteria(docId,upDown,"PatientNames");
     }
 
     public void showDocApptsSortedByPatientId(String upDown) {
@@ -60,29 +49,19 @@ public class Doctor extends User {
     }
 
     public static void showDocApptsSortedByPatientId(int docId, String upDown) {
-        showSortedDocApptsByCriteria(docId,upDown,3); //3 for PatientID
+        showSortedDocApptsByCriteria(docId,upDown,"PatientID");
     }
 
-    private static void showSortedDocApptsByCriteria(int docId, String upDown, int compareType){
-        //compareType = 1 byDateTime
-        //compareType = 2 byPatientName
-        //compareType = 3 byPatientID
-
-        int sortDirection = 0;
+    private static void showSortedDocApptsByCriteria(int docId, String upDown, String criterion){
         String notice = "(appointments ";
-
-        if (upDown.equalsIgnoreCase("up")) {
-            sortDirection = 1; notice += "up by";
+        switch (upDown.toLowerCase()) {
+            case "up" -> notice += "up by";
+            case "down" -> notice += "down by";
         }
-        if (upDown.equalsIgnoreCase("down")) {
-            sortDirection = 2; notice += "down by";
-        }
-        switch (compareType) {
-            case 1 -> notice += " date time)";
-            case 2 -> notice += " patient name)";
-            case 3 -> notice += " patient id)";
-            default -> {
-            }
+        switch (criterion) {
+            case "DateTime" -> notice += " date time)";
+            case "PatientNames" -> notice += " patient name)";
+            case "PatientID" -> notice += " patient id)";
         }
         showDocHeader(docId, notice);
 
@@ -90,25 +69,19 @@ public class Doctor extends User {
         for (Appointment app: DBase.appointments) {
             if (app.doctorID==docId) docAppts.add(app);
         }
-
         if (!docAppts.isEmpty()) {
-            //----------------------------------------------------------------
-            if (sortDirection==1){
-                switch (compareType) {
-                    case 1 -> docAppts.sort(Comparator.comparing(Appointment::getDateTimeComparingKey));
-                    case 2 -> docAppts.sort(Comparator.comparing(Appointment::getPatientNames));
-                    case 3 -> docAppts.sort(Comparator.comparing(Appointment::getPatientID));
-                }
-            } else if (sortDirection==2) {
-                switch(compareType){
-                    case 1 -> docAppts.sort(Comparator.comparing(Appointment::getDateTimeComparingKey).reversed());
-                    case 2 -> docAppts.sort(Comparator.comparing(Appointment::getPatientNames).reversed());
-                    case 3 -> docAppts.sort(Comparator.comparing(Appointment::getPatientID).reversed());
-                }
-            }
-           //---------------------------------------------------------------------
+            sortApptsByCriteria(docAppts, upDown, criterion);
             for (Appointment app: docAppts) { System.out.println(app); }
         } else System.out.println("The doctor doesn't have any appointments.");
+    }
+
+    private static void sortApptsByCriteria(List<Appointment> docAppts, String upDown, String criterion){
+            switch (criterion) {
+                case "DateTime" -> docAppts.sort(Comparator.comparing(Appointment::getDateTimeComparingKey));
+                case "PatientNames" -> docAppts.sort(Comparator.comparing(Appointment::getPatientNames));
+                case "PatientID" -> docAppts.sort(Comparator.comparing(Appointment::getPatientID));
+            }
+        if (upDown.equalsIgnoreCase("down")) Collections.reverse(docAppts);
     }
 
     public void removeDocAppointment() {
@@ -152,7 +125,7 @@ public class Doctor extends User {
     }
 
     public String toString50() {
-        //for good looking in sort orders
+        //for good look in sorted orders
         String txt = "";
         txt += firstName + " " + lastName + " id:" + id +  " (" + speciality +") " ;
 
@@ -160,7 +133,6 @@ public class Doctor extends User {
         return txt;
 
     }
-
 
     public static void showDocHeader(int docId, String notice){
         String blueColor = "\033[1;32m";
