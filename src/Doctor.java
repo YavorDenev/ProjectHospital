@@ -1,7 +1,4 @@
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 
 public class Doctor extends User {
 
@@ -28,32 +25,6 @@ public class Doctor extends User {
         return id + 1;
     }
 
-    /*
-    public void showDocApptsSortedByDateTime(String upDown) {
-        showDocApptsSortedByDateTime(this.id, upDown);
-    }
-
-    public static void showDocApptsSortedByDateTime(int docId, String upDown) {
-        showSortedDocApptsByCriteria(docId,upDown,"DateTime");
-    }
-
-    public void showDocApptsSortedByPatientNames(String upDown) {
-        showDocApptsSortedByPatientNames(this.id, upDown);
-    }
-
-    public static void showDocApptsSortedByPatientNames(int docId, String upDown) {
-        showSortedDocApptsByCriteria(docId,upDown,"PatientNames");
-    }
-
-    public void showDocApptsSortedByPatientId(String upDown) {
-        showDocApptsSortedByPatientId(this.id, upDown);
-    }
-
-    public static void showDocApptsSortedByPatientId(int docId, String upDown) {
-        showSortedDocApptsByCriteria(docId,upDown,"PatientID");
-    }
-     */
-
     public void showSortedDocApptsByCriteria(String upDown, SortCriteria criterion){
         showSortedDocApptsByCriteria(this.id, upDown, criterion);
     }
@@ -76,18 +47,9 @@ public class Doctor extends User {
             if (app.doctorID==docId) docAppts.add(app);
         }
         if (!docAppts.isEmpty()) {
-            sortApptsByCriteria(docAppts, upDown, criterion);
+            Appointment.sortApptsByCriteria(docAppts, upDown, criterion);
             for (Appointment app: docAppts) { System.out.println(app); }
         } else System.out.println("The doctor doesn't have any appointments.");
-    }
-
-    private static void sortApptsByCriteria(List<Appointment> docAppts, String upDown, SortCriteria criterion){
-            switch (criterion) {
-                case DATE_TIME -> docAppts.sort(Comparator.comparing(Appointment::getDateTimeComparingKey));
-                case PATIENT_NAMES -> docAppts.sort(Comparator.comparing(Appointment::getPatientNames));
-                case PATIENT_ID -> docAppts.sort(Comparator.comparing(Appointment::getPatientID));
-            }
-        if (upDown.equalsIgnoreCase("down")) Collections.reverse(docAppts);
     }
 
     public void removeDocAppointment() {

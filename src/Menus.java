@@ -59,55 +59,37 @@ public abstract class Menus {
     static void doRequest(int choice){
 
         switch (choice) {
-            case 0: DBase.currentUser =  new Anonymous(); break;
-            case 1: Authorize.loginAsPatient(); break;
-            case 2: Authorize.loginAsDoctor(); break;
-            case 3: Authorize.loginAsBoss(); break;
-            case 4: Hospital.showDoctors(); break;
-            case 5: Hospital.showPatients(); break;
-            case 6: {
+            case 0 -> DBase.currentUser = new Anonymous();
+            case 1 -> Authorize.loginAsPatient();
+            case 2 -> Authorize.loginAsDoctor();
+            case 3 -> Authorize.loginAsBoss();
+            case 4 -> Hospital.showDoctors();
+            case 5 -> Hospital.showPatients();
+            case 6 -> {
                 System.out.print("Please enter doctor_id:");
                 int docId = CheckInputData.inputPositiveInteger();
-                //Doctor.showDocApptsSortedByDateTime(docId, "Up");
                 Doctor.showSortedDocApptsByCriteria(docId, "Up", SortCriteria.DATE_TIME);
-                break;
             }
-            case 7: {
-                //Doctor.showDocApptsSortedByDateTime(((Doctor) DBase.currentUser).id,"Up");
-                Doctor.showSortedDocApptsByCriteria(((Doctor) DBase.currentUser).id,"Up", SortCriteria.DATE_TIME);
-                break;
-            }
-            case 8: {
-                Patient.showAppointmentsByPatientId(((Patient) DBase.currentUser).id); break;
-            }
-            case 9: {
+            case 7 -> Doctor.showSortedDocApptsByCriteria(((Doctor) DBase.currentUser).id, "Up", SortCriteria.DATE_TIME);
+            case 8 -> Patient.showAppointmentsByPatientId(((Patient) DBase.currentUser).id);
+            case 9 -> {
                 System.out.print("Please enter patient_id:");
                 int patId = CheckInputData.inputPositiveInteger();
                 Patient.showAppointmentsByPatientId(patId);
-                break;
             }
-            case 10:{
+            case 10 -> {
                 selectDoctorAndSortDirection();
-                //Doctor.showDocApptsSortedByDateTime(chosenDoctorID,sortedByUpDown);
-                Doctor.showSortedDocApptsByCriteria(chosenDoctorID,sortedByUpDown, SortCriteria.DATE_TIME);
-                break;
+                Doctor.showSortedDocApptsByCriteria(chosenDoctorID, sortedByUpDown, SortCriteria.DATE_TIME);
             }
-            case 11:{
+            case 11 -> {
                 selectDoctorAndSortDirection();
-                //Doctor.showDocApptsSortedByPatientNames(chosenDoctorID,sortedByUpDown);
-                Doctor.showSortedDocApptsByCriteria(chosenDoctorID,sortedByUpDown, SortCriteria.PATIENT_NAMES);
-                break;
+                Doctor.showSortedDocApptsByCriteria(chosenDoctorID, sortedByUpDown, SortCriteria.PATIENT_NAMES);
             }
-            case 12:{
+            case 12 -> {
                 selectDoctorAndSortDirection();
-                //Doctor.showDocApptsSortedByPatientId(chosenDoctorID,sortedByUpDown);
-                Doctor.showSortedDocApptsByCriteria(chosenDoctorID,sortedByUpDown, SortCriteria.PATIENT_ID);
-                break;
+                Doctor.showSortedDocApptsByCriteria(chosenDoctorID, sortedByUpDown, SortCriteria.PATIENT_ID);
             }
-            case 13:{
-                Hospital.showPatientsByDocNames("Martin", "Katev");
-            }
-
+            case 13 -> Hospital.showPatientsByDocNames("Martin", "Katev");
         }
     }
 

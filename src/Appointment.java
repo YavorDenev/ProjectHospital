@@ -1,6 +1,9 @@
 import java.awt.*;
 import java.sql.Array;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public class Appointment {
     int id;
@@ -74,6 +77,15 @@ public class Appointment {
     public long getDateTimeComparingKey() {
         String[] d = this.date.split("-");
         return this.time + 10000 * Long.parseLong(d[2] + d[1] + d[0]);
+    }
+
+    public static void sortApptsByCriteria(List<Appointment> appointments, String upDown, SortCriteria criterion){
+        switch (criterion) {
+            case DATE_TIME -> appointments.sort(Comparator.comparing(Appointment::getDateTimeComparingKey));
+            case PATIENT_NAMES -> appointments.sort(Comparator.comparing(Appointment::getPatientNames));
+            case PATIENT_ID -> appointments.sort(Comparator.comparing(Appointment::getPatientID));
+        }
+        if (upDown.equalsIgnoreCase("down")) Collections.reverse(appointments);
     }
 
     @Override
