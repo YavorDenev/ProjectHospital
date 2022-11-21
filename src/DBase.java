@@ -50,7 +50,7 @@ public abstract class DBase {
                                                                                                         // ====> Doctor.showSortedDocApptsByCriteria(Up/Down, SortCriteria.PATIENT_NAMES);
         allowedActions[12] = "show sorted calendar on doctor_id by patient_id"; //boss, doctor > Up/Down ======> Doctor.showSortedDocApptsByCriteria(docId, Up/Down, SortCriteria.PATIENT_ID);
                                                                                                       // ======> Doctor.showSortedDocApptsByCriteria(Up/Down, SortCriteria.PATIENT_ID);
-        allowedActions[13] = "show sorted calendar by doctor_firstName"; //boss, doctor > Down  <---------- НЕ СЕ ИСКА, НЕ ГО ПРАВЯ
+        allowedActions[13] = "show sorted calendar by doctor names"; //boss, doctor > Down  <---------- НЕ СЕ ИСКА, НЕ ГО ПРАВЯ
         allowedActions[14] = "show sorted calendar by speciality"; //boss, doctor > Down  <---------------- НЕ СЕ ИСКА, НЕ ГО ПРАВЯ
         allowedActions[15] = "show sorted calendar by datetime"; //boss, doctor > Down  <------------------ НЕ СЕ ИСКА, НЕ ГО ПРАВЯ
         // ----- ВМЕСТО ГОРНИТЕ ТРИ МЕТОДА ДОБАВЯМ: ------

@@ -21,7 +21,6 @@ public abstract class Hospital {
             if (doc.firstName.equalsIgnoreCase(firstName) &&
                     doc.lastName.equalsIgnoreCase(lastName)) {
                 Doctor.showDocHeader(doc.id," (patients list)");
-                //System.out.println("--------  doctor's ID: " + doc.id + " " + doc.firstName + " " + doc.lastName + " patient list  --------");
                 doc.showMyPatients();
                 f = false;
                 break;

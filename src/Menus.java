@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public abstract class Menus {
@@ -89,7 +91,21 @@ public abstract class Menus {
                 selectDoctorAndSortDirection();
                 Doctor.showSortedDocApptsByCriteria(chosenDoctorID, sortedByUpDown, SortCriteria.PATIENT_ID);
             }
-            case 13 -> Hospital.showPatientsByDocNames("Martin", "Katev");
+            case 13 -> {
+                String docFirstName = "";
+                String docLastName = "";
+                boolean isCorrectDoctorNames = false;
+                while (!isCorrectDoctorNames){
+                    docFirstName = scn.nextLine();
+                    docLastName = scn.nextLine();
+                    isCorrectDoctorNames = isSuchADoctorInHospital(docFirstName,docLastName);
+                    if (!isCorrectDoctorNames) System.out.println("Doctor not found. Please try again.");
+                }
+                Hospital.showPatientsByDocNames(docFirstName, docLastName);
+            }
+            case 14 -> {
+                Hospital.showPatientsBySpeciality(choseSpeciality());
+            }
         }
     }
 
@@ -110,4 +126,29 @@ public abstract class Menus {
         sortedByUpDown = (chSort==1) ? "Up":"Down";
     }
 
+    private static boolean isSuchADoctorInHospital(String firstName, String lastName){
+        for (Doctor doc: DBase.doctors){
+            boolean check = (firstName.equalsIgnoreCase(doc.firstName)) && (lastName.equalsIgnoreCase(doc.lastName));
+            if (check) return true;
+        }
+        return false;
+    }
+
+    private static String choseSpeciality(){
+        Map<Integer, String> specMap = new HashMap();
+
+        int br =0;
+        for (Speciality sp : DBase.specialities){
+            br++;
+            System.out.println(br+")"+sp.name);
+            specMap.put(sp.id,sp.name);
+        }
+
+        int choice = 0;
+        while (choice>br||choice<1){
+            System.out.print("Please enter number of speciality:");
+            choice = scn.nextInt();
+        }
+        return specMap.get(choice);
+    }
 }
