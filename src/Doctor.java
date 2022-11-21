@@ -52,19 +52,17 @@ public class Doctor extends User {
         } else System.out.println("The doctor doesn't have any appointments.");
     }
 
-    public void removeDocAppointment() {
-        System.out.println("Enter appointment Id to remove ...");
-        int idToRemove = CheckInputData.inputPositiveInteger();
-        int index = getDocAppointmentIndex(idToRemove);
+    public void removeDocAppointment(int appId) {
+        int index = getDocAppointmentIndex(appId);
         if (index >= 0) {
             DBase.appointments.remove(index);
         }
         else System.out.println("You do not have an appointment with such an ID");
     }
 
-    private int getDocAppointmentIndex(int idToRemove) {
+    private int getDocAppointmentIndex(int appId) {
         for (Appointment app: DBase.appointments) {
-            if (app.id==idToRemove && app.doctorID==this.id) {
+            if (app.id==appId && app.doctorID==this.id) {
                 return DBase.appointments.indexOf(app);
             }
         }

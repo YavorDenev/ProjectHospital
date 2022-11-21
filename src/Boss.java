@@ -12,12 +12,10 @@ public class Boss extends User{
         DBase.bosses.add(this);
     }
 
-    public void removeAppointment() {
-        System.out.println("Enter appointment Id to remove ...");
-        int idToRemove = CheckInputData.inputPositiveInteger();
+    public void removeAppointment(int appIdToRemove) {
         boolean f = true;
         for (Appointment app: DBase.appointments) {
-            if (app.id==idToRemove) {
+            if (app.id==appIdToRemove) {
                 DBase.appointments.remove(app);
                 f = false;
                 break;
@@ -40,20 +38,6 @@ public class Boss extends User{
         }
     }
 
-    public void makeDoctorInactive() {
-        System.out.println("Enter doctor ID to hide ...");
-        int idToHide = CheckInputData.inputPositiveInteger();
-        boolean f = true;
-        for (Doctor d: DBase.doctors) {
-            if (d.id==idToHide) {
-                d.isHidden = true;
-                f = false;
-                break;
-            }
-        }
-        if (f) System.out.println("There is no doctor with such an ID");
-    }
-
     public void addSpeciality(String name) {
         boolean f = true;
         for (Speciality s: DBase.specialities) {
@@ -65,13 +49,23 @@ public class Boss extends User{
         if (f) DBase.specialities.add(new Speciality(name));
     }
 
-    public void makeSpecialityInactive() {
-        System.out.println("Enter speciality ID to hide ...");
-        int idToHide = CheckInputData.inputPositiveInteger();
+    public void changeDoctorVisibility(int idToChangeVis) {
+        boolean f = true;
+        for (Doctor d: DBase.doctors) {
+            if (d.id==idToChangeVis) {
+                d.isHidden = !d.isHidden;
+                f = false;
+                break;
+            }
+        }
+        if (f) System.out.println("There is no doctor with such an ID");
+    }
+
+    public void changeSpecVisibility(int idToChangeVis) {
         boolean f = true;
         for (Speciality s: DBase.specialities) {
-            if (s.id==idToHide) {
-                s.isHidden = true;
+            if (s.id==idToChangeVis) {
+                s.isHidden = !s.isHidden;
                 f = false;
                 break;
             }

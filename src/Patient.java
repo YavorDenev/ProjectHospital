@@ -27,25 +27,23 @@ public class Patient extends User {
         }
     }
 
-    public void removeMyAppointment() {
-        System.out.println("Enter appointment Id to remove ...");
-        int idToRemove = CheckInputData.inputPositiveInteger();
-        int index = getMyAppointmentIndex(idToRemove);
+    public void removeMyAppointment(int appIdToRemove) {
+        int index = getMyAppointmentIndex(appIdToRemove);
         if (index >= 0) {
             DBase.appointments.remove(index);
         } else System.out.println("You do not have an appointment with such an ID");
     }
 
-    private int getMyAppointmentIndex(int idToRemove) {
+    private int getMyAppointmentIndex(int appId) {
         for (Appointment app: DBase.appointments) {
-            if (app.id==idToRemove && app.patientID==this.id) {
+            if (app.id==appId && app.patientID==this.id) {
                 return DBase.appointments.indexOf(app);
             }
         }
         return -1;
     }
-    public void changeAppointmentsDateTime(int apptIdToChange, String date, int time) {
-        int index = getMyAppointmentIndex(apptIdToChange);
+    public void changeAppointmentsDateTime(int appIdToChange, String date, int time) {
+        int index = getMyAppointmentIndex(appIdToChange);
         if (index >= 0) {
             if (checkIfDateTimeIsFreeByMe(date, time)) {
                 DBase.appointments.get(index).setDate(date);
@@ -63,14 +61,6 @@ public class Patient extends User {
 
     public void AddAppointment(int docId, String typeOfExam, String date, int time) {
         DBase.appointments.add(new Appointment(this.id, docId, typeOfExam, date, time));
-    }
-
-    public String toStringOld() {  //todo delete later
-        return "id:" + id +
-                " " + firstName +
-                " " + lastName +
-                ", age: " + age +
-                ", sex: " + sex;
     }
 
     @Override
