@@ -1,3 +1,4 @@
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Array;
@@ -7,6 +8,14 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BossTest {
+
+    @AfterEach
+    public void cleanLists(){
+        DBase.appointments = new ArrayList<>();
+        DBase.patients = new ArrayList<>();
+        DBase.doctors = new ArrayList<>();
+        DBase.specialities = new ArrayList<>();
+    }
 
     Boss boss = new Boss("ffff", "llll", 50, "f", "abcd");
 
@@ -102,44 +111,37 @@ public class BossTest {
     @Test
     public void testChangeDoctorVisibility() {
         Doctor d1 = new Doctor();
-        d1.id = 1;
+        d1.id = 5;
         d1.isHidden = true;
 
         Doctor d2 = new Doctor();
-        d2.id = 2;
+        d2.id = 9;
         d2.isHidden = false;
 
         DBase.doctors = List.of(d1,d2);
-        boss.changeDoctorVisibility(1);
-        boss.changeDoctorVisibility(2);
+        boss.changeDoctorVisibility(5);
+        boss.changeDoctorVisibility(9);
 
         assertFalse(DBase.doctors.get(0).isHidden);
         assertTrue(DBase.doctors.get(1).isHidden);
-
-        DBase.doctors = new ArrayList<>();
     }
 
     @Test
     public void testChangeSpecVisibility() {
         Speciality s1 = new Speciality();
-        s1.id = 1;
+        s1.id = 99;
         s1.isHidden = true;
 
         Speciality s2 = new Speciality();
-        s2.id = 2;
+        s2.id = 88;
         s2.isHidden = false;
 
         DBase.specialities = List.of(s1,s2);
-        boss.changeSpecVisibility(1);
-        boss.changeSpecVisibility(2);
+        boss.changeSpecVisibility(99);
+        boss.changeSpecVisibility(88);
 
         assertFalse(DBase.specialities.get(0).isHidden);
         assertTrue(DBase.specialities.get(1).isHidden);
-
-        DBase.specialities = new ArrayList<>();
     }
-
-
-
 
 }

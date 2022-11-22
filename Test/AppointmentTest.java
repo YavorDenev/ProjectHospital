@@ -1,3 +1,4 @@
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -5,6 +6,12 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AppointmentTest {
+
+    @AfterEach
+    public void cleanLists(){
+        DBase.appointments = new ArrayList<>();
+        DBase.patients = new ArrayList<>();
+    }
 
     @Test
     public void testGetPatientNames() {
@@ -36,9 +43,6 @@ public class AppointmentTest {
         assertEquals(expected, actual);
     }
 
-
-
-
     @Test
     public void testGenerateAppId() {
         DBase.appointments = new ArrayList<>();
@@ -48,10 +52,7 @@ public class AppointmentTest {
         int expected = 1001;
         int actual = app.getId();
         assertEquals(expected, actual);
-
-        DBase.appointments = new ArrayList<>();
     }
-
 
     @Test
     public void testGenerateAppIdWhenAppointmentsIsEmpty() {
@@ -60,8 +61,6 @@ public class AppointmentTest {
         int expected = 1;
         int actual = app.getId();
         assertEquals(expected, actual);
-
-        DBase.appointments = new ArrayList<>();
     }
 
 }

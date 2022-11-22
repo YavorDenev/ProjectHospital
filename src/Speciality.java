@@ -1,8 +1,15 @@
 public class Speciality {
+    int id;
+    String name;
+    boolean isHidden;
 
-    public int id;
-    public String name;
-    public boolean isHidden;
+    public int getId() {
+        return id;
+    }
+
+    public boolean isHidden() {
+        return isHidden;
+    }
 
     public Speciality() {}
 
