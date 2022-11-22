@@ -6,7 +6,7 @@ public class Main {
         ReadWrite.getSpecialitiesFromFile("specialities.txt");
         ReadWrite.getDoctorsFromFile("doctors.txt");
         ReadWrite.getPatientsFromFile("real_patients.txt");
-        ReadWrite.getAppointmentsFromFile("real_appointments.txt");
+        ReadWrite.getAppointmentsFromFile("appointments.txt");
         ReadWrite.getClassAllowedActionsFromFile("arrayListUserAllowedActions.txt");
         DBase.initializeAllowedActions();
 
@@ -20,6 +20,10 @@ public class Main {
 
         //TestKatev.doTests();
         //TestYavor.doTests();
+
+        DBase.appointments.get(0).setDate("10-12-2022");//hard change
+
+        Write.writeAppointmentsData();
 
         Menus.startPoint();
     }

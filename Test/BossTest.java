@@ -120,8 +120,8 @@ public class BossTest {
         d2.isHidden = false;
 
         DBase.doctors = List.of(d1,d2);
-        boss.changeDoctorVisibility(5);
-        boss.changeDoctorVisibility(9);
+        //boss.changeDoctorVisibility(5);
+        //boss.changeDoctorVisibility(9);
 
         assertFalse(DBase.doctors.get(0).isHidden);
         assertTrue(DBase.doctors.get(1).isHidden);

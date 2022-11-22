@@ -157,22 +157,23 @@ public abstract class ReadWrite {
         try {
             BufferedReader br = new BufferedReader(new FileReader(filename));
             while ((line = br.readLine()) != null) {
-                String[] field = line.split(splitBy);  // use comma as separator
-                //System.out.println("appID=" + field[0] + ", patID=" + field[1] + ", typeApp=" + field[2]
-                //        + " Date:" + field[3] + " Time:" + field[4])+ " docID:" + field[5]);
+                 //if (line.equals("null")) break;
 
-                ArrayIndexOutOfBoundsException eArrayOB = new ArrayIndexOutOfBoundsException();
-                if (field.length != 6) throw eArrayOB;
+                 String[] field = line.split(splitBy);  // use comma as separator
 
-                if (reckords > 0) {
-                    //Read current Object
-                    Appointment tmpAppointment = new Appointment();
-                    tmpAppointment.id = Integer.parseInt(field[0]);
-                    tmpAppointment.patientID = Integer.parseInt(field[1]); //todo catch Exception
-                    tmpAppointment.typeOfExamination = field[2];
-                    tmpAppointment.date = field[3];  //todo obrabotka
-                    tmpAppointment.time = Integer.parseInt(field[4]); //todo obrabotka
-                    tmpAppointment.doctorID = Integer.parseInt(field[5]);
+                 ArrayIndexOutOfBoundsException eArrayOB = new ArrayIndexOutOfBoundsException();
+                 if (field.length != 6) throw eArrayOB;
+
+
+                 if (reckords > 0) {
+                     //Read current Object
+                     Appointment tmpAppointment = new Appointment();
+                     tmpAppointment.id = Integer.parseInt(field[0]);
+                     tmpAppointment.patientID = Integer.parseInt(field[1]); //todo catch Exception
+                     tmpAppointment.typeOfExamination = field[2];
+                     tmpAppointment.date = field[3];  //todo obrabotka
+                     tmpAppointment.time = Integer.parseInt(field[4]); //todo obrabotka
+                     tmpAppointment.doctorID = Integer.parseInt(field[5]);
 
                     //Put Object in ArrayList
                     DBase.appointments.add(tmpAppointment); //first row is header

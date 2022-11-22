@@ -49,18 +49,6 @@ public class Boss extends User{
         if (f) DBase.specialities.add(new Speciality(name));
     }
 
-    public void changeDoctorVisibility(int idToChangeVis) {
-        boolean f = true;
-        for (Doctor d: DBase.doctors) {
-            if (d.id==idToChangeVis) {
-                d.isHidden = !d.isHidden;
-                f = false;
-                break;
-            }
-        }
-        if (f) System.out.println("There is no doctor with such an ID");
-    }
-
     public void changeSpecVisibility(int idToChangeVis) {
         boolean f = true;
         for (Speciality s: DBase.specialities) {
