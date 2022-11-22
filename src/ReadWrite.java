@@ -187,7 +187,7 @@ public abstract class ReadWrite {
             System.exit(0);
         }
 
-        //-------от стария вариант------  Db.appointments = appointments.toArray(new Appointment[0]);
+        DBase.setActiveDays(); //set DBase.activeDays from appointments records
     }
 
     public static void getClassAllowedActionsFromFile(String filename){
