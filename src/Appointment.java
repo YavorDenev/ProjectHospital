@@ -22,18 +22,6 @@ public class Appointment {
         return doctorID;
     }
 
-    public String getTypeOfExamination() {
-        return typeOfExamination;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public int getTime() {
-        return time;
-    }
-
     void setDate(String date) {
         this.date = date;
     }

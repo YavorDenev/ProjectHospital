@@ -1,6 +1,10 @@
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class BossTest {
 
@@ -65,6 +69,76 @@ public class BossTest {
 
         assertEquals(before, after);
     }
+
+    @Test
+    public void testRemoveAppointmentWhenIdExists() {
+        ReadWrite.getAppointmentsFromFile("real_appointments.txt");
+
+        int before = DBase.appointments.size();
+        int idToRemove = DBase.appointments.get(0).id;
+        boss.removeAppointment(idToRemove);
+        int after = DBase.appointments.size();
+
+        assertNotEquals(idToRemove, DBase.appointments.get(0).id);
+        assertNotEquals(before, after);
+    }
+
+    @Test
+    public void testRemoveAppointmentWhenIdNotExists() {
+        ReadWrite.getAppointmentsFromFile("real_appointments.txt");
+
+        int maxId = DBase.appointments.get(0).id;;
+        for (Appointment a: DBase.appointments) {
+            if (maxId < a.id) maxId = a.id;
+        }
+        int idToRemove = maxId + 1;
+        int before = DBase.appointments.size();
+        boss.removeAppointment(idToRemove);
+        int after = DBase.appointments.size();
+
+        assertEquals(before, after);
+    }
+
+    @Test
+    public void testChangeDoctorVisibility() {
+        Doctor d1 = new Doctor();
+        d1.id = 1;
+        d1.isHidden = true;
+
+        Doctor d2 = new Doctor();
+        d2.id = 2;
+        d2.isHidden = false;
+
+        DBase.doctors = List.of(d1,d2);
+        boss.changeDoctorVisibility(1);
+        boss.changeDoctorVisibility(2);
+
+        assertFalse(DBase.doctors.get(0).isHidden);
+        assertTrue(DBase.doctors.get(1).isHidden);
+
+        DBase.doctors = new ArrayList<>();
+    }
+
+    @Test
+    public void testChangeSpecVisibility() {
+        Speciality s1 = new Speciality();
+        s1.id = 1;
+        s1.isHidden = true;
+
+        Speciality s2 = new Speciality();
+        s2.id = 2;
+        s2.isHidden = false;
+
+        DBase.specialities = List.of(s1,s2);
+        boss.changeSpecVisibility(1);
+        boss.changeSpecVisibility(2);
+
+        assertFalse(DBase.specialities.get(0).isHidden);
+        assertTrue(DBase.specialities.get(1).isHidden);
+
+        DBase.specialities = new ArrayList<>();
+    }
+
 
 
 
