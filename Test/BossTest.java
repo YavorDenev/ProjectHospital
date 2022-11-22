@@ -83,13 +83,14 @@ public class BossTest {
     public void testRemoveAppointmentWhenIdExists() {
         ReadWrite.getAppointmentsFromFile("real_appointments.txt");
 
-        int before = DBase.appointments.size();
-        int idToRemove = DBase.appointments.get(0).id;
-        boss.removeAppointment(idToRemove);
-        int after = DBase.appointments.size();
+        int sizeBefore = DBase.appointments.size();
+        int idBefore = DBase.appointments.get(0).getId();
+        boss.removeAppointment(idBefore);
+        int sizeAfter = DBase.appointments.size();
+        int idAfter = DBase.appointments.get(0).getId();
 
-        assertNotEquals(idToRemove, DBase.appointments.get(0).id);
-        assertNotEquals(before, after);
+        assertNotEquals(idBefore,idAfter);
+        assertEquals(1, sizeBefore - sizeAfter);
     }
 
     @Test

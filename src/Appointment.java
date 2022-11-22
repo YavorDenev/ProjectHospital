@@ -22,6 +22,10 @@ public class Appointment {
         return doctorID;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     void setDate(String date) {
         this.date = date;
     }

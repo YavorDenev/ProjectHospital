@@ -7,6 +7,13 @@ public class Doctor extends User {
     static ArrayList<Integer> allowedActions = new ArrayList<>();
     public static String userType = "Doctor"; //First word in arrayListUserRights.csv file
 
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public Doctor() {}
 
     public Doctor(String firstName, String lastName, int age, String sex, String speciality) {
