@@ -93,7 +93,9 @@ public abstract class Menus {
                 String docLastName = "";
                 boolean isCorrectDoctorNames = false;
                 while (!isCorrectDoctorNames){
+                    System.out.print("Please enter doctor first name:");
                     docFirstName = scn.nextLine();
+                    System.out.print("Please enter doctor last name:");
                     docLastName = scn.nextLine();
                     isCorrectDoctorNames = isSuchADoctorInHospital(docFirstName,docLastName);
                     if (!isCorrectDoctorNames) System.out.println("Doctor not found. Please try again.");
@@ -142,9 +144,11 @@ public abstract class Menus {
         }
 
         int choice = 0;
+        String valid = "";
         while (choice>br||choice<1){
-            System.out.print("Please enter number of speciality:");
-            choice = scn.nextInt();
+            System.out.print("Please enter" + valid + " number of speciality:");
+            choice = CheckInputData.inputPositiveInteger();
+            valid = " a valid";
         }
         return specMap.get(choice);
     }
@@ -166,9 +170,11 @@ public abstract class Menus {
         }
 
         int choice = 0;
+        String notice = "Chose data to view patients list:";
         while (choice> arrData.length||choice<1){
-            System.out.print("Chose data to view patients list:");
-            choice = scn.nextInt();
+            System.out.print(notice);
+            choice = CheckInputData.inputPositiveInteger();
+            notice = "Please select one of the dates listed above:";
         }
         return (String) arrData[choice-1];
     }
