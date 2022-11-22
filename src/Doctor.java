@@ -1,12 +1,18 @@
 import java.util.ArrayList;
 
 public class Doctor extends User {
-
-    public int id;
-    public boolean isHidden;
-    public String speciality;
+    int id;
+    boolean isHidden;
+    String speciality;
     static ArrayList<Integer> allowedActions = new ArrayList<>();
     public static String userType = "Doctor"; //First word in arrayListUserRights.csv file
+
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public Doctor() {}
 
