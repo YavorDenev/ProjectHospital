@@ -8,10 +8,9 @@ public abstract class Authorize {
         System.out.print("Please enter your first name:");
         String fName = scn.nextLine();
         System.out.print("Please enter your patient_id:");
-        //int id = scn.nextInt();
         int id = CheckInputData.inputPositiveInteger();
 
-                Patient foundUser = null;
+        Patient foundUser = null;
         boolean successLogin = false;
         for (Patient p : DBase.patients){
            if (p.id == id && p.firstName.toUpperCase().equals(fName.toUpperCase())){
@@ -30,7 +29,6 @@ public abstract class Authorize {
         String fName = scn.nextLine();
 
         System.out.print("Please enter your doctor_id:");
-        //int id = scn.nextInt();
         int id = CheckInputData.inputPositiveInteger();
 
         Doctor foundUser = null;

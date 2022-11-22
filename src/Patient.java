@@ -23,9 +23,17 @@ public class Patient extends User {
 
     public static void showAppointmentsByPatientId(int patientId) {
         System.out.println("");
-        for (Appointment app: DBase.appointments) {
-            if (app.patientID==patientId) System.out.println(app);
+        boolean f = true;
+        for (Patient p: DBase.patients) {
+            if (p.id==patientId) {
+                for (Appointment app: DBase.appointments) {
+                    if (app.patientID==patientId) System.out.println(app);
+                }
+                f = false;
+                break;
+            }
         }
+        if (f) System.out.println("There is no patient with such an ID.");
     }
 
     public void removeMyAppointment(int appIdToRemove) {

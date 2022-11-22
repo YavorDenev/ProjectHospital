@@ -52,7 +52,13 @@ public abstract class Menus {
     static int enterUserChoice(){
         System.out.print("Please enter your choice:");
         int ch = CheckInputData.inputNotNegativeInteger();
-        return ch;
+        for (int action: allowedActions) {   // -------------------> проверка дали въведеното число отговаря на allowedActions
+            if(action==ch) return ch;
+        }
+        System.out.println("Wrong number!");
+        enterUserChoice();
+        return 0;
+        //return ch;
     }
 
     static void doRequest(int choice){
@@ -65,9 +71,8 @@ public abstract class Menus {
             case 4 -> Hospital.showDoctors();
             case 5 -> Hospital.showPatients();
             case 6 -> {
-                System.out.print("Please enter doctor_id:");
-                int docId = CheckInputData.inputPositiveInteger();
-                Doctor.showSortedDocApptsByCriteria(docId, "Up", SortCriteria.DATE_TIME);
+                selectDoctorID();  // -------------------------------------------> проверка дали съществува доктор с такова ID
+                Doctor.showSortedDocApptsByCriteria(chosenDoctorID, "Up", SortCriteria.DATE_TIME);
             }
             case 7 -> Doctor.showSortedDocApptsByCriteria(((Doctor) DBase.currentUser).id, "Up", SortCriteria.DATE_TIME);
             case 8 -> Patient.showAppointmentsByPatientId(((Patient) DBase.currentUser).id);
@@ -124,6 +129,16 @@ public abstract class Menus {
         chosenDoctorID = docID;
         sortedByUpDown = (chSort==1) ? "Up":"Down";
     }
+
+    private static void selectDoctorID(){
+        int docID = 0;
+        while (docID> DBase.maxDoctorID || docID<1){
+            System.out.print("Please enter doctor_id:");
+            docID = CheckInputData.inputPositiveInteger();
+        }
+        chosenDoctorID = docID;
+    }
+
 
     private static boolean isSuchADoctorInHospital(String firstName, String lastName){
         for (Doctor doc: DBase.doctors){
