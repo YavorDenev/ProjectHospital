@@ -1,8 +1,5 @@
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public abstract class DBase {
 
@@ -24,6 +21,7 @@ public abstract class DBase {
     public static String[] allowedActions = new String[22];
 
     public static int maxDoctorID = 0;
+    public static ArrayList<String> activeDays = new ArrayList<>();
 
     static String[] examinations = new String[] {
             constAppointments.initial,
@@ -80,6 +78,37 @@ public abstract class DBase {
         static final String secondary = "secondary";
         static final String consultation = "consultation";
         static final String procedure = "procedure";
+    }
+
+    public static void setActiveDays(){
+        Set<String> setData = new HashSet(); //let use just dates in appointments
+
+        for (Appointment app : DBase.appointments){
+            if (!setData.contains(app.date)) setData.add(app.date);
+        }
+
+        Object[] arrData = setData.toArray();
+        arrData = reverseData(arrData);
+        Arrays.sort(arrData); //Da gi sortira s godinata otpred
+        arrData = reverseData(arrData);
+
+        ArrayList<String> tmpDataList = new ArrayList<>();
+        for (int i=1;i<=arrData.length;i++){
+            tmpDataList.add((String) arrData[i-1]);
+        }
+       activeDays = tmpDataList;
+    }
+
+    private static Object[] reverseData(Object[] data){
+        //Change DateTimeFormat from dd-mm-yyyy to yyyy-mm-dd
+        //and back from yyyy-mm-dd to dd-mm-yyyy
+
+        Object[] newArray =  new Object[data.length];
+        for (int i=0;i< data.length;i++){
+            String[] field = ((String) data[i]).split("-");
+            newArray[i] = field[2]+"-"+field[1]+"-"+field[0];
+        }
+        return newArray;
     }
 
 }

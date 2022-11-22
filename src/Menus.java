@@ -169,40 +169,20 @@ public abstract class Menus {
     }
 
     private static String choseDataForViewPatients(){
-        Set<String> setData = new HashSet(); //let use just dates in appointments
-
-        for (Appointment app : DBase.appointments){
-            if (!setData.contains(app.date)) setData.add(app.date);
-        }
-
-        Object[] arrData = setData.toArray();
-        arrData = reverseData(arrData);
-        Arrays.sort(arrData); //Da gi sortira s godinata otpred
-        arrData = reverseData(arrData);
-
-        for (int i=1;i<=arrData.length;i++){
-            System.out.println(i+") "+ arrData[i-1]);
-        }
-
         int choice = 0;
+        System.out.println("");
+
         String notice = "Chose data to view patients list:";
-        while (choice> arrData.length||choice<1){
+        for (int i=0 ; i<DBase.activeDays.size() ; i++){
+            System.out.println((i+1) + ")" + DBase.activeDays.get(i));
+        }
+        while (choice> DBase.activeDays.size()||choice<1){
             System.out.print(notice);
             choice = CheckInputData.inputPositiveInteger();
             notice = "Please select one of the dates listed above:";
         }
-        return (String) arrData[choice-1];
+        return DBase.activeDays.get(choice-1);
     }
 
-    private static Object[] reverseData(Object[] data){
-        //Change DateTimeFormat from dd-mm-yyyy to yyyy-mm-dd
-        //and back from yyyy-mm-dd to dd-mm-yyyy
 
-        Object[] newArray =  new Object[data.length];
-        for (int i=0;i< data.length;i++){
-            String[] field = ((String) data[i]).split("-");
-            newArray[i] = field[2]+"-"+field[1]+"-"+field[0];
-        }
-       return newArray;
-    }
 }
