@@ -40,7 +40,8 @@ public class Doctor extends User {
         if (!docAppts.isEmpty()) {
             Appointment.sortApptsByCriteria(docAppts, upDown, criterion);
             for (Appointment app: docAppts) { System.out.println(app); }
-        } else System.out.println("The doctor doesn't have any appointments.");
+        }
+        else System.out.println("The doctor doesn't have any appointments.");
     }
 
     public void removeDocAppointment(int appId) {

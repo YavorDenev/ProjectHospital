@@ -22,6 +22,7 @@ public class Patient extends User {
     }
 
     public static void showAppointmentsByPatientId(int patientId) {
+        System.out.println("");
         for (Appointment app: DBase.appointments) {
             if (app.patientID==patientId) System.out.println(app);
         }
