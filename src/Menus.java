@@ -62,36 +62,44 @@ public abstract class Menus {
     static void doRequest(int choice){
 
         switch (choice) {
-            case 0 -> DBase.currentUser = new Anonymous();
-            case 1 -> Authorize.loginAsPatient();
-            case 2 -> Authorize.loginAsDoctor();
-            case 3 -> Authorize.loginAsBoss();
-            case 4 -> Hospital.showDoctors();
-            case 5 -> Hospital.showPatients();
-            case 6 -> {
+
+            case 0 -> System.exit(0);
+            case 1 -> DBase.currentUser = new Anonymous();
+            case 2 -> Authorize.loginAsPatient();
+            case 3 -> Authorize.loginAsDoctor();
+            case 4 -> Authorize.loginAsBoss();
+            case 7 -> Hospital.showDoctors();
+            case 8 -> Hospital.showPatients();
+            case 9 -> {
                 selectDoctorID();  // -------------------------------------------> проверка дали съществува доктор с такова ID
                 Doctor.showSortedDocApptsByCriteria(chosenDoctorID, "Up", SortCriteria.DATE_TIME);
             }
-            case 7 -> Doctor.showSortedDocApptsByCriteria(((Doctor) DBase.currentUser).id, "Up", SortCriteria.DATE_TIME);
-            case 8 -> Patient.showAppointmentsByPatientId(((Patient) DBase.currentUser).id);
-            case 9 -> {
+            case 10 -> {
+                if (DBase.currentUser instanceof Patient)  {
+                    Patient.showAppointmentsByPatientId(((Patient) DBase.currentUser).id);
+                }
+                if (DBase.currentUser instanceof Doctor) {
+                    Doctor.showSortedDocApptsByCriteria(((Doctor) DBase.currentUser).id, "Up", SortCriteria.DATE_TIME);
+                }
+            }
+            case 11 -> {
                 System.out.print("Please enter patient_id:");
                 int patId = CheckInputData.inputPositiveInteger();
                 Patient.showAppointmentsByPatientId(patId);
             }
-            case 10 -> {
+            case 12 -> {
                 selectDoctorAndSortDirection();
                 Doctor.showSortedDocApptsByCriteria(chosenDoctorID, sortedByUpDown, SortCriteria.DATE_TIME);
             }
-            case 11 -> {
+            case 13 -> {
                 selectDoctorAndSortDirection();
                 Doctor.showSortedDocApptsByCriteria(chosenDoctorID, sortedByUpDown, SortCriteria.PATIENT_NAMES);
             }
-            case 12 -> {
+            case 14 -> {
                 selectDoctorAndSortDirection();
                 Doctor.showSortedDocApptsByCriteria(chosenDoctorID, sortedByUpDown, SortCriteria.PATIENT_ID);
             }
-            case 13 -> {
+            case 15 -> {
                 String docFirstName = "";
                 String docLastName = "";
                 boolean isCorrectDoctorNames = false;
@@ -105,8 +113,8 @@ public abstract class Menus {
                 }
                 Hospital.showPatientsByDocNames(docFirstName, docLastName);
             }
-            case 14 -> Hospital.showPatientsBySpeciality(choseSpeciality());
-            case 15 -> Hospital.showPatientsByDate(choseDataForViewPatients());
+            case 16 -> Hospital.showPatientsBySpeciality(choseSpeciality());
+            case 17 -> Hospital.showPatientsByDate(choseDataForViewPatients());
 
         }
     }

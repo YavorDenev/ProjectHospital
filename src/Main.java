@@ -14,9 +14,9 @@ public class Main {
         Boss Katev = new Boss("Martin", "Katev", 46, "m", "Katev" );
 
         //HARD LOGIN
-         DBase.currentUser =  new Anonymous(); // final original login
+        // DBase.currentUser =  new Anonymous(); // final original login
         // DBase.currentUser =  Katev; // hard login
-        //DBase.currentUser =  DBase.doctorsMap.get(2);  // hard login
+        DBase.currentUser =  DBase.doctorsMap.get(2);  // hard login
 
         //TestKatev.doTests();
         //TestYavor.doTests();
