@@ -15,8 +15,8 @@ public class AppointmentTest {
 
     @Test
     public void testGetPatientNames() {
-        ReadWrite.getAppointmentsFromFile("real_appointments.txt");
-        ReadWrite.getPatientsFromFile("real_patients.txt");
+        Read.getAppointmentsFromFile("real_appointments.txt");
+        Read.getPatientsFromFile("real_patients.txt");
         Appointment app = DBase.appointments.get(0);
         String expected = "Anna-Maria, Alexandrova";
         String actual = app.getPatientNames();
@@ -25,7 +25,7 @@ public class AppointmentTest {
 
     @Test
     public void testGetPatientNamesWhenPatientIdIdWrong() {
-        ReadWrite.getPatientsFromFile("real_patients.txt");
+        Read.getPatientsFromFile("real_patients.txt");
         Appointment app = new Appointment();
         app.patientID = -1;
         String expected = "";
