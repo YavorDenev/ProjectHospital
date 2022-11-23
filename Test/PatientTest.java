@@ -64,13 +64,25 @@ public class PatientTest {
 
     @Test
     public void testAddAppointment() {
+        Read.getAppointmentsFromFile("appointments.txt");
         Patient p = new Patient();
 
+        int maxAppIdBefore = DBase.appointments.get(0).getId();;
+        for (Appointment a: DBase.appointments) {
+            if (maxAppIdBefore < a.getId()) maxAppIdBefore = a.getId();
+        }
+
         int sizeBefore = DBase.appointments.size();
-        DBase.appointments.add(new Appointment());
+        p.addAppointment(11, "xxx", "dddd", 1000);
         int sizeAfter = DBase.appointments.size();
 
         assertEquals(1, sizeAfter - sizeBefore);
+        assertEquals(p.getId(), DBase.appointments.get(sizeAfter-1).getPatientID());
+        assertEquals((maxAppIdBefore + 1), DBase.appointments.get(sizeAfter-1).getId());
     }
+
+
+
+
 
 }
