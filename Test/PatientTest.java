@@ -13,10 +13,11 @@ public class PatientTest {
         DBase.appointments = new ArrayList<>();
     }
 
+    Patient p = new Patient();
+
     @Test
     public void testRemoveMyAppointmentWhenAppIdExistsAndBelongsToThisPatient() {
         Read.getAppointmentsFromFile("appointments.txt");
-        Patient p = new Patient();
         p.setId(DBase.appointments.get(0).getPatientID());
 
         int idBefore = DBase.appointments.get(0).getId();
@@ -32,7 +33,6 @@ public class PatientTest {
     @Test
     public void testRemoveMyAppointmentWhenAppIdExistsButBelongsToAnotherPatient() {
         Read.getAppointmentsFromFile("appointments.txt");
-        Patient p = new Patient();
         p.setId(DBase.appointments.get(0).getPatientID() + 1);
 
         int idBefore = DBase.appointments.get(0).getId();
@@ -48,7 +48,6 @@ public class PatientTest {
     @Test
     public void testRemoveMyAppointmentWhenAppIdNotExists() {
         Read.getAppointmentsFromFile("appointments.txt");
-        Patient p = new Patient();
 
         int maxId = DBase.appointments.get(0).getId();;
         for (Appointment a: DBase.appointments) {
@@ -65,7 +64,6 @@ public class PatientTest {
     @Test
     public void testAddAppointment() {
         Read.getAppointmentsFromFile("appointments.txt");
-        Patient p = new Patient();
 
         int maxAppIdBefore = DBase.appointments.get(0).getId();;
         for (Appointment a: DBase.appointments) {
@@ -81,8 +79,66 @@ public class PatientTest {
         assertEquals((maxAppIdBefore + 1), DBase.appointments.get(sizeAfter-1).getId());
     }
 
+    @Test
+    public void testChangeAppointmentsDateTimeWhenAppIdExistsAndBelongsToThisPatient() {
+        Read.getAppointmentsFromFile("appointments.txt");
+        p.setId(DBase.appointments.get(0).getPatientID());
 
+        int appIdToChange = DBase.appointments.get(0).getId();
+        String date = "date";
+        int time = 9999;
+        p.changeAppointmentsDateTime(appIdToChange, date, time);
 
+        assertEquals(date, DBase.appointments.get(0).date);
+        assertEquals(time, DBase.appointments.get(0).time);
+    }
 
+    @Test
+    public void testChangeAppointmentsDateTimeWhenAppIdExistsButBelongsToAnotherPatient() {
+        Read.getAppointmentsFromFile("appointments.txt");
+        p.setId(DBase.appointments.get(0).getPatientID()+1);
+
+        int appIdToChange = DBase.appointments.get(0).getId();
+        String date = "date";
+        int time = 9999;
+        p.changeAppointmentsDateTime(appIdToChange, date, time);
+
+        assertNotEquals(date, DBase.appointments.get(0).date);
+        assertNotEquals(time, DBase.appointments.get(0).time);
+    }
+
+    @Test
+    public void testChangeAppointmentsDateTimeWhenAppIdNotExists() {
+        Read.getAppointmentsFromFile("appointments.txt");
+
+        int maxId = DBase.appointments.get(0).getId();;
+        for (Appointment a: DBase.appointments) {
+            if (maxId < a.getId()) maxId = a.getId();
+        }
+
+        int appIdToChange = maxId + 1;
+        String date = "date";
+        int time = 9999;
+        p.changeAppointmentsDateTime(appIdToChange, date, time);
+
+        assertNotEquals(date, DBase.appointments.get(0).date);
+        assertNotEquals(time, DBase.appointments.get(0).time);
+    }
+
+    @Test
+    public void testChangeAppointmentsDateTimeWhenPatientHasAnotherAppointmentAtTheSameDateTime() {
+        int patientId = 88;
+        String date = "date";
+        int time = 9999;
+
+        p.setId(patientId);
+        DBase.appointments.add(new Appointment(patientId, 1, "xxx", date, time));
+        DBase.appointments.add(new Appointment(patientId, 1, "xxx", "yy", 0));
+
+        p.changeAppointmentsDateTime(DBase.appointments.get(1).getId(), date, time);
+
+        assertNotEquals(date, DBase.appointments.get(1).date);
+        assertNotEquals(time, DBase.appointments.get(1).time);
+    }
 
 }
