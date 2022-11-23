@@ -6,23 +6,22 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-public class DoctorTest {
+public class PatientTest {
 
     @AfterEach
     public void cleanLists(){
         DBase.appointments = new ArrayList<>();
-        DBase.doctors = new ArrayList<>();
     }
 
     @Test
-    public void testRemoveDocAppointmentWhenAppIdExistsAndBelongsToThisDoctor() {
+    public void testRemoveMyAppointmentWhenAppIdExistsAndBelongsToThisPatient() {
         Read.getAppointmentsFromFile("appointments.txt");
-        Doctor doctor = new Doctor();
-        doctor.setId(DBase.appointments.get(0).getDoctorID());
+        Patient p = new Patient();
+        p.setId(DBase.appointments.get(0).getPatientID());
 
         int idBefore = DBase.appointments.get(0).getId();
         int sizeBefore = DBase.appointments.size();
-        doctor.removeDocAppointment(idBefore);
+        p.removeMyAppointment(idBefore);
         int idAfter = DBase.appointments.get(0).getId();
         int sizeAfter = DBase.appointments.size();
 
@@ -31,14 +30,14 @@ public class DoctorTest {
     }
 
     @Test
-    public void testRemoveDocAppointmentWhenAppIdExistsButBelongsToAnotherDoctor() {
+    public void testRemoveMyAppointmentWhenAppIdExistsButBelongsToAnotherPatient() {
         Read.getAppointmentsFromFile("appointments.txt");
-        Doctor doctor = new Doctor();
-        doctor.setId(DBase.appointments.get(0).getDoctorID() + 1);
+        Patient p = new Patient();
+        p.setId(DBase.appointments.get(0).getPatientID() + 1);
 
         int idBefore = DBase.appointments.get(0).getId();
         int sizeBefore = DBase.appointments.size();
-        doctor.removeDocAppointment(idBefore);
+        p.removeMyAppointment(idBefore);
         int idAfter = DBase.appointments.get(0).getId();
         int sizeAfter = DBase.appointments.size();
 
@@ -47,9 +46,9 @@ public class DoctorTest {
     }
 
     @Test
-    public void testRemoveDocAppointmentWhenAppIdNotExists() {
+    public void testRemoveMyAppointmentWhenAppIdNotExists() {
         Read.getAppointmentsFromFile("appointments.txt");
-        Doctor doctor = new Doctor();
+        Patient p = new Patient();
 
         int maxId = DBase.appointments.get(0).getId();;
         for (Appointment a: DBase.appointments) {
@@ -57,31 +56,21 @@ public class DoctorTest {
         }
         int idToRemove = maxId + 1;
         int before = DBase.appointments.size();
-        doctor.removeDocAppointment(idToRemove);
+        p.removeMyAppointment(idToRemove);
         int after = DBase.appointments.size();
 
         assertEquals(before, after);
     }
 
     @Test
-    public void testGenerateSDoctorId() {
-        DBase.doctors = new ArrayList<>();
-        DBase.doctors.add(new Doctor("zzz", "vvv", 55, "m", "nnn"));
-        int id = 555;
-        DBase.doctors.get(0).setId(id);
-        Doctor doctor = new Doctor("aaa", "bbb", 44, "m", "mmm");
-        int expected = id + 1;
-        int actual = doctor.getId();
-        assertEquals(expected, actual);
-    }
+    public void testAddAppointment() {
+        Patient p = new Patient();
 
-    @Test
-    public void testGenerateDoctorIdWhenDoctorsIsEmpty() {
-        DBase.doctors = new ArrayList<>();
-        Doctor doctor = new Doctor("aaa", "bbb", 99, "f", "xxxx");
-        int expected = 1;
-        int actual = doctor.getId();
-        assertEquals(expected, actual);
+        int sizeBefore = DBase.appointments.size();
+        DBase.appointments.add(new Appointment());
+        int sizeAfter = DBase.appointments.size();
+
+        assertEquals(1, sizeAfter - sizeBefore);
     }
 
 }

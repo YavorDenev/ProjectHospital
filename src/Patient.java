@@ -4,7 +4,16 @@ public class Patient extends User {
 
     public static String userType = "Patient"; //First word in arrayListUserRights.csv file
     static ArrayList<Integer> allowedActions = new ArrayList<>();
-    public int id;
+
+    int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public Patient(){
         //put data from file
@@ -68,7 +77,7 @@ public class Patient extends User {
         return true;
     }
 
-    public void AddAppointment(int docId, String typeOfExam, String date, int time) {
+    public void addAppointment(int docId, String typeOfExam, String date, int time) {
         DBase.appointments.add(new Appointment(this.id, docId, typeOfExam, date, time));
     }
 
@@ -77,7 +86,7 @@ public class Patient extends User {
 
         return fixLengthIn("id:" + id,9) +
                 getColorBySex(this.sex) + //set color
-                fixLengthIn(this.firstName+" "+this.lastName+" "+this.age+"y "+this.sex,44)+
+                fixLengthIn(this.firstName + " " + this.lastName + " " + this.age + "y " + this.sex,44) +
                 "\033[0m" ; //reset color
     }
 
