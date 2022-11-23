@@ -5,7 +5,7 @@ public class Main {
         //setDatabaseFromFiles();
         Read.getSpecialitiesFromFile("specialities.txt");
         Read.getDoctorsFromFile("doctors.txt");
-        Read.getPatientsFromFile("real_patients.txt");
+        Read.getPatientsFromFile("patients.txt");
         Read.getAppointmentsFromFile("appointments.txt");
         Read.getClassAllowedActionsFromFile("arrayListUserAllowedActions.txt");
         DBase.initializeAllowedActions();

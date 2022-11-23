@@ -41,7 +41,6 @@ public abstract class Read {
             System.out.println("Incorrect data in file " +filename+ " in row: " + (records+1));
             System.exit(0);
         }
-
     }
 
     public static void getDoctorsFromFile(String filename) {
