@@ -1,7 +1,6 @@
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +20,7 @@ public class BossTest {
 
     @Test
     public void testAddSpecialityWhenIsNew() {
-        ReadWrite.getSpecialitiesFromFile("specialities.txt");
+        Read.getSpecialitiesFromFile("specialities.txt");
         String expected = "new speciality";
         int before = DBase.specialities.size();
         boss.addSpeciality(expected);
@@ -33,7 +32,7 @@ public class BossTest {
 
     @Test
     public void testAddSpecialityWhenAlreadyExists() {
-        ReadWrite.getSpecialitiesFromFile("specialities.txt");
+        Read.getSpecialitiesFromFile("specialities.txt");
         int before = DBase.specialities.size();
         boss.addSpeciality("DerMaTology");
         int after = DBase.specialities.size();
@@ -42,7 +41,7 @@ public class BossTest {
 
     @Test
     public void testAddDoctorWhenIsNew() {
-        ReadWrite.getDoctorsFromFile("doctors.txt");
+        Read.getDoctorsFromFile("doctors.txt");
 
         String firstName = "aaa";
         String lastName = "bbb";
@@ -64,7 +63,7 @@ public class BossTest {
 
     @Test
     public void testAddDoctorWhenAlreadyExists() {
-        ReadWrite.getDoctorsFromFile("doctors.txt");
+        Read.getDoctorsFromFile("doctors.txt");
 
         String firstName = DBase.doctors.get(0).firstName;
         String lastName = DBase.doctors.get(0).lastName;
@@ -81,7 +80,7 @@ public class BossTest {
 
     @Test
     public void testRemoveAppointmentWhenIdExists() {
-        ReadWrite.getAppointmentsFromFile("real_appointments.txt");
+        Read.getAppointmentsFromFile("real_appointments.txt");
 
         int sizeBefore = DBase.appointments.size();
         int idBefore = DBase.appointments.get(0).getId();
@@ -95,7 +94,7 @@ public class BossTest {
 
     @Test
     public void testRemoveAppointmentWhenIdNotExists() {
-        ReadWrite.getAppointmentsFromFile("real_appointments.txt");
+        Read.getAppointmentsFromFile("real_appointments.txt");
 
         int maxId = DBase.appointments.get(0).id;;
         for (Appointment a: DBase.appointments) {
@@ -107,24 +106,6 @@ public class BossTest {
         int after = DBase.appointments.size();
 
         assertEquals(before, after);
-    }
-
-    @Test
-    public void testChangeDoctorVisibility() {
-        Doctor d1 = new Doctor();
-        d1.id = 5;
-        d1.isHidden = true;
-
-        Doctor d2 = new Doctor();
-        d2.id = 9;
-        d2.isHidden = false;
-
-        DBase.doctors = List.of(d1,d2);
-        //boss.changeDoctorVisibility(5);
-        //boss.changeDoctorVisibility(9);
-
-        assertFalse(DBase.doctors.get(0).isHidden);
-        assertTrue(DBase.doctors.get(1).isHidden);
     }
 
     @Test

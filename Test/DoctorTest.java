@@ -16,7 +16,7 @@ public class DoctorTest {
 
     @Test
     public void testRemoveDocAppointmentWhenAppIdExistsAndBelongsToThisDoctor() {
-        ReadWrite.getAppointmentsFromFile("real_appointments.txt");
+        Read.getAppointmentsFromFile("real_appointments.txt");
         Doctor doctor = new Doctor();
         doctor.setId(DBase.appointments.get(0).getDoctorID());
 
@@ -32,7 +32,7 @@ public class DoctorTest {
 
     @Test
     public void testRemoveDocAppointmentWhenAppIdExistsButBelongsToAnotherDoctor() {
-        ReadWrite.getAppointmentsFromFile("real_appointments.txt");
+        Read.getAppointmentsFromFile("real_appointments.txt");
         Doctor doctor = new Doctor();
         doctor.setId(DBase.appointments.get(0).getDoctorID() + 1);
 
@@ -48,7 +48,7 @@ public class DoctorTest {
 
     @Test
     public void testRemoveDocAppointmentWhenAppIdNotExists() {
-        ReadWrite.getAppointmentsFromFile("real_appointments.txt");
+        Read.getAppointmentsFromFile("real_appointments.txt");
         Doctor doctor = new Doctor();
 
         int maxId = DBase.appointments.get(0).id;;

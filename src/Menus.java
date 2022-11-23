@@ -34,7 +34,6 @@ public abstract class Menus {
             doRequest(choice);
             lastAction = choice;
         }
-
     }
 
     static void showCurrentUserAllowedActions() {
@@ -58,7 +57,6 @@ public abstract class Menus {
         System.out.println("Wrong number!");
         enterUserChoice();
         return 0;
-        //return ch;
     }
 
     static void doRequest(int choice){
@@ -139,7 +137,6 @@ public abstract class Menus {
         chosenDoctorID = docID;
     }
 
-
     private static boolean isSuchADoctorInHospital(String firstName, String lastName){
         for (Doctor doc: DBase.doctors){
             boolean check = (firstName.equalsIgnoreCase(doc.firstName)) && (lastName.equalsIgnoreCase(doc.lastName));
@@ -183,6 +180,5 @@ public abstract class Menus {
         }
         return DBase.activeDays.get(choice-1);
     }
-
 
 }

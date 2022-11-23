@@ -2,7 +2,6 @@ import java.util.ArrayList;
 
 public class Doctor extends User {
     int id;
-    boolean isHidden;
     String speciality;
     static ArrayList<Integer> allowedActions = new ArrayList<>();
     public static String userType = "Doctor"; //First word in arrayListUserRights.csv file
@@ -19,7 +18,6 @@ public class Doctor extends User {
     public Doctor(String firstName, String lastName, int age, String sex, String speciality) {
         super(firstName, lastName, age, sex);
         this.id = generateDoctorId();
-        this.isHidden = false;
         this.speciality = speciality;
     }
 

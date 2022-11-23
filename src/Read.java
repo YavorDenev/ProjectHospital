@@ -3,7 +3,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public abstract class ReadWrite {
+public abstract class Read {
 
     public static void getSpecialitiesFromFile(String filename){
         String line = "";
@@ -41,7 +41,6 @@ public abstract class ReadWrite {
             System.out.println("Incorrect data in file " +filename+ " in row: " + (records+1));
             System.exit(0);
         }
-
     }
 
     public static void getDoctorsFromFile(String filename) {
@@ -56,7 +55,7 @@ public abstract class ReadWrite {
                 String[] field = line.split(splitBy);
 
                 ArrayIndexOutOfBoundsException eArrayOB = new ArrayIndexOutOfBoundsException();
-                if (field.length != 7) throw eArrayOB; //csv must contain 7 fields
+                if (field.length != 6) throw eArrayOB; //csv must contain 7 fields
 
                 if (records > 0) { //first row is header
 
@@ -73,7 +72,7 @@ public abstract class ReadWrite {
                         System.out.println("Wrong sex field in " + filename + ". Sex must be marked as f or m");
                     }
                     tmpDoctor.sex = sx;
-                    tmpDoctor.isHidden = !field[6].equals("0");
+                    // tmpDoctor.isHidden = !field[6].equals("0");
 
                     DBase.doctors.add(tmpDoctor);  //Put this doctor in ArrayList
                     DBase.doctorsMap.put(tmpDoctor.id,tmpDoctor); //Put this doctor in Map
@@ -89,13 +88,6 @@ public abstract class ReadWrite {
             System.out.println("Incorrect data in file " + filename +" in row: " + (records + 1));
             System.exit(0);
         }
-        //-------от стария вариант------  Db.doctors = doctors.toArray(new Doctor[0]);
-    }
-
-    private static String getSex(String sex){
-        if (sex.toUpperCase().equals("F")) return "female";
-        if (sex.toUpperCase().equals("M")) return "male";
-        return "unknown"; //Can't recognize sex
     }
 
     public static void getPatientsFromFile(String filename) {
@@ -131,10 +123,8 @@ public abstract class ReadWrite {
                     DBase.patientsMap.put(tmpPatient.id,tmpPatient.firstName + " "
                             + tmpPatient.lastName + " " + tmpPatient.age + "y "
                             + tmpPatient.sex + " (id:"+tmpPatient.id+")" );
-
                 }
                 records++;
-
             }
         } catch (IOException e1) {
             System.out.println("File " + filename + " not found!");
@@ -143,15 +133,12 @@ public abstract class ReadWrite {
             System.out.println("Incorrect data in file " + filename + " in row: " + (records + 1));
             System.exit(0);
         }
-
-        //-------от стария вариант------  Db.patients = patients.toArray(new Patient[0]);
     }
 
     public static void getAppointmentsFromFile(String filename) {
         String line = "";
         String splitBy = ",";
 
-        //-------от стария вариант------  ArrayList<Appointment> appointments = new ArrayList<>();
         int reckords = 0;
 
         try {
@@ -236,6 +223,12 @@ public abstract class ReadWrite {
     private static ArrayList<Integer> copyArrayList(ArrayList<Integer> arrL1){
         ArrayList<Integer> newAL = new ArrayList<Integer>(arrL1);
         return newAL;
+    }
+
+    private static String getSex(String sex){
+        if (sex.toUpperCase().equals("F")) return "female";
+        if (sex.toUpperCase().equals("M")) return "male";
+        return "unknown"; //Can't recognize sex
     }
 
 }
