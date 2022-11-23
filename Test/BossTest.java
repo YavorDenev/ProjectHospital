@@ -80,7 +80,7 @@ public class BossTest {
 
     @Test
     public void testRemoveAppointmentWhenIdExists() {
-        Read.getAppointmentsFromFile("real_appointments.txt");
+        Read.getAppointmentsFromFile("appointments.txt");
 
         int sizeBefore = DBase.appointments.size();
         int idBefore = DBase.appointments.get(0).getId();
@@ -94,7 +94,7 @@ public class BossTest {
 
     @Test
     public void testRemoveAppointmentWhenIdNotExists() {
-        Read.getAppointmentsFromFile("real_appointments.txt");
+        Read.getAppointmentsFromFile("appointments.txt");
 
         int maxId = DBase.appointments.get(0).id;;
         for (Appointment a: DBase.appointments) {
