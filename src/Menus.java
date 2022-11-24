@@ -68,12 +68,16 @@ public abstract class Menus {
             case 2 -> Authorize.loginAsPatient();
             case 3 -> Authorize.loginAsDoctor();
             case 4 -> Authorize.loginAsBoss();
-            case 5 -> Patient.registerAsNewPatient();
+            case 5 -> {
+                Patient.registerAsNewPatient();
+                Write.writePatientsData(DBase.PATIENTS_FILE);
+                Read.getPatientsFromFile(DBase.PATIENTS_FILE);
+            }
             case 6 -> Hospital.showSpecialities();
             case 7 -> Hospital.showDoctors();
             case 8 -> Hospital.showPatients();
             case 9 -> {
-                selectDoctorID();  // -------------------------------------------> проверка дали съществува доктор с такова ID
+                selectDoctorID();
                 Doctor.showSortedDocApptsByCriteria(chosenDoctorID, "Up", SortCriteria.DATE_TIME);
             }
             case 10 -> {
@@ -117,8 +121,27 @@ public abstract class Menus {
             }
             case 16 -> Hospital.showPatientsBySpeciality(choseSpeciality());
             case 17 -> Hospital.showPatientsByDate(choseDataForViewPatients());
-            case 20 -> choseAppointmentToRemove();
-
+            case 18 -> {
+                //------------------- промяна дата-час на Appointment -------------------- TODO
+                Write.writeAppointmentsData(DBase.APPOINTMENTS_FILE);
+            }
+            case 19 -> {
+                //------------------- добавяне на Appointment ------------------------- TODO
+                Write.writeAppointmentsData(DBase.APPOINTMENTS_FILE);
+            }
+            case 20 -> {
+                choseAppointmentToRemove();
+                Write.writeAppointmentsData(DBase.APPOINTMENTS_FILE);
+            }
+            case 21 -> {
+                //------------------- добавяне на Doctor ------------------------------ TODO
+                Write.writeDoctorsData(DBase.DOCTORS_FILE);
+                Read.getDoctorsFromFile(DBase.DOCTORS_FILE);
+            }
+            case 22 -> {
+                //------------------ промяна на правата за достъп --------------------- TODO
+                Write.writeClassAllowedActionsData(DBase.ALLOWED_ACTIONS_FILE);
+            }
 
         }
     }
@@ -216,7 +239,7 @@ public abstract class Menus {
         if (br>0) {
             while (ch < 1 || ch > br) {
                 System.out.print("Please enter appointment) to reject:");
-                ch = scn.nextInt();
+                ch = CheckInputData.inputPositiveInteger();
             }
 
             Appointment appChosen = choiceMap.get(ch); //not necessary but for better reading

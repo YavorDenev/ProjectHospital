@@ -1,7 +1,12 @@
-import java.lang.reflect.Type;
 import java.util.*;
 
 public abstract class DBase {
+
+    public static final String APPOINTMENTS_FILE = "appointments.txt";
+    public static final String DOCTORS_FILE = "doctors.txt";
+    public static final String PATIENTS_FILE = "patients.txt";
+    public static final String SPECIALTIES_FILE = "specialities.txt";
+    public static final String ALLOWED_ACTIONS_FILE = "arrayListUserAllowedActions.txt";
 
     public static User currentUser;
 

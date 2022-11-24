@@ -2,16 +2,14 @@ public class Main {
 
     public static void main(String[] args) {
 
-        //setDatabaseFromFiles();
-        Read.getSpecialitiesFromFile("specialities.txt");
-        Read.getDoctorsFromFile("doctors.txt");
-        Read.getPatientsFromFile("patients.txt");
-        Read.getAppointmentsFromFile("appointments.txt");
-        Read.getClassAllowedActionsFromFile("arrayListUserAllowedActions.txt");
+        Read.getAppointmentsFromFile(DBase.APPOINTMENTS_FILE);
+        Read.getDoctorsFromFile(DBase.DOCTORS_FILE);
+        Read.getPatientsFromFile(DBase.PATIENTS_FILE);
+        Read.getSpecialitiesFromFile(DBase.SPECIALTIES_FILE);
+        Read.getClassAllowedActionsFromFile(DBase.ALLOWED_ACTIONS_FILE);
         DBase.initializeAllowedActions();
 
-
-        Boss Yavor = new Boss("Yavor", "Denev", 54, "m", "Denev" );
+        Boss Yavor = new Boss("Yavor", "Denev", 53, "m", "Denev" );
         Boss Katev = new Boss("Martin", "Katev", 46, "m", "Katev" );
 
         //HARD LOGIN
@@ -23,9 +21,8 @@ public class Main {
         //TestKatev.doTests();
         //TestYavor.doTests();
 
-        DBase.appointments.get(0).setDate("10-12-2022");//hard change
-
-        Write.writeAppointmentsData();
+        //DBase.appointments.get(0).setDate("10-12-2022");//hard change
+        //Write.writeAppointmentsData(DBase.FILES[0]);
 
         Menus.startPoint();
     }
