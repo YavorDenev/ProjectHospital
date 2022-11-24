@@ -1,8 +1,12 @@
-import java.lang.reflect.Type;
 import java.util.*;
 
 public abstract class DBase {
 
+    public static final String[] FILES = {"appointments.txt",
+                                            "doctors.txt",
+                                            "patients.txt",
+                                            "specialities.txt",
+                                            "arrayListUserAllowedActions.txt"};
     public static User currentUser;
 
     public static Map<Integer, String> patientsMap = new HashMap<Integer, String>();

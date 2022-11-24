@@ -3,19 +3,19 @@ import java.io.PrintStream;
 
 public abstract class Write {
 
-    public static void writeSpecialitiesData(){
-        String[] spArray = new String[DBase.specialities.size()+1];
-        spArray[0] = "speciality_id,name,is_hidden\n";
+    public static void writeAppointmentsData(){
+        String[] appArray = new String[DBase.appointments.size()+1];
+        appArray[0] = "appointment_id, patient_id, type_of_examination, date, time, doctor_id+\n";
         String nl = "\n";
 
-        for (int i=0;i<DBase.specialities.size();i++){
-            Speciality sp = DBase.specialities.get(i);
-            String isHidd = (sp.isHidden) ? "1" : "0";
-            spArray[i+1] = sp.id + "," + sp.name + "," + isHidd;
-            if (i+1 < DBase.specialities.size()) spArray[i+1] += nl; //last line must be without enter
+        for (int i=0;i<DBase.appointments.size();i++){
+            Appointment ap = DBase.appointments.get(i);
+            appArray[i+1] = ap.id + "," + ap.patientID + "," + ap.typeOfExamination + ","
+                    + ap.date + "," + ap.time + "," + ap.doctorID;
+            if (i+1 < DBase.appointments.size()) appArray[i+1] += nl; //last line must be without enter
         }
 
-        writeInFile(spArray,"specialities.txt");
+        writeInFile(appArray,DBase.FILES[0]);
     }
 
     public static void writeDoctorsData(){
@@ -30,7 +30,7 @@ public abstract class Write {
             if (i+1 < DBase.doctors.size()) docArray[i+1] += nl; //last line must be without enter
         }
 
-        writeInFile(docArray,"doctors.txt");
+        writeInFile(docArray,DBase.FILES[1]);
     }
 
     public static void writePatientsData(){
@@ -45,28 +45,27 @@ public abstract class Write {
             if (i+1 < DBase.patients.size()) patArray[i+1] += nl; //last line must be without enter
         }
 
-        writeInFile(patArray,"patients.txt");
+        writeInFile(patArray,DBase.FILES[2]);
     }
 
-    public static void writeAppointmentsData(){
-        String[] appArray = new String[DBase.appointments.size()+1];
-        appArray[0] = "appointment_id, patient_id, type_of_examination, date, time, doctor_id+\n";
+    public static void writeSpecialitiesData(){
+        String[] spArray = new String[DBase.specialities.size()+1];
+        spArray[0] = "speciality_id,name,is_hidden\n";
         String nl = "\n";
 
-        for (int i=0;i<DBase.appointments.size();i++){
-            Appointment ap = DBase.appointments.get(i);
-            appArray[i+1] = ap.id + "," + ap.patientID + "," + ap.typeOfExamination + ","
-                    + ap.date + "," + ap.time + "," + ap.doctorID;
-            if (i+1 < DBase.appointments.size()) appArray[i+1] += nl; //last line must be without enter
+        for (int i=0;i<DBase.specialities.size();i++){
+            Speciality sp = DBase.specialities.get(i);
+            String isHidd = (sp.isHidden) ? "1" : "0";
+            spArray[i+1] = sp.id + "," + sp.name + "," + isHidd;
+            if (i+1 < DBase.specialities.size()) spArray[i+1] += nl; //last line must be without enter
         }
 
-        writeInFile(appArray,"appointments.txt");
+        writeInFile(spArray,DBase.FILES[3]);
     }
 
     public static void writeClassAllowedActions(){
         // ------------------------------------------------TODO
     }
-
 
     public static void writeInFile(String[] array, String fileName) {
         try{
