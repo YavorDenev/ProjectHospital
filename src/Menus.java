@@ -121,8 +121,27 @@ public abstract class Menus {
             }
             case 16 -> Hospital.showPatientsBySpeciality(choseSpeciality());
             case 17 -> Hospital.showPatientsByDate(choseDataForViewPatients());
-            case 20 -> choseAppointmentToRemove();
-
+            case 18 -> {
+                //------------------- промяна дата-час на Appointment -------------------- TODO
+                Write.writeAppointmentsData(DBase.APPOINTMENTS_FILE);
+            }
+            case 19 -> {
+                //------------------- добавяне на Appointment ------------------------- TODO
+                Write.writeAppointmentsData(DBase.APPOINTMENTS_FILE);
+            }
+            case 20 -> {
+                choseAppointmentToRemove();
+                Write.writeAppointmentsData(DBase.APPOINTMENTS_FILE);
+            }
+            case 21 -> {
+                //------------------- добавяне на Doctor ------------------------------ TODO
+                Write.writeDoctorsData(DBase.DOCTORS_FILE);
+                Read.getDoctorsFromFile(DBase.DOCTORS_FILE);
+            }
+            case 22 -> {
+                //------------------ промяна на правата за достъп --------------------- TODO
+                Write.writeClassAllowedActionsData(DBase.ALLOWED_ACTIONS_FILE);
+            }
 
         }
     }
