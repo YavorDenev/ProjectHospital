@@ -146,8 +146,8 @@ public abstract class Menus {
                 Write.writeDoctorsData(DBase.DOCTORS_FILE);
                 Read.getDoctorsFromFile(DBase.DOCTORS_FILE);
             }
-            case 22 -> {
-                //------------------ промяна на правата за достъп -------------------------------- TODO
+            case 22 -> {   //-------------> промяна на правата за достъп ------------ TODO
+                //---------- променят се числата в DBase.allowedActions и съответните арей-листи на Юзърите
                 Write.writeClassAllowedActionsData(DBase.ALLOWED_ACTIONS_FILE);
             }
 
