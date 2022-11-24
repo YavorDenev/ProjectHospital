@@ -127,18 +127,20 @@ public abstract class Menus {
                 Patient p = (Patient) DBase.currentUser;
                 //p.changeAppointmentsDateTime(3, "99-99-9999", 9999); <------ подават се вкараните от конзолата параметри
                 Write.writeAppointmentsData(DBase.APPOINTMENTS_FILE);
-                //Read.getAppointmentsFromFile(DBase.APPOINTMENTS_FILE);
             }
+
             case 19 -> {   //---------------> добавяне на Appointment -------------- TODO
                 //---------- избор от конзолата на параметрите на Appointment
                 Patient p = (Patient) DBase.currentUser;
                 //p.addAppointment(docId, typeOfExam, date, time); <------ подават се вкараните от конзолата параметри
                 Write.writeAppointmentsData(DBase.APPOINTMENTS_FILE);
             }
+
             case 20 -> {
                 choseAppointmentToRemove();
                 Write.writeAppointmentsData(DBase.APPOINTMENTS_FILE);
             }
+
             case 21 -> {  // ------> добавяне на Доктор  --------------------- TODO
                 //-------- избор от конзолата на параметрите на Доктор
                 Boss b = (Boss) DBase.currentUser;
@@ -146,6 +148,7 @@ public abstract class Menus {
                 Write.writeDoctorsData(DBase.DOCTORS_FILE);
                 Read.getDoctorsFromFile(DBase.DOCTORS_FILE);
             }
+
             case 22 -> {   //-------------> промяна на правата за достъп ------------ TODO
                 //---------- променят се числата в DBase.allowedActions и съответните арей-листи на Юзърите
                 Write.writeClassAllowedActionsData(DBase.ALLOWED_ACTIONS_FILE);
