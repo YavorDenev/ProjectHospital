@@ -125,8 +125,9 @@ public abstract class Menus {
             case 18 -> {  //--------> промяна дата-час на Appointment -------------------- TODO
                 //---------- избор от конзолата на Дата и час
                 Patient p = (Patient) DBase.currentUser;
-                //p.changeAppointmentsDateTime(date, time); <------ подават се вкараните от конзолата параметри
+                //p.changeAppointmentsDateTime(3, "99-99-9999", 9999); <------ подават се вкараните от конзолата параметри
                 Write.writeAppointmentsData(DBase.APPOINTMENTS_FILE);
+                //Read.getAppointmentsFromFile(DBase.APPOINTMENTS_FILE);
             }
             case 19 -> {   //---------------> добавяне на Appointment -------------- TODO
                 //---------- избор от конзолата на параметрите на Appointment

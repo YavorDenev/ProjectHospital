@@ -16,7 +16,7 @@ public class Main {
         // DBase.currentUser =  new Anonymous(); // final original login
         // DBase.currentUser =  Katev; // hard login
         // DBase.currentUser =  DBase.doctorsMap.get(2);  // hard login
-        DBase.currentUser =  DBase.patients.get(10);
+        DBase.currentUser =  DBase.patients.get(1);
 
         //TestKatev.doTests();
         //TestYavor.doTests();
