@@ -38,7 +38,7 @@ public class Boss extends User{
         }
     }
 
-    public void addSpeciality(String name) {
+    public static void addSpeciality(String name) {
         boolean f = true;
         for (Speciality s: DBase.specialities) {
             if (s.name.equalsIgnoreCase(name)) {
