@@ -73,7 +73,7 @@ public abstract class Menus {
             case 7 -> Hospital.showDoctors();
             case 8 -> Hospital.showPatients();
             case 9 -> {
-                selectDoctorID();  // -------------------------------------------> проверка дали съществува доктор с такова ID
+                selectDoctorID();
                 Doctor.showSortedDocApptsByCriteria(chosenDoctorID, "Up", SortCriteria.DATE_TIME);
             }
             case 10 -> {
@@ -216,7 +216,7 @@ public abstract class Menus {
         if (br>0) {
             while (ch < 1 || ch > br) {
                 System.out.print("Please enter appointment) to reject:");
-                ch = scn.nextInt();
+                ch = CheckInputData.inputPositiveInteger();
             }
 
             Appointment appChosen = choiceMap.get(ch); //not necessary but for better reading
