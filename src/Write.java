@@ -65,9 +65,7 @@ public abstract class Write {
      */
 
     public static void writeClassAllowedActionsData(String filename){
-
-        // ---------------------------------------------------------------TODO
-
+        writeInFile(DBase.allowedActions,filename);
     }
 
     private static void writeInFile(String[] array, String fileName) {

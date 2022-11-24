@@ -23,7 +23,7 @@ public class BossTest {
         Read.getSpecialitiesFromFile("specialities.txt");
         String expected = "new speciality";
         int before = DBase.specialities.size();
-        boss.addSpeciality(expected);
+        Boss.addSpeciality(expected);
         String actual = DBase.specialities.get(DBase.specialities.size()-1).name;
         int after = DBase.specialities.size();
         assertEquals(expected, actual);
@@ -34,7 +34,7 @@ public class BossTest {
     public void testAddSpecialityWhenAlreadyExists() {
         Read.getSpecialitiesFromFile("specialities.txt");
         int before = DBase.specialities.size();
-        boss.addSpeciality("DerMaTology");
+        Boss.addSpeciality("DerMaTology");
         int after = DBase.specialities.size();
         assertEquals(before, after);
     }
