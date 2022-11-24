@@ -68,6 +68,8 @@ public abstract class Menus {
             case 2 -> Authorize.loginAsPatient();
             case 3 -> Authorize.loginAsDoctor();
             case 4 -> Authorize.loginAsBoss();
+            case 5 -> Patient.registerAsNewPatient();
+            case 6 -> Hospital.showSpecialities();
             case 7 -> Hospital.showDoctors();
             case 8 -> Hospital.showPatients();
             case 9 -> {
@@ -115,6 +117,8 @@ public abstract class Menus {
             }
             case 16 -> Hospital.showPatientsBySpeciality(choseSpeciality());
             case 17 -> Hospital.showPatientsByDate(choseDataForViewPatients());
+            case 20 -> choseAppointmentToRemove();
+
 
         }
     }
@@ -189,4 +193,43 @@ public abstract class Menus {
         return DBase.activeDays.get(choice-1);
     }
 
+    private static void choseAppointmentToRemove(){
+        String redColor = "\033[1;31m"; String resetColor = "\033[0m";
+
+        Map<Integer,Appointment> choiceMap = new HashMap<>();
+
+        boolean f;  int br=0;
+        for (Appointment app: DBase.appointments) {
+            f = false;
+            if (DBase.currentUser instanceof Patient && app.patientID == ((Patient) DBase.currentUser).id) f = true;
+            else if (DBase.currentUser instanceof Doctor && app.doctorID == ((Doctor) DBase.currentUser).id) f = true;
+            else if (DBase.currentUser instanceof Boss) f = true;
+
+            if (f) {
+                br++; choiceMap.put(br,app);
+                System.out.print(br+") ");
+                System.out.println(app);
+            }
+        }
+
+        int ch = 0;
+        if (br>0) {
+            while (ch < 1 || ch > br) {
+                System.out.print("Please enter appointment) to reject:");
+                ch = scn.nextInt();
+            }
+
+            Appointment appChosen = choiceMap.get(ch); //not necessary but for better reading
+            int index = DBase.appointments.indexOf(appChosen);
+
+            if (index>=0) {
+                System.out.println();
+                System.out.println(appChosen + redColor + "was removed" + resetColor);
+                DBase.appointments.remove(index);
+            }
+        }
+        else {
+            System.out.println(redColor + "You have no appointments!" + resetColor);
+        }
+    }
 }

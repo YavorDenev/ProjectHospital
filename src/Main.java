@@ -10,13 +10,15 @@ public class Main {
         Read.getClassAllowedActionsFromFile("arrayListUserAllowedActions.txt");
         DBase.initializeAllowedActions();
 
+
         Boss Yavor = new Boss("Yavor", "Denev", 54, "m", "Denev" );
         Boss Katev = new Boss("Martin", "Katev", 46, "m", "Katev" );
 
         //HARD LOGIN
         // DBase.currentUser =  new Anonymous(); // final original login
         // DBase.currentUser =  Katev; // hard login
-        DBase.currentUser =  DBase.doctorsMap.get(2);  // hard login
+        // DBase.currentUser =  DBase.doctorsMap.get(2);  // hard login
+        DBase.currentUser =  DBase.patients.get(1);
 
         //TestKatev.doTests();
         //TestYavor.doTests();

@@ -58,10 +58,13 @@ public abstract class DBase {
         allowedActions[18] = "change appointment by app_id"; //patient ================> patients.get(index).changeAppointmentsDateTime()
         allowedActions[19] = "add new appointment"; //patient   <---- НЕ СЕ ИСКА ПО УСЛОВИЕ ====> patients.get(index).AddAppointment(docId, typeOfExam, date, time)
 
-        allowedActions[20] = "reject appointment by app_id"; // patient, doctor, boss ===============> patients.get(index).removeMyAppointment()
-                             // doctor  <------- НЕ СЕ ИСКА ПО УСЛОВИЕ ================> doctors.get(index).removeDocAppointment()
-                             // boss  <------- НЕ СЕ ИСКА ПО УСЛОВИЕ ==================> bosses.get(index).removeAppointment()
-        // ----- ЗАБЕЛЕЖКА: No 19 е реализиран с 3 различни метода, защото Пациент и Доктор могат да трият само свои часове, а Шефът - всички
+        allowedActions[20] = "reject appointment by app_id";
+        // MARTO > butnah gi vsi4kite v edin metod na Menuto,
+        // za6toto poso4vaiki mi ot menuto koi app iskat da mahnat az ve4e direktno go znam
+                // patient, doctor, boss ===============> patients.get(index).removeMyAppointment()
+                // doctor  <------- НЕ СЕ ИСКА ПО УСЛОВИЕ ================> doctors.get(index).removeDocAppointment()
+                // boss  <------- НЕ СЕ ИСКА ПО УСЛОВИЕ ==================> bosses.get(index).removeAppointment()
+                // ----- ЗАБЕЛЕЖКА: No 20 е реализиран с 3 различни метода, защото Пациент и Доктор могат да трият само свои часове, а Шефът - всички
         allowedActions[21] = "add new doctor"; //boss  <------------------- НЕ СЕ ИСКА ПО УСЛОВИЕ =======> bosses.get(index).addDoctor(firstName, lastName, age, sex, speciality)
         // MARTO> викам да пропуснем липсва:  "add speciality"; //boss  <---------------------------- НЕ СЕ ИСКА ПО УСЛОВИЕ =======> bosses.get(index).addSpeciality(name)
         // МАРТО > викам да го пропуснем липсва:  "change speciality visibility"; //boss   <-------- НЕ СЕ ИСКА ПО УСЛОВИЕ =======> bosses.get(index).changeSpecVisibility(int idToChangeVis)
