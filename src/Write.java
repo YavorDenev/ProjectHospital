@@ -3,7 +3,7 @@ import java.io.PrintStream;
 
 public abstract class Write {
 
-    public static void writeAppointmentsData(){
+    public static void writeAppointmentsData(String filename){
         String[] appArray = new String[DBase.appointments.size()+1];
         appArray[0] = "appointment_id, patient_id, type_of_examination, date, time, doctor_id+\n";
         String nl = "\n";
@@ -15,10 +15,10 @@ public abstract class Write {
             if (i+1 < DBase.appointments.size()) appArray[i+1] += nl; //last line must be without enter
         }
 
-        writeInFile(appArray,DBase.FILES[0]);
+        writeInFile(appArray,filename);
     }
 
-    public static void writeDoctorsData(){
+    public static void writeDoctorsData(String filename){
         String[] docArray = new String[DBase.doctors.size()+1];
         docArray[0] = "doctor_id,first_name,last_name,speciality,age,sex\n";
         String nl = "\n";
@@ -30,10 +30,10 @@ public abstract class Write {
             if (i+1 < DBase.doctors.size()) docArray[i+1] += nl; //last line must be without enter
         }
 
-        writeInFile(docArray,DBase.FILES[1]);
+        writeInFile(docArray,filename);
     }
 
-    public static void writePatientsData(){
+    public static void writePatientsData(String filename){
         String[] patArray = new String[DBase.patients.size()+1];
         patArray[0] = "patient_id,first_name,last_name,age,sex\n";
         String nl = "\n";
@@ -45,10 +45,11 @@ public abstract class Write {
             if (i+1 < DBase.patients.size()) patArray[i+1] += nl; //last line must be without enter
         }
 
-        writeInFile(patArray,DBase.FILES[2]);
+        writeInFile(patArray,filename);
     }
 
-    public static void writeSpecialitiesData(){
+    /*
+    public static void writeSpecialitiesData(String filename){
         String[] spArray = new String[DBase.specialities.size()+1];
         spArray[0] = "speciality_id,name,is_hidden\n";
         String nl = "\n";
@@ -59,15 +60,17 @@ public abstract class Write {
             spArray[i+1] = sp.id + "," + sp.name + "," + isHidd;
             if (i+1 < DBase.specialities.size()) spArray[i+1] += nl; //last line must be without enter
         }
+        writeInFile(spArray,filename);
+    }
+     */
 
-        writeInFile(spArray,DBase.FILES[3]);
+    public static void writeClassAllowedActionsData(String filename){
+
+        // ---------------------------------------------------------------TODO
+
     }
 
-    public static void writeClassAllowedActions(){
-        // ------------------------------------------------TODO
-    }
-
-    public static void writeInFile(String[] array, String fileName) {
+    private static void writeInFile(String[] array, String fileName) {
         try{
             PrintStream ps1 = new PrintStream(new FileOutputStream(fileName, false));
             for (int i=0;i<array.length; i++) {

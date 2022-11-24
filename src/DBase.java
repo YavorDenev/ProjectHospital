@@ -2,11 +2,12 @@ import java.util.*;
 
 public abstract class DBase {
 
-    public static final String[] FILES = {"appointments.txt",
-                                            "doctors.txt",
-                                            "patients.txt",
-                                            "specialities.txt",
-                                            "arrayListUserAllowedActions.txt"};
+    public static final String APPOINTMENTS_FILE = "appointments.txt";
+    public static final String DOCTORS_FILE = "doctors.txt";
+    public static final String PATIENTS_FILE = "patients.txt";
+    public static final String SPECIALTIES_FILE = "specialities.txt";
+    public static final String ALLOWED_ACTIONS_FILE = "arrayListUserAllowedActions.txt";
+
     public static User currentUser;
 
     public static Map<Integer, String> patientsMap = new HashMap<Integer, String>();

@@ -2,11 +2,11 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Read.getAppointmentsFromFile(DBase.FILES[0]);
-        Read.getDoctorsFromFile(DBase.FILES[1]);
-        Read.getPatientsFromFile(DBase.FILES[2]);
-        Read.getSpecialitiesFromFile(DBase.FILES[3]);
-        Read.getClassAllowedActionsFromFile(DBase.FILES[4]);
+        Read.getAppointmentsFromFile(DBase.APPOINTMENTS_FILE);
+        Read.getDoctorsFromFile(DBase.DOCTORS_FILE);
+        Read.getPatientsFromFile(DBase.PATIENTS_FILE);
+        Read.getSpecialitiesFromFile(DBase.SPECIALTIES_FILE);
+        Read.getClassAllowedActionsFromFile(DBase.ALLOWED_ACTIONS_FILE);
         DBase.initializeAllowedActions();
 
         Boss Yavor = new Boss("Yavor", "Denev", 53, "m", "Denev" );
@@ -22,8 +22,7 @@ public class Main {
         //TestYavor.doTests();
 
         //DBase.appointments.get(0).setDate("10-12-2022");//hard change
-
-        Write.writeAppointmentsData();
+        //Write.writeAppointmentsData(DBase.FILES[0]);
 
         Menus.startPoint();
     }

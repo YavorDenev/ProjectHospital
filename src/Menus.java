@@ -68,7 +68,11 @@ public abstract class Menus {
             case 2 -> Authorize.loginAsPatient();
             case 3 -> Authorize.loginAsDoctor();
             case 4 -> Authorize.loginAsBoss();
-            case 5 -> Patient.registerAsNewPatient();
+            case 5 -> {
+                Patient.registerAsNewPatient();
+                Write.writePatientsData(DBase.PATIENTS_FILE);
+                Read.getPatientsFromFile(DBase.PATIENTS_FILE);
+            }
             case 6 -> Hospital.showSpecialities();
             case 7 -> Hospital.showDoctors();
             case 8 -> Hospital.showPatients();
