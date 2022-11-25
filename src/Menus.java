@@ -225,9 +225,9 @@ public abstract class Menus {
                 choice = CheckInputData.inputPositiveInteger();
             } while (choice > num);
 
-            int index = DBase.appointments.indexOf(choiceMap.get(choice));
+            DBase.appointments.remove(choiceMap.get(choice));
             System.out.println();
-            System.out.println(DBase.appointments.remove(index) + redColor + "was removed" + resetColor);
+            System.out.println(choiceMap.get(choice) + redColor + "was removed" + resetColor);
         }
     }
 
