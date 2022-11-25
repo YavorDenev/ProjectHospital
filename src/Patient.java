@@ -19,11 +19,17 @@ public class Patient extends User {
         //put data from file
     }
 
-    public Patient(int id, String firstName, String lastName, int age) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.age = age;
+    public Patient(String firstName, String lastName, int age, String sex) {
+        super(firstName, lastName, age, sex);
+        this.id = generatePatientId();
+    }
+
+    private int generatePatientId() {
+        int id = 0;
+        for (Patient p: DBase.patients) {
+            if (id < p.id) id = p.id;
+        }
+        return id + 1;
     }
 
     public void showMyAppointments() {
