@@ -111,7 +111,7 @@ public abstract class Menus {
                 Patient p = (Patient) DBase.currentUser;
                 //p.changeAppointmentsDateTime(3, "99-99-9999", 9999); <------ подават се вкараните от конзолата параметри
                 Write.writeAppointmentsData(DBase.APPOINTMENTS_FILE);
-                Read.getAppointmentsFromFile(DBase.APPOINTMENTS_FILE);
+                DBase.setActiveDays();
             }
 
             case 19 -> {
@@ -119,13 +119,13 @@ public abstract class Menus {
 
                 //p.addAppointment(docId, typeOfExam, date, time); <------ подават се вкараните от конзолата параметри
                 Write.writeAppointmentsData(DBase.APPOINTMENTS_FILE);
-                Read.getAppointmentsFromFile(DBase.APPOINTMENTS_FILE);
+                DBase.setActiveDays();
             }
 
             case 20 -> {
                 choseAppointmentToRemove();
                 Write.writeAppointmentsData(DBase.APPOINTMENTS_FILE);
-                Read.getAppointmentsFromFile(DBase.APPOINTMENTS_FILE);
+                DBase.setActiveDays();
             }
 
             case 21 -> {  // ------> добав€не на ƒоктор  --------------------- TODO
@@ -204,39 +204,30 @@ public abstract class Menus {
         String redColor = "\033[1;31m"; String resetColor = "\033[0m";
 
         Map<Integer,Appointment> choiceMap = new HashMap<>();
-
-        boolean f;  int br=0;
+        int num =0;
         for (Appointment app: DBase.appointments) {
-            f = false;
+            boolean f = false;
             if (DBase.currentUser instanceof Patient && app.patientID == ((Patient) DBase.currentUser).id) f = true;
             else if (DBase.currentUser instanceof Doctor && app.doctorID == ((Doctor) DBase.currentUser).id) f = true;
             else if (DBase.currentUser instanceof Boss) f = true;
-
             if (f) {
-                br++; choiceMap.put(br,app);
-                System.out.print(br+") ");
+                num++; choiceMap.put(num,app);
+                System.out.print(num +") ");
                 System.out.println(app);
             }
         }
 
-        int ch = 0;
-        if (br>0) {
-            while (ch < 1 || ch > br) {
-                System.out.print("Please enter appointment) to reject:");
-                ch = CheckInputData.inputPositiveInteger();
-            }
-
-            Appointment appChosen = choiceMap.get(ch); //not necessary but for better reading
-            int index = DBase.appointments.indexOf(appChosen);
-
-            if (index>=0) {
-                System.out.println();
-                System.out.println(appChosen + redColor + "was removed" + resetColor);
-                DBase.appointments.remove(index);
-            }
-        }
+        if (num == 0) System.out.println(redColor + "You have no appointments!" + resetColor);
         else {
-            System.out.println(redColor + "You have no appointments!" + resetColor);
+            int choice;
+            do {
+                System.out.print("Please enter appointment to reject:");
+                choice = CheckInputData.inputPositiveInteger();
+            } while (choice > num);
+
+            DBase.appointments.remove(choiceMap.get(choice));
+            System.out.println();
+            System.out.println(choiceMap.get(choice) + redColor + "was removed" + resetColor);
         }
     }
 
