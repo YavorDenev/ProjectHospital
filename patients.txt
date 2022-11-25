@@ -1,9 +1,9 @@
 patient_id,first_name,last_name,age,sex
 1,Anna-Maria,Alexandrova,25,f
 2,Stefani,Angelova,70,f
-3,Petromir,Alexandrov,39,m
-4,Svetlin,Dimitrov,88,m
-5,Alexander,Stoychev,34,m
+3,Petromir,Alexandrov,39,u
+4,Svetlin,Dimitrov,88,u
+5,Alexander,Stoychev,34,u
 6,Stefan,Alexandrov,55,m
 7,Elena,Kalinova-Doseva,60,f
 8,Denitsa,Preslavova,76,f

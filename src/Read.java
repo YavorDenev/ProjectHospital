@@ -113,9 +113,11 @@ public abstract class Read {
                     tmpPatient.age = Integer.parseInt(field[3]);
 
                     String sx = getSex(field[4]);
-                    if (sx.equals("unknown")) {
-                        System.out.println("Wrong sex field in " + filename + ". Sex must be marked as f or m");
-                    }
+                    //last version support unknown sex type
+                    //if (sx.equals("unknown")) {
+                    //    System.out.println("Wrong sex field in " + filename + ". Sex must be marked as f or m");
+                    //}
+
                     tmpPatient.sex = sx;
 
                     //Put Object in ArrayList
