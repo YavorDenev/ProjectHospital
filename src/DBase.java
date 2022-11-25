@@ -55,8 +55,8 @@ public abstract class DBase {
         allowedActions[16] = "show patients by speciality"; //boss, doctor > Down Hospital.showPatientsBySpeciality(speciality)
         allowedActions[17] = "show patients by date"; //boss, doctor > Down  Hospital.showPatientsByDate(date)
         allowedActions[18] = "change appointment by app_id"; //patient ================> patients.get(index).changeAppointmentsDateTime()
-        allowedActions[19] = "add new appointment"; //patient   <---- НЕ СЕ ИСКА ПО УСЛОВИЕ ====> patients.get(index).AddAppointment(docId, typeOfExam, date, time)
-        allowedActions[20] = "reject appointment by app_id";
+        allowedActions[19] = "add new appointment"; //patient
+        allowedActions[20] = "reject appointment by app_id"; //patient
         allowedActions[21] = "add new doctor"; //boss  <------- НЕ СЕ ИСКА ПО УСЛОВИЕ =======> bosses.get(index).addDoctor(firstName, lastName, age, sex, speciality)
         //allowedActions[22] = "change users allowed actions"; //boss  -------> MARTIN
     }

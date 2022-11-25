@@ -1,12 +1,8 @@
-public enum Colors {
-    RED ("\033[1;31m"),
-    BLUE ("\033[1;32m"),
-    GREEN ("\033[1;32m"),
-    RESET ("\033[0m");
+public abstract class Colors {
+   static final String RED =  "\033[1;31m";
+   static  final String BLUE = "\033[1;34m";
+   static final String GREEN = "\033[1;32m";
+   static final String WHITE = "\033[0m";
+   static final String RESET = "\033[0m";
 
-    public final String name;
-
-    Colors(String name) {
-        this.name = name;
-    }
 }

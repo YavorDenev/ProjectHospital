@@ -42,6 +42,16 @@ public class Appointment {
         this.time = time;
     }
 
+    public Appointment(int patientID, int doctorID, String typeOfExamination, String date, String time) {
+        this.id = generateAppId();
+        this.patientID = patientID;
+        this.doctorID = doctorID;
+        this.typeOfExamination = typeOfExamination;
+        this.date = date;
+        String[] resTime = time.split(":");
+        this.time = 100*Integer.parseInt(resTime[0]) +Integer.parseInt(resTime[1]) ;
+    }
+
     private int generateAppId() {
         int id = 0;
         for (Appointment app: DBase.appointments) {
@@ -76,14 +86,14 @@ public class Appointment {
     @Override
     public String toString() {
         String leadingZero = (time%100 < 10) ? "0" : "";
-        return FunctionsText.fixLengthIn("appID:" + id,12) +
+        return FunctionsText.leftFrameFixedLengthIn("appID:" + id,12) +
                 getColorBySex(DBase.patientsMap.get(patientID)) + //set color
-                FunctionsText.fixLengthIn(DBase.patientsMap.get(patientID),44) +
+                FunctionsText.leftFrameFixedLengthIn(DBase.patientsMap.get(patientID),44) +
                 "\033[0m" + //reset color
-                FunctionsText.fixLengthIn(typeOfExamination,15) +
-                FunctionsText.fixLengthIn(date,14) +
-                FunctionsText.fixLengthIn(time/100 + ":" + leadingZero + time%100,8)+
-                FunctionsText.fixLengthIn("doctor id:" + doctorID,16) ;
+                FunctionsText.leftFrameFixedLengthIn(typeOfExamination,15) +
+                FunctionsText.leftFrameFixedLengthIn(date,14) +
+                FunctionsText.leftFrameFixedLengthIn(time/100 + ":" + leadingZero + time%100,8)+
+                FunctionsText.leftFrameFixedLengthIn("doctor id:" + doctorID,16) ;
     }
 
     private String getColorBySex(String sex){
