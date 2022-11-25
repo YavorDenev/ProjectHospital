@@ -29,10 +29,6 @@ public class Doctor extends User {
         return id + 1;
     }
 
-    public void showSortedDocApptsByCriteria(String upDown, SortCriteria criterion){
-        showSortedDocApptsByCriteria(this.id, upDown, criterion);
-    }
-
     public static void showSortedDocApptsByCriteria(int docId, String upDown, SortCriteria criterion){
         String notice = "(appointments " + upDown.toLowerCase() + " by " + criterion.text + ")";
         showDocHeader(docId, notice);

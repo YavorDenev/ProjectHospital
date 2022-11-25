@@ -70,10 +70,8 @@ public abstract class Menus {
             case 3 -> Authorize.loginAsDoctor();
             case 4 -> Authorize.loginAsBoss();
             case 5 -> {
-                DBase.currentUser = Anonymous.registerAsNewPatient(); //alphabetical bug, rest is OK
+                DBase.currentUser = Anonymous.registerAsNewPatient();
                 Write.writePatientsData(DBase.PATIENTS_FILE);
-                //Read.getPatientsFromFile(DBase.PATIENTS_FILE);
-                //аднах ги в арейлиста и така извиках записването ;)
             }
             case 6 -> Hospital.showSpecialities();
             case 7 -> Hospital.showDoctors();
@@ -127,7 +125,6 @@ public abstract class Menus {
             case 18 -> {
 
 
-
                 //--------> промяна дата-час на Appointment -------------------- TODO
                 //---------- избор от конзолата на Дата и час
                 Patient p = (Patient) DBase.currentUser;
@@ -154,12 +151,6 @@ public abstract class Menus {
                 Write.writeDoctorsData(DBase.DOCTORS_FILE);
                 Read.getDoctorsFromFile(DBase.DOCTORS_FILE);
             }
-
-            case 22 -> {   //-------------> промяна на правата за достъп ------------ TODO
-                //---------- променят се числата в DBase.allowedActions и съответните арей-листи на Юзърите
-                Write.writeClassAllowedActionsData(DBase.ALLOWED_ACTIONS_FILE);
-            }
-
         }
     }
 

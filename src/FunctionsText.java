@@ -1,4 +1,4 @@
-public class FunctionsText {
+public abstract class FunctionsText {
 
 
     public static String fixLengthIn(String str, int length)

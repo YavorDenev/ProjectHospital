@@ -65,7 +65,5 @@ public abstract class Hospital {
             }
         }
         if (f) System.out.println("There are no patients for this date.");
-
     }
-
 }

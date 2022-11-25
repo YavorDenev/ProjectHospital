@@ -7,10 +7,6 @@ public class Speciality {
         return id;
     }
 
-    public boolean isHidden() {
-        return isHidden;
-    }
-
     public Speciality() {}
 
     public Speciality(String name) {
