@@ -20,10 +20,10 @@ public class Anonymous extends User{
         System.out.println("Enter your age:");
         int age = CheckInputData.inputPositiveInteger();
 
-        System.out.println("sex?");
+        System.out.println("Enter your gender:");
         System.out.println("1) male");
         System.out.println("2) female");
-        System.out.println("3) another");
+        System.out.println("3),... another");
         int sexChoice = CheckInputData.inputPositiveInteger();
         String sex = "unknown";
         switch (sexChoice){
