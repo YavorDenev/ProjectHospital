@@ -11,6 +11,7 @@ public class PatientTest {
     @AfterEach
     public void cleanLists(){
         DBase.appointments = new ArrayList<>();
+        DBase.patients = new ArrayList<>();
     }
 
     Patient p = new Patient();
@@ -139,6 +140,27 @@ public class PatientTest {
 
         assertNotEquals(date, DBase.appointments.get(1).date);
         assertNotEquals(time, DBase.appointments.get(1).time);
+    }
+
+    @Test
+    public void testGeneratePatientId() {
+        DBase.patients = new ArrayList<>();
+        DBase.patients.add(new Patient("aaa", "www", 99, "f"));
+        int id = 9999;
+        DBase.patients.get(0).setId(id);
+        Patient patient = new Patient("vvv", "zzz", 2, "m");
+        int expected = id + 1;
+        int actual = patient.getId();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testGeneratePatientIdWhenPatientsIsEmpty() {
+        DBase.patients = new ArrayList<>();
+        Patient patient = new Patient("xxx", "yyy", 999, "m");
+        int expected = 1;
+        int actual = patient.getId();
+        assertEquals(expected, actual);
     }
 
 }
