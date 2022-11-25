@@ -10,15 +10,11 @@ public class Patient extends User {
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
 
-    public Patient(){
-        //put data from file
-    }
-
+    public Patient() { }    //put data from file
     public Patient(String firstName, String lastName, int age, String sex) {
         super(firstName, lastName, age, sex);
         this.id = generatePatientId();
@@ -30,10 +26,6 @@ public class Patient extends User {
             if (id < p.id) id = p.id;
         }
         return id + 1;
-    }
-
-    public void showMyAppointments() {
-        showAppointmentsByPatientId(this.id);
     }
 
     public static void showAppointmentsByPatientId(int patientId) {
@@ -111,6 +103,5 @@ public class Patient extends User {
         }
         return result;
     }
-
 
 }
