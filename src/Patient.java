@@ -89,13 +89,13 @@ public class Patient extends User {
         return fixLengthIn("id:" + id,9) +
                 getColorBySex(this.sex) + //set color
                 fixLengthIn(this.firstName + " " + this.lastName + " " + this.age + "y " + this.sex,44) +
-                "\033[0m" ; //reset color
+                Colors.RESET ;
     }
 
     private String getColorBySex(String sex){
-        if (sex.equals("female")) return "\033[1;31m"; //red bold bright
-        if (sex.equals("male")) return "\033[1;36m"; //cyan bold
-        return "";
+        if (sex.equals("female")) return Colors.RED;
+        if (sex.equals("male")) return Colors.CYAN;
+        return Colors.BLUE; //for unknown
     }
 
     private String fixLengthIn(String str, int length)
