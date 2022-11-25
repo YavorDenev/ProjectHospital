@@ -14,10 +14,6 @@ public class Anonymous extends User{
 
     public static User registerAsNewPatient(){
         Scanner scn = new Scanner(System.in);
-        int lastUsedID = 0;
-        for (Patient p : DBase.patients){
-            if (p.id> lastUsedID) lastUsedID = p.id;
-        }
 
         System.out.print("Enter your first name:");
         String firstName = CheckInputData.inputAlphabeticalNonSpacesString();
@@ -30,36 +26,27 @@ public class Anonymous extends User{
         System.out.println("sex?");
         System.out.println("1) male");
         System.out.println("2) female");
-        System.out.println("3) unknown");
-        int sexChoice = scn.nextInt();
+        System.out.println("3) another");
+        int sexChoice = CheckInputData.inputPositiveInteger();
+        String sex = "unknown";
+        switch (sexChoice){
+            case 1 -> sex = "male";
+            case 2 -> sex = "female";
+            case 3 -> sex = "another";
+        }
 
         System.out.println("*** Confirm your operation!***");
-
         int finalChoice = 0;
         while(finalChoice!=1 && finalChoice!=2){
             System.out.println("1) Reject operation");
             System.out.println("2) Finish operation");
             finalChoice = CheckInputData.inputPositiveInteger();
         }
+        if (finalChoice==1){ return new Anonymous(); }
 
-        if (finalChoice==1){
-            return new Anonymous();
-        }
+        Patient tmpPatient = new Patient(firstName, lastName, age, sex);
 
-        Patient tmpPatient = new Patient();
-        tmpPatient.id = lastUsedID+1;
-        tmpPatient.firstName = firstName;
-        tmpPatient.lastName = lastName;
-        tmpPatient.age = age;
-
-        switch (sexChoice){
-            case 1 -> tmpPatient.sex = "male";
-            case 2 -> tmpPatient.sex = "female";
-            default -> tmpPatient.sex = "unknown";
-        }
-
-        //Put Object in ArrayList and MAP
-        DBase.patients.add(tmpPatient);
+        DBase.patients.add(tmpPatient);         // ----------------------- Put Object in ArrayList and MAP
         DBase.patientsMap.put(tmpPatient.id,tmpPatient.firstName + " "
                 + tmpPatient.lastName + " " + tmpPatient.age + "y "
                 + tmpPatient.sex + " (id:"+tmpPatient.id+")" );
