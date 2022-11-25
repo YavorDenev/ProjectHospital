@@ -104,8 +104,6 @@ public abstract class Menus {
             case 17 -> Hospital.showPatientsByDate(choseDataForViewPatients());
 
             case 18 -> {
-
-
                 //--------> промяна дата-час на Appointment -------------------- TODO
                 //---------- избор от конзолата на Дата и час
                 Patient p = (Patient) DBase.currentUser;
@@ -115,9 +113,7 @@ public abstract class Menus {
             }
 
             case 19 -> {
-                showFreeOptionsByDoctorID(); //IN CONSTRUCTION INTERFACE IS OK
-
-                //p.addAppointment(docId, typeOfExam, date, time); <------ подават се вкараните от конзолата параметри
+                showFreeOptionsByDoctorID();
                 Write.writeAppointmentsData(DBase.APPOINTMENTS_FILE);
                 DBase.setActiveDays();
             }
@@ -231,16 +227,19 @@ public abstract class Menus {
         }
     }
 
-    private static void showFreeOptionsByDoctorID(){
+    private static void showFreeOptionsByDoctorID(){  //FOR ADD APPOINTMENT BY USER
+        Map<Integer, String> choiceFreeDateMap = new HashMap<>();
+        Map<Integer,String> choiceFreeTimeMap = new HashMap<>();
+
         int docID=0;
         while (docID> DBase.maxDoctorID || docID<1){
             System.out.print("Please enter doctor_id:");
             docID = CheckInputData.inputPositiveInteger();
         }
 
-        System.out.println(FunctionsText.fixLengthIn(
+        System.out.println(FunctionsText.leftFrameFixedLengthIn(
                 "============== Choose free hour from Calendar ============= Doctor " + DBase.doctorsMap.get(docID)+
-                        " ======================================",50,"blue"));
+                        " ======================================",50,Colors.BLUE));
 
         ArrayList<String> appTimes = new ArrayList<>();
 
@@ -257,29 +256,56 @@ public abstract class Menus {
 
         int countTimes = 0; int countFreeOptions = 0;
         boolean isFreeTime;
-        for (int i=0 ; i<DBase.activeDays.size() ; i++){
-            String actDate = DBase.activeDays.get(i);
-            System.out.print(FunctionsText.fixLengthIn (actDate,15,"reset"));
+
+        for (int i = 0; i<DBase.activeDays.size() ; i++){
+            String actDate = DBase.activeDays.get(i); int dateWidth = 13;
+            FunctionsText.printRightAlignmentColoredText(actDate,dateWidth,Colors.BLUE);
             for (String appTime : appTimes){
                 isFreeTime = checkDoctorApps(docID, actDate, appTime);
-                if (isFreeTime) countFreeOptions++;
+                if (isFreeTime) {
+                    countFreeOptions++;
+                    choiceFreeDateMap.put(countFreeOptions, actDate);
+                    choiceFreeTimeMap.put(countFreeOptions, appTime);
+                }
 
-                String color = isFreeTime ? "green" : "red"; //green or red
-                String optToShow = appTime;
-                if (isFreeTime) optToShow += "("+countFreeOptions+")";
-                //iskam da napravq beli samo opciite no se skapva duljinata za6toto
-                //cvetovete u4astvat kato text, koito ne se izpisva realno
-                System.out.print(FunctionsText.fixLengthIn(optToShow,15, color));
+                FunctionsText.printRightAlignmentColoredText(" |",2,Colors.BLUE);
+                String color = isFreeTime ? Colors.GREEN : Colors.RED; //green or red
+                FunctionsText.printRightAlignmentColoredText(appTime,9,color);
+
+                String option = isFreeTime ? "("+countFreeOptions+")" : ""; //white option
+                FunctionsText.printRightAlignmentColoredText(option,6,Colors.WHITE);
+
                 countTimes++;
                 if (countTimes%9==0) {
                     System.out.println();
                     if(!appTime.equals("18:40")){
-                        System.out.print(FunctionsText.fixLengthIn (" ",15));
+                        FunctionsText.printRightAlignmentColoredText(" ",dateWidth,Colors.BLUE);
                     }
-                    else FunctionsText.newColoredLine('-',"blue",160);
+                    else FunctionsText.newColoredLine('-',Colors.BLUE,160);
                 }
             }
         }
+
+        getUserChoiceForNewAppointment(choiceFreeDateMap, choiceFreeTimeMap, countFreeOptions, docID);
+    }
+
+    private static void getUserChoiceForNewAppointment(Map<Integer,String> mapDate, Map<Integer,String> mapTime, int cnt, int docID){
+
+
+
+        System.out.print("Enter your choice:");
+        int choice = scn.nextInt();
+        while (choice<1||choice>cnt){
+            choice = CheckInputData.inputPositiveInteger();
+        }
+
+        int patientID;
+        if (DBase.currentUser instanceof Patient){
+            patientID = ((Patient) DBase.currentUser).id;
+            Appointment newApp = new Appointment(patientID,docID,"initial", mapDate.get(choice),mapTime.get(choice));
+            DBase.appointments.add(newApp);
+        }
+        else System.out.println("Only patient can add new appointment!");
     }
 
     private static boolean checkDoctorApps(int docID, String date, String time){
