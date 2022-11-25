@@ -28,6 +28,10 @@ public class Patient extends User {
         return id + 1;
     }
 
+    public void showMyAppointment() {
+        showAppointmentsByPatientId(this.id);
+    }
+
     public static void showAppointmentsByPatientId(int patientId) {
         System.out.println("");
         boolean f = true;

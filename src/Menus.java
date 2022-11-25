@@ -38,7 +38,6 @@ public abstract class Menus {
     }
 
     static void showCurrentUserAllowedActions() {
-
         if (DBase.currentUser instanceof Anonymous)  allowedActions = Anonymous.allowedActions;
         if (DBase.currentUser instanceof Patient)  allowedActions = Patient.allowedActions;
         if (DBase.currentUser instanceof Doctor)  allowedActions = Doctor.allowedActions;
@@ -52,7 +51,7 @@ public abstract class Menus {
     static int enterUserChoice(){
         System.out.print("Please enter your choice:");
         int ch = CheckInputData.inputNotNegativeInteger();
-        for (int action: allowedActions) {   // -------------------> проверка дали въведеното число отговаря на allowedActions
+        for (int action: allowedActions) {   // -----------> проверка дали въведеното число отговаря на allowedActions
             if(action==ch) return ch;
         }
         System.out.println("Wrong number!");
@@ -63,7 +62,6 @@ public abstract class Menus {
     static void doRequest(int choice){
 
         switch (choice) {
-
             case 0 -> System.exit(0);
             case 1 -> DBase.currentUser = new Anonymous();
             case 2 -> Authorize.loginAsPatient();
@@ -76,13 +74,10 @@ public abstract class Menus {
             case 6 -> Hospital.showSpecialities();
             case 7 -> Hospital.showDoctors();
             case 8 -> Hospital.showPatients();
-            case 9 -> {
-                selectDoctorID();
-                Doctor.showSortedDocApptsByCriteria(chosenDoctorID, "Up", SortCriteria.DATE_TIME);
-            }
+            case 9 -> Doctor.showSortedDocApptsByCriteria(selectDoctorID(), "Up", SortCriteria.DATE_TIME);
             case 10 -> {
                 if (DBase.currentUser instanceof Patient)  {
-                    Patient.showAppointmentsByPatientId(((Patient) DBase.currentUser).id);
+                    ((Patient) DBase.currentUser).showMyAppointment();
                 }
                 if (DBase.currentUser instanceof Doctor) {
                     Doctor.showSortedDocApptsByCriteria(((Doctor) DBase.currentUser).id, "Up", SortCriteria.DATE_TIME);
@@ -171,13 +166,22 @@ public abstract class Menus {
         sortedByUpDown = (chSort==1) ? "Up":"Down";
     }
 
-    private static void selectDoctorID(){
+    private static String selectSortDirection(){
+        int chSort = 0;
+        while (chSort!=1 && chSort!=2){
+            System.out.print("1-Up 2-Down. Enter your option:");
+            chSort = CheckInputData.inputPositiveInteger();
+        }
+        return  (chSort==1) ? "Up":"Down";
+    }
+
+    private static int selectDoctorID(){
         int docID = 0;
         while (docID> DBase.maxDoctorID || docID<1){
             System.out.print("Please enter doctor_id:");
             docID = CheckInputData.inputPositiveInteger();
         }
-        chosenDoctorID = docID;
+        return docID;
     }
 
     private static boolean isSuchADoctorInHospital(String firstName, String lastName){
@@ -189,7 +193,7 @@ public abstract class Menus {
     }
 
     private static String choseSpeciality(){
-        Map<Integer, String> specMap = new HashMap();
+        Map<Integer, String> specMap = new HashMap<>();
 
         int br =0;
         for (Speciality sp : DBase.specialities){
