@@ -62,7 +62,7 @@ public abstract class DBase {
     }
 
     public static void setActiveDays(){
-        Set<String> setData = new HashSet(); //let use just dates in appointments
+        Set<String> setData = new HashSet<>(); //let use just dates in appointments
 
         for (Appointment app : DBase.appointments){
             if (!setData.contains(app.date)) setData.add(app.date);

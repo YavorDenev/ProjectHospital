@@ -111,6 +111,7 @@ public abstract class Menus {
                 Patient p = (Patient) DBase.currentUser;
                 //p.changeAppointmentsDateTime(3, "99-99-9999", 9999); <------ подават се вкараните от конзолата параметри
                 Write.writeAppointmentsData(DBase.APPOINTMENTS_FILE);
+                Read.getAppointmentsFromFile(DBase.APPOINTMENTS_FILE);
             }
 
             case 19 -> {
@@ -118,11 +119,13 @@ public abstract class Menus {
 
                 //p.addAppointment(docId, typeOfExam, date, time); <------ подават се вкараните от конзолата параметри
                 Write.writeAppointmentsData(DBase.APPOINTMENTS_FILE);
+                Read.getAppointmentsFromFile(DBase.APPOINTMENTS_FILE);
             }
 
             case 20 -> {
                 choseAppointmentToRemove();
                 Write.writeAppointmentsData(DBase.APPOINTMENTS_FILE);
+                Read.getAppointmentsFromFile(DBase.APPOINTMENTS_FILE);
             }
 
             case 21 -> {  // ------> добав€не на ƒоктор  --------------------- TODO
@@ -183,7 +186,7 @@ public abstract class Menus {
 
     private static String choseDataForViewPatients(){
         int choice = 0;
-        System.out.println("");
+        System.out.println();
 
         String notice = "Chose data to view patients list:";
         for (int i=0 ; i<DBase.activeDays.size() ; i++){
