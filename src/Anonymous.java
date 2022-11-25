@@ -13,13 +13,10 @@ public class Anonymous extends User{
     }
 
     public static User registerAsNewPatient(){
-        Scanner scn = new Scanner(System.in);
-
         System.out.print("Enter your first name:");
         String firstName = CheckInputData.inputAlphabeticalNonSpacesString();
         System.out.print("Enter your last name:");
         String lastName = CheckInputData.inputAlphabeticalNonSpacesString();
-
         System.out.println("Enter your age:");
         int age = CheckInputData.inputPositiveInteger();
 
@@ -32,7 +29,6 @@ public class Anonymous extends User{
         switch (sexChoice){
             case 1 -> sex = "male";
             case 2 -> sex = "female";
-            case 3 -> sex = "another";
         }
 
         System.out.println("*** Confirm your operation!***");

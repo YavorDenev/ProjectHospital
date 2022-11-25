@@ -31,18 +31,18 @@ public abstract class CheckInputData {
     }
 
     public static String inputAlphabeticalNonSpacesString() {
-        String str = scan.next();
+        Scanner sc = new Scanner(System.in);
+        String str = sc.nextLine();
 
         boolean isCorrect = true;
         for (int i=0; i<str.length();i++) {
             char c = str.charAt(i);
-            if (!Character.isAlphabetic(c)){  //םושמ םו נאבמעט ץלל... //todo
+            if (!Character.isAlphabetic(c)){
                 isCorrect = false;
                 break;
             }
         }
-
-        while (!isCorrect) {
+        if (!isCorrect) {
             System.out.println("Please use only a-z, A-Z without spaces! Try again!");
             str = inputAlphabeticalNonSpacesString();
         }
