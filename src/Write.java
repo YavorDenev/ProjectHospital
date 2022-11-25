@@ -41,12 +41,14 @@ public abstract class Write {
         for (int i=0;i<DBase.patients.size();i++){
             Patient p = DBase.patients.get(i);
             patArray[i+1] = p.id + "," + p.firstName + "," + p.lastName + ","
-                    + p.age + "," + p.sex;
+                    + p.age + "," + p.sex.charAt(0);
             if (i+1 < DBase.patients.size()) patArray[i+1] += nl; //last line must be without enter
         }
 
         writeInFile(patArray,filename);
     }
+
+
 
     /*
     public static void writeSpecialitiesData(String filename){

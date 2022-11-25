@@ -106,8 +106,5 @@ public class Patient extends User {
         return result;
     }
 
-    public static void registerAsNewPatient(){
-
-    }
 
 }

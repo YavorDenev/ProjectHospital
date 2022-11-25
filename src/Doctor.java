@@ -97,10 +97,10 @@ public class Doctor extends User {
     }
 
     public static void showDocHeader(int docId, String notice){
-        String blueColor = "\033[1;32m";
+        String greenColor = "\033[1;32m";
         String resetColor = "\033[0m";
 
-        System.out.println("\n"+ blueColor +"============== Doctor " + DBase.doctorsMap.get(docId).toString50() +
+        System.out.println("\n"+ greenColor +"============== Doctor " + DBase.doctorsMap.get(docId).toString50() +
                 " " + notice + resetColor);
     }
 

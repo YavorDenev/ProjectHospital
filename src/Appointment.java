@@ -76,14 +76,14 @@ public class Appointment {
     @Override
     public String toString() {
         String leadingZero = (time%100 < 10) ? "0" : "";
-        return fixLengthIn("appID:" + id,12) +
+        return FunctionsText.fixLengthIn("appID:" + id,12) +
                 getColorBySex(DBase.patientsMap.get(patientID)) + //set color
-                fixLengthIn(DBase.patientsMap.get(patientID),44) +
+                FunctionsText.fixLengthIn(DBase.patientsMap.get(patientID),44) +
                 "\033[0m" + //reset color
-                fixLengthIn(typeOfExamination,15) +
-                fixLengthIn(date,14) +
-                fixLengthIn(time/100 + ":" + leadingZero + time%100,8)+
-                fixLengthIn("doctor id:" + doctorID,16) ;
+                FunctionsText.fixLengthIn(typeOfExamination,15) +
+                FunctionsText.fixLengthIn(date,14) +
+                FunctionsText.fixLengthIn(time/100 + ":" + leadingZero + time%100,8)+
+                FunctionsText.fixLengthIn("doctor id:" + doctorID,16) ;
     }
 
     private String getColorBySex(String sex){
@@ -97,15 +97,4 @@ public class Appointment {
         }
         return "";
     }
-
-    private String fixLengthIn(String str, int length)
-    {
-        if (str.length()==4) str = " " + str; // just for time > right alingment
-        String result = " | "+str;
-        while(result.length()<length) {
-            result += " ";
-        }
-        return result;
-    }
-
 }

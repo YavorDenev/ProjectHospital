@@ -9,3 +9,4 @@ public enum SortCriteria {
         this.text = text;
     }
 }
+

@@ -1,3 +1,4 @@
+import java.sql.SQLOutput;
 import java.util.*;
 
 public abstract class Menus {
@@ -69,9 +70,10 @@ public abstract class Menus {
             case 3 -> Authorize.loginAsDoctor();
             case 4 -> Authorize.loginAsBoss();
             case 5 -> {
-                Patient.registerAsNewPatient();
+                DBase.currentUser = Anonymous.registerAsNewPatient(); //alphabetical bug, rest is OK
                 Write.writePatientsData(DBase.PATIENTS_FILE);
-                Read.getPatientsFromFile(DBase.PATIENTS_FILE);
+                //Read.getPatientsFromFile(DBase.PATIENTS_FILE);
+                //аднах ги в арейлиста и така извиках записването ;)
             }
             case 6 -> Hospital.showSpecialities();
             case 7 -> Hospital.showDoctors();
@@ -122,16 +124,20 @@ public abstract class Menus {
             case 16 -> Hospital.showPatientsBySpeciality(choseSpeciality());
             case 17 -> Hospital.showPatientsByDate(choseDataForViewPatients());
 
-            case 18 -> {  //--------> пром€на дата-час на Appointment -------------------- TODO
+            case 18 -> {
+
+
+
+                //--------> пром€на дата-час на Appointment -------------------- TODO
                 //---------- избор от конзолата на ƒата и час
                 Patient p = (Patient) DBase.currentUser;
                 //p.changeAppointmentsDateTime(3, "99-99-9999", 9999); <------ подават се вкараните от конзолата параметри
                 Write.writeAppointmentsData(DBase.APPOINTMENTS_FILE);
             }
 
-            case 19 -> {   //---------------> добав€не на Appointment -------------- TODO
-                //---------- избор от конзолата на параметрите на Appointment
-                Patient p = (Patient) DBase.currentUser;
+            case 19 -> {
+                showFreeOptionsByDoctorID(); //IN CONSTRUCTION INTERFACE IS OK
+
                 //p.addAppointment(docId, typeOfExam, date, time); <------ подават се вкараните от конзолата параметри
                 Write.writeAppointmentsData(DBase.APPOINTMENTS_FILE);
             }
@@ -266,4 +272,74 @@ public abstract class Menus {
             System.out.println(redColor + "You have no appointments!" + resetColor);
         }
     }
+
+    private static void showFreeOptionsByDoctorID(){
+        int docID=0;
+        while (docID> DBase.maxDoctorID || docID<1){
+            System.out.print("Please enter doctor_id:");
+            docID = CheckInputData.inputPositiveInteger();
+        }
+
+        System.out.println(FunctionsText.fixLengthIn(
+                "============== Choose free hour from Calendar ============= Doctor " + DBase.doctorsMap.get(docID)+
+                        " ======================================",50,"blue"));
+
+        ArrayList<String> appTimes = new ArrayList<>();
+
+        ArrayList<String> min = new ArrayList<>();
+        min.add("00"); min.add("20"); min.add("40"); //when convert int to min "00" become 0 (ugly)
+
+        //gen start app times
+        for (int h=9;h<=18;h++){
+            for (String m : min){
+                if (h!=12) appTimes.add( Integer.toString(h) + ":" + m);
+                //h=12 dinner time
+            }
+        }
+
+        int countTimes = 0; int countFreeOptions = 0;
+        boolean isFreeTime;
+        for (int i=0 ; i<DBase.activeDays.size() ; i++){
+            String actDate = DBase.activeDays.get(i);
+            System.out.print(FunctionsText.fixLengthIn (actDate,15,"reset"));
+            for (String appTime : appTimes){
+                isFreeTime = checkDoctorApps(docID, actDate, appTime);
+                if (isFreeTime) countFreeOptions++;
+
+                String color = isFreeTime ? "green" : "red"; //green or red
+                String optToShow = appTime;
+                if (isFreeTime) optToShow += "("+countFreeOptions+")";
+                //iskam da napravq beli samo opciite no se skapva duljinata za6toto
+                //cvetovete u4astvat kato text, koito ne se izpisva realno
+                System.out.print(FunctionsText.fixLengthIn(optToShow,15, color));
+                countTimes++;
+                if (countTimes%9==0) {
+                    System.out.println();
+                    if(!appTime.equals("18:40")){
+                        System.out.print(FunctionsText.fixLengthIn (" ",15));
+                    }
+                    else FunctionsText.newColoredLine('-',"blue",160);
+                }
+            }
+        }
+    }
+
+    private static boolean checkDoctorApps(int docID, String date, String time){
+
+        for (Appointment app: DBase.appointments){
+            if (docID == app.doctorID && app.date.equals(date)) {
+                String appTime = Integer.toString(app.time);
+                String h = Integer.toString(app.time/100);
+                String finTime = h+":"+ appTime.charAt(appTime.length()-2)+appTime.charAt(appTime.length()-1);
+
+                if (finTime.equals(time)){
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+
 }
