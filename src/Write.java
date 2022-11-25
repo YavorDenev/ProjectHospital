@@ -26,7 +26,7 @@ public abstract class Write {
         for (int i=0;i<DBase.doctors.size();i++){
             Doctor doc = DBase.doctors.get(i);
             docArray[i+1] = doc.id + "," + doc.firstName + "," + doc.lastName + ","
-                    + doc.speciality + "," + doc.age + "," + doc.sex;
+                    + doc.speciality + "," + doc.age + "," + doc.sex.charAt(0);
             if (i+1 < DBase.doctors.size()) docArray[i+1] += nl; //last line must be without enter
         }
 
@@ -48,8 +48,6 @@ public abstract class Write {
         writeInFile(patArray,filename);
     }
 
-
-
     /*
     public static void writeSpecialitiesData(String filename){
         String[] spArray = new String[DBase.specialities.size()+1];
@@ -64,11 +62,12 @@ public abstract class Write {
         }
         writeInFile(spArray,filename);
     }
-     */
 
     public static void writeClassAllowedActionsData(String filename){
         writeInFile(DBase.allowedActions,filename);
     }
+     */
+
 
     private static void writeInFile(String[] array, String fileName) {
         try{
