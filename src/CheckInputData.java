@@ -37,7 +37,7 @@ public abstract class CheckInputData {
         boolean isCorrect = true;
         for (int i=0; i<str.length();i++) {
             char c = str.charAt(i);
-            if (!Character.isAlphabetic(c) && c != '-'){
+            if (!Character.isAlphabetic(c) && (c != '-')){
                 isCorrect = false;
                 break;
             }
