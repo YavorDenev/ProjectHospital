@@ -1,11 +1,6 @@
-import java.sql.SQLOutput;
 import java.util.*;
 
 public abstract class Menus {
-
-    static int chosenDoctorID = 0;
-    static String sortedByUpDown = "";
-
     static Scanner scn = new Scanner(System.in);
     static ArrayList<Integer> allowedActions = new ArrayList<>();
 
@@ -88,18 +83,9 @@ public abstract class Menus {
                 int patId = CheckInputData.inputPositiveInteger();
                 Patient.showAppointmentsByPatientId(patId);
             }
-            case 12 -> {
-                selectDoctorAndSortDirection();
-                Doctor.showSortedDocApptsByCriteria(chosenDoctorID, sortedByUpDown, SortCriteria.DATE_TIME);
-            }
-            case 13 -> {
-                selectDoctorAndSortDirection();
-                Doctor.showSortedDocApptsByCriteria(chosenDoctorID, sortedByUpDown, SortCriteria.PATIENT_NAMES);
-            }
-            case 14 -> {
-                selectDoctorAndSortDirection();
-                Doctor.showSortedDocApptsByCriteria(chosenDoctorID, sortedByUpDown, SortCriteria.PATIENT_ID);
-            }
+            case 12 -> Doctor.showSortedDocApptsByCriteria(selectDoctorID(), selectSortDirection(), SortCriteria.DATE_TIME);
+            case 13 -> Doctor.showSortedDocApptsByCriteria(selectDoctorID(), selectSortDirection(), SortCriteria.PATIENT_NAMES);
+            case 14 -> Doctor.showSortedDocApptsByCriteria(selectDoctorID(), selectSortDirection(), SortCriteria.PATIENT_ID);
             case 15 -> {
                 String docFirstName = "";
                 String docLastName = "";
@@ -147,23 +133,6 @@ public abstract class Menus {
                 Read.getDoctorsFromFile(DBase.DOCTORS_FILE);
             }
         }
-    }
-
-    private static void selectDoctorAndSortDirection(){
-        int docID = 0;
-        int chSort = 0;
-
-        while (docID> DBase.maxDoctorID || docID<1){
-            System.out.print("Please enter doctor_id:");
-            docID = CheckInputData.inputPositiveInteger();
-        }
-        while (chSort!=1 && chSort!=2){
-            System.out.print("1-Up 2-Down. Enter your option:");
-            chSort = CheckInputData.inputPositiveInteger();
-        }
-
-        chosenDoctorID = docID;
-        sortedByUpDown = (chSort==1) ? "Up":"Down";
     }
 
     private static String selectSortDirection(){
