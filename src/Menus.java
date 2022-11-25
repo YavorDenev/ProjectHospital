@@ -1,11 +1,6 @@
-import java.sql.SQLOutput;
 import java.util.*;
 
 public abstract class Menus {
-
-    static int chosenDoctorID = 0;
-    static String sortedByUpDown = "";
-
     static Scanner scn = new Scanner(System.in);
     static ArrayList<Integer> allowedActions = new ArrayList<>();
 
@@ -38,7 +33,6 @@ public abstract class Menus {
     }
 
     static void showCurrentUserAllowedActions() {
-
         if (DBase.currentUser instanceof Anonymous)  allowedActions = Anonymous.allowedActions;
         if (DBase.currentUser instanceof Patient)  allowedActions = Patient.allowedActions;
         if (DBase.currentUser instanceof Doctor)  allowedActions = Doctor.allowedActions;
@@ -52,7 +46,7 @@ public abstract class Menus {
     static int enterUserChoice(){
         System.out.print("Please enter your choice:");
         int ch = CheckInputData.inputNotNegativeInteger();
-        for (int action: allowedActions) {   // -------------------> проверка дали въведеното число отговаря на allowedActions
+        for (int action: allowedActions) {   // -----------> проверка дали въведеното число отговаря на allowedActions
             if(action==ch) return ch;
         }
         System.out.println("Wrong number!");
@@ -63,7 +57,6 @@ public abstract class Menus {
     static void doRequest(int choice){
 
         switch (choice) {
-
             case 0 -> System.exit(0);
             case 1 -> DBase.currentUser = new Anonymous();
             case 2 -> Authorize.loginAsPatient();
@@ -76,13 +69,10 @@ public abstract class Menus {
             case 6 -> Hospital.showSpecialities();
             case 7 -> Hospital.showDoctors();
             case 8 -> Hospital.showPatients();
-            case 9 -> {
-                selectDoctorID();
-                Doctor.showSortedDocApptsByCriteria(chosenDoctorID, "Up", SortCriteria.DATE_TIME);
-            }
+            case 9 -> Doctor.showSortedDocApptsByCriteria(selectDoctorID(), "Up", SortCriteria.DATE_TIME);
             case 10 -> {
                 if (DBase.currentUser instanceof Patient)  {
-                    Patient.showAppointmentsByPatientId(((Patient) DBase.currentUser).id);
+                    ((Patient) DBase.currentUser).showMyAppointment();
                 }
                 if (DBase.currentUser instanceof Doctor) {
                     Doctor.showSortedDocApptsByCriteria(((Doctor) DBase.currentUser).id, "Up", SortCriteria.DATE_TIME);
@@ -93,18 +83,9 @@ public abstract class Menus {
                 int patId = CheckInputData.inputPositiveInteger();
                 Patient.showAppointmentsByPatientId(patId);
             }
-            case 12 -> {
-                selectDoctorAndSortDirection();
-                Doctor.showSortedDocApptsByCriteria(chosenDoctorID, sortedByUpDown, SortCriteria.DATE_TIME);
-            }
-            case 13 -> {
-                selectDoctorAndSortDirection();
-                Doctor.showSortedDocApptsByCriteria(chosenDoctorID, sortedByUpDown, SortCriteria.PATIENT_NAMES);
-            }
-            case 14 -> {
-                selectDoctorAndSortDirection();
-                Doctor.showSortedDocApptsByCriteria(chosenDoctorID, sortedByUpDown, SortCriteria.PATIENT_ID);
-            }
+            case 12 -> Doctor.showSortedDocApptsByCriteria(selectDoctorID(), selectSortDirection(), SortCriteria.DATE_TIME);
+            case 13 -> Doctor.showSortedDocApptsByCriteria(selectDoctorID(), selectSortDirection(), SortCriteria.PATIENT_NAMES);
+            case 14 -> Doctor.showSortedDocApptsByCriteria(selectDoctorID(), selectSortDirection(), SortCriteria.PATIENT_ID);
             case 15 -> {
                 String docFirstName = "";
                 String docLastName = "";
@@ -130,6 +111,7 @@ public abstract class Menus {
                 Patient p = (Patient) DBase.currentUser;
                 //p.changeAppointmentsDateTime(3, "99-99-9999", 9999); <------ подават се вкараните от конзолата параметри
                 Write.writeAppointmentsData(DBase.APPOINTMENTS_FILE);
+                Read.getAppointmentsFromFile(DBase.APPOINTMENTS_FILE);
             }
 
             case 19 -> {
@@ -137,11 +119,13 @@ public abstract class Menus {
 
                 //p.addAppointment(docId, typeOfExam, date, time); <------ подават се вкараните от конзолата параметри
                 Write.writeAppointmentsData(DBase.APPOINTMENTS_FILE);
+                Read.getAppointmentsFromFile(DBase.APPOINTMENTS_FILE);
             }
 
             case 20 -> {
                 choseAppointmentToRemove();
                 Write.writeAppointmentsData(DBase.APPOINTMENTS_FILE);
+                Read.getAppointmentsFromFile(DBase.APPOINTMENTS_FILE);
             }
 
             case 21 -> {  // ------> добавяне на Доктор  --------------------- TODO
@@ -154,30 +138,22 @@ public abstract class Menus {
         }
     }
 
-    private static void selectDoctorAndSortDirection(){
-        int docID = 0;
+    private static String selectSortDirection(){
         int chSort = 0;
-
-        while (docID> DBase.maxDoctorID || docID<1){
-            System.out.print("Please enter doctor_id:");
-            docID = CheckInputData.inputPositiveInteger();
-        }
         while (chSort!=1 && chSort!=2){
             System.out.print("1-Up 2-Down. Enter your option:");
             chSort = CheckInputData.inputPositiveInteger();
         }
-
-        chosenDoctorID = docID;
-        sortedByUpDown = (chSort==1) ? "Up":"Down";
+        return  (chSort==1) ? "Up":"Down";
     }
 
-    private static void selectDoctorID(){
+    private static int selectDoctorID(){
         int docID = 0;
         while (docID> DBase.maxDoctorID || docID<1){
             System.out.print("Please enter doctor_id:");
             docID = CheckInputData.inputPositiveInteger();
         }
-        chosenDoctorID = docID;
+        return docID;
     }
 
     private static boolean isSuchADoctorInHospital(String firstName, String lastName){
@@ -189,7 +165,7 @@ public abstract class Menus {
     }
 
     private static String choseSpeciality(){
-        Map<Integer, String> specMap = new HashMap();
+        Map<Integer, String> specMap = new HashMap<>();
 
         int br =0;
         for (Speciality sp : DBase.specialities){
@@ -210,7 +186,7 @@ public abstract class Menus {
 
     private static String choseDataForViewPatients(){
         int choice = 0;
-        System.out.println("");
+        System.out.println();
 
         String notice = "Chose data to view patients list:";
         for (int i=0 ; i<DBase.activeDays.size() ; i++){
