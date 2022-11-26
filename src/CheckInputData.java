@@ -5,12 +5,12 @@ public abstract class CheckInputData {
     public static int inputPositiveInteger() {
         Scanner sc = new Scanner(System.in);
         while (!(sc.hasNextInt())) {
-            System.out.println("Invalid input. Try again!");
+            printRedWarning("Invalid input. Try again!");
             sc.nextLine();
         }
         int num = sc.nextInt();
         while (num < 1) {
-            System.out.println("Invalid input number. Try again!");
+            printRedWarning("Invalid input number. Try again!");
             num = inputPositiveInteger();
         }
         return num;
@@ -19,12 +19,12 @@ public abstract class CheckInputData {
     public static int inputNotNegativeInteger() {
         Scanner sc = new Scanner(System.in);
         while (!(sc.hasNextInt())) {
-            System.out.println("Invalid input. Try again!");
+            printRedWarning("Invalid input. Try again!");
             sc.nextLine();
         }
         int num = sc.nextInt();
         while (num < 0) {
-            System.out.println("Invalid input number. Try again!");
+            printRedWarning("Invalid input number. Try again!");
             num = inputPositiveInteger();
         }
         return num;
@@ -43,7 +43,7 @@ public abstract class CheckInputData {
             }
         }
         if (!isCorrect) {
-            System.out.println("Please use only a-z, A-Z and '-', without spaces! Try again!");
+            printRedWarning("Please use only a-z, A-Z and '-', without spaces! Try again!");
             str = inputAlphabeticalNonSpacesString();
         }
         return str;
@@ -53,15 +53,13 @@ public abstract class CheckInputData {
         for (Doctor d: DBase.doctors) {
             if (d.id==docID) return true;
         }
-        if (docID!=0) System.out.println("Doctor with this id does not exist!");
+        if (docID!=0) printRedWarning("Doctor with this id does not exist!");
         //when docID = 0 this happens before any user choice because while (!true) loop
         return false;
     }
 
-
     public static boolean checkIsChosenAppDataTimePatientIsFree(String date, String time, int patID){
 
-        boolean result = true;
         for (Appointment app: DBase.appointments){
             if (app.patientID==patID && app.date.equals(date)){
                 String[] resTime = time.split(":");
@@ -73,6 +71,12 @@ public abstract class CheckInputData {
         }
 
         return true;
+    }
+
+    private static void printRedWarning(String txt){
+        String msg = Colors.RED;
+        msg += txt + Colors.RESET;
+        System.out.println(msg);
     }
 
 }

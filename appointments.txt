@@ -499,4 +499,4 @@ appointment_id,patient_id,type_of_examination,date,time,doctor_id+
 498,488,secondary,28-11-2022,900,2
 499,489,consultation,01-12-2022,1800,8
 500,490,procedure,02-12-2022,1120,20
-501,2,secondary,28-11-2022,920,9
+501,501,initial,04-12-2022,1600,2

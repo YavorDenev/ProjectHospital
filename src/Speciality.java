@@ -24,16 +24,14 @@ public class Speciality {
     }
 
     public void showPatients() {
-        String blueColor = "\033[1;32m";
-        String resetColor = "\033[0m";
 
         boolean f = true;
         for (Patient p : DBase.patients) {
             for (Appointment app: DBase.appointments) {
                 String sp = getDocSpeciality(app.getDoctorID()).toLowerCase();
                 if (sp.equals(this.name.toLowerCase()) && app.getPatientID()==p.id) {
-                    System.out.println(p + " " + blueColor +
-                            DBase.doctorsMap.get(app.getDoctorID()).toString()+resetColor); //add doctor name
+                    System.out.println(p + " " + Colors.BLUE +
+                            DBase.doctorsMap.get(app.getDoctorID()).toString() + Colors.RESET); //add doctor name
                     f = false;
                     break;
                 }
