@@ -63,7 +63,8 @@ public abstract class Menus {
             case 3 -> Authorize.loginAsDoctor();
             case 4 -> Authorize.loginAsBoss();
             case 5 -> {
-                DBase.currentUser = Anonymous.registerAsNewPatient();
+                System.out.println("Please enter you first name, last name, age and gender.");
+                DBase.currentUser = Anonymous.registerAsNewPatient(enterFirstName(), enterLastName(), enterAge(), enterSex());
                 Write.writePatientsData(DBase.PATIENTS_FILE);
             }
             case 6 -> Hospital.showSpecialities();
@@ -122,7 +123,7 @@ public abstract class Menus {
             }
 
             case 21 -> {
-                System.out.println("Please enter the names, age, gender and specialty of the doctor you wish to add.");
+                System.out.println("Please enter the names, age, gender and speciality of the doctor you wish to add.");
                 Boss b = (Boss) DBase.currentUser;
                 b.addDoctor(enterFirstName(), enterLastName(), enterAge(), enterSex(), enterSpeciality());
                 Write.writeDoctorsData(DBase.DOCTORS_FILE);
