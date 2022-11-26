@@ -133,7 +133,7 @@ public abstract class Menus {
                 String firstName = enterFirstName();
                 String lastName = enterLastName();
                 int age = enterAge();
-                String sex = enterSex();
+                String sex = enterSexforDoctors();
                 String speciality = enterSpeciality();
                 if (confirm()) {
                     Boss b = (Boss) DBase.currentUser;
@@ -191,6 +191,19 @@ public abstract class Menus {
         System.out.println("1) male");
         System.out.println("2) female");
         System.out.println("3),... another");
+        int sexChoice = CheckInputData.inputPositiveInteger();
+        String sex = "unknown";
+        switch (sexChoice){
+            case 1 -> sex = "male";
+            case 2 -> sex = "female";
+        }
+        return sex;
+    }
+
+    private static String enterSexforDoctors(){
+        System.out.println("Enter gender:");
+        System.out.println("1) male");
+        System.out.println("2) female");
         int sexChoice = CheckInputData.inputPositiveInteger();
         String sex = "unknown";
         switch (sexChoice){
