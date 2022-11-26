@@ -15,7 +15,10 @@ public abstract class DBase {
     public static User currentUser;
 
     public static Map<Integer, String> patientsMap = new HashMap<Integer, String>();
+    //update when 1) read from file; 2) from constructor when new patient object is created
+
     public static Map<Integer, Doctor> doctorsMap = new HashMap<Integer, Doctor>();
+    //update when 1) read from file
 
     public static List<Boss> bosses = new ArrayList<>();
 

@@ -86,13 +86,13 @@ public class Appointment {
     @Override
     public String toString() {
         String leadingZero = (time%100 < 10) ? "0" : "";
-        return FunctionsText.leftFrameFixedLengthIn("appID:" + id,12) +
+        return FunctionsText.leftFrameFixedOnLength("appID:" + id,12) +
                 getColorBySex(DBase.patientsMap.get(patientID)) + //set color
-                FunctionsText.leftFrameFixedLengthIn(DBase.patientsMap.get(patientID),44) +
+                FunctionsText.leftFrameFixedOnLength(DBase.patientsMap.get(patientID),44) +
                 Colors.RESET +
-                FunctionsText.leftFrameFixedLengthIn(typeOfExamination,15) +
-                FunctionsText.leftFrameFixedLengthIn(date,14) +
-                FunctionsText.leftFrameFixedLengthIn(time/100 + ":" + leadingZero + time%100,8) + " | " +
+                FunctionsText.leftFrameFixedOnLength(typeOfExamination,15) +
+                FunctionsText.leftFrameFixedOnLength(date,14) +
+                FunctionsText.leftFrameFixedOnLength(time/100 + ":" + leadingZero + time%100,8) + " | " +
                 FunctionsText.getRightAlignmentColoredText(DBase.doctorsMap.get(doctorID).toString(),24, Colors.BLUE) ;
     }
 

@@ -92,6 +92,19 @@ public class Patient extends User {
                 Colors.RESET ;
     }
 
+    public String formattedToListOfPatients(){
+        String txt="";
+        String sexColor = getColorBySex(this.sex);
+        txt += fixLengthIn("id:" + id,9) +
+                sexColor+
+                FunctionsText.leftFrameFixedOnLength(this.firstName + " " + this.lastName,30) +
+                Colors.RESET +
+                FunctionsText.leftFrameFixedOnLength(" " + this.age + "y ",7) +
+                FunctionsText.leftFrameFixedOnLengthColored(this.sex,11,sexColor);
+
+        return txt;
+    }
+
     private String getColorBySex(String sex){
         if (sex.equals("female")) return Colors.RED;
         if (sex.equals("male")) return Colors.CYAN;
