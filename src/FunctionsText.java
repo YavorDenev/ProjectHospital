@@ -25,7 +25,7 @@ public abstract class FunctionsText {
     }
 
 
-    public static String leftFrameFixedLengthIn(String str, int length)
+    public static String leftFrameFixedOnLength(String str, int length)
     {
         if (str.length()==4) str = " " + str; // just for time > right alingment
         String result = " | "+str;
@@ -35,7 +35,7 @@ public abstract class FunctionsText {
         return result;
     }
 
-    public static String leftFrameFixedLengthIn(String str, int length, String color)
+    public static String leftFrameFixedOnLengthColored(String str, int length, String color)
     {
         String result = " | "+str;
         while(result.length()<length) {

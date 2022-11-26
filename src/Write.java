@@ -5,7 +5,7 @@ public abstract class Write {
 
     public static void writeAppointmentsData(String filename){
         String[] appArray = new String[DBase.appointments.size()+1];
-        appArray[0] = "appointment_id, patient_id, type_of_examination, date, time, doctor_id+\n";
+        appArray[0] = "appointment_id,patient_id,type_of_examination,date,time,doctor_id+\n";
         String nl = "\n";
 
         for (int i=0;i<DBase.appointments.size();i++){
@@ -46,28 +46,8 @@ public abstract class Write {
         }
 
         writeInFile(patArray,filename);
+
     }
-
-    /*
-    public static void writeSpecialitiesData(String filename){
-        String[] spArray = new String[DBase.specialities.size()+1];
-        spArray[0] = "speciality_id,name,is_hidden\n";
-        String nl = "\n";
-
-        for (int i=0;i<DBase.specialities.size();i++){
-            Speciality sp = DBase.specialities.get(i);
-            String isHidd = (sp.isHidden) ? "1" : "0";
-            spArray[i+1] = sp.id + "," + sp.name + "," + isHidd;
-            if (i+1 < DBase.specialities.size()) spArray[i+1] += nl; //last line must be without enter
-        }
-        writeInFile(spArray,filename);
-    }
-
-    public static void writeClassAllowedActionsData(String filename){
-        writeInFile(DBase.allowedActions,filename);
-    }
-     */
-
 
     private static void writeInFile(String[] array, String fileName) {
         try{
@@ -77,7 +57,7 @@ public abstract class Write {
             }
         }
         catch(Exception exc) {
-            System.out.println(exc.getMessage());  //показва от какво е станало
+            System.out.println(exc.getMessage());  //show msg of problem
         }
     }
 

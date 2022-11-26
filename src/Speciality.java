@@ -53,4 +53,11 @@ public class Speciality {
     public String toString() {
         return "id:" +  id + " " + name;
     }
+
+    public String formattedToListOfSpecialities(){
+        String txt="";
+        txt += FunctionsText.leftFrameFixedOnLength("id:" + id,7);
+        txt += FunctionsText.leftFrameFixedOnLengthColored(name, 25,Colors.CYAN);
+        return txt;
+    }
 }

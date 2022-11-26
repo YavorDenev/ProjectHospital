@@ -46,7 +46,7 @@ public abstract class Menus {
     static int enterUserChoice(){
         System.out.print("Please enter your choice:");
         int ch = CheckInputData.inputNotNegativeInteger();
-        for (int action: allowedActions) {   // -----------> проверка дали въведеното число отговаря на allowedActions
+        for (int action: allowedActions) {   // > check is number from allowedActions
             if(action==ch) return ch;
         }
         System.out.println("Wrong number!");
@@ -117,7 +117,7 @@ public abstract class Menus {
             }
 
             case 19 -> {
-                generateAppointment(0);
+                serveNewAppointmentQuery(true, 0);
                 Write.writeAppointmentsData(DBase.APPOINTMENTS_FILE);
                 DBase.setActiveDays();
             }
@@ -270,61 +270,60 @@ public abstract class Menus {
     }
 
     private static void choseAppointmentToRemove(){
-        String redColor = "\033[1;31m"; String resetColor = "\033[0m";
 
         Map<Integer,Appointment> choiceMap = new HashMap<>();
-        int num =0;
+        int cntOptions =0;
         for (Appointment app: DBase.appointments) {
             boolean f = false;
             if (DBase.currentUser instanceof Patient && app.patientID == ((Patient) DBase.currentUser).id) f = true;
             else if (DBase.currentUser instanceof Doctor && app.doctorID == ((Doctor) DBase.currentUser).id) f = true;
             else if (DBase.currentUser instanceof Boss) f = true;
             if (f) {
-                num++; choiceMap.put(num,app);
-                System.out.print(num +") ");
+                cntOptions++; choiceMap.put(cntOptions,app);
+                System.out.print(cntOptions +") ");
                 System.out.println(app);
             }
         }
 
-        if (num == 0) System.out.println(redColor + "You have no appointments!" + resetColor);
+        if (cntOptions == 0) System.out.println(Colors.RED + "You have no appointments!" + Colors.RESET);
         else {
             int choice;
             do {
                 System.out.print("Please enter appointment to reject:");
                 choice = CheckInputData.inputPositiveInteger();
-            } while (choice > num);
+            } while (choice > cntOptions);
 
             DBase.appointments.remove(choiceMap.get(choice));
             System.out.println();
-            System.out.println(choiceMap.get(choice) + redColor + "was removed" + resetColor);
+            System.out.println(choiceMap.get(choice) + Colors.RED + "was removed" + Colors.RESET);
         }
     }
 
     private static void changeDateTimeOfAppointment(){
         Map<Integer, Appointment> myApps = new HashMap<>();
 
-        System.out.println("Which your appointment you wish to change:");
-        int br = 0;
+        System.out.println(Colors.BLUE+"Which your appointment you wish to change:"+Colors.RESET);
+        int cntOptions = 0;
         if (DBase.currentUser instanceof Patient)  {
             for (Appointment app : DBase.appointments) {
                 if (app.patientID == ((Patient) DBase.currentUser).id){
-                    br++;
-                    System.out.println(br+")"+ app.toString());
-                    myApps.put(br,app);
+                    cntOptions++;
+                    System.out.println(cntOptions+")"+ app.toString());
+                    myApps.put(cntOptions,app);
                 }
             }
         }
 
-        int choice = getChoice(br);
+        int choice = getChoice(cntOptions);
 
-        generateAppointment(myApps.get(choice).getId()); //show calendar to change
+        serveNewAppointmentQuery(false, myApps.get(choice).getId()); //show calendar to change
     }
 
-    private static void generateAppointment(int appID){
-        // if appID=0 -- change appointment
+    private static void serveNewAppointmentQuery(boolean isNewApp, int appID){
+
         int docID = 0;
         int typeExamination=1;
-        if (appID ==0){
+        if (isNewApp){
             docID = selectDoctorID();
             typeExamination = enterTypeOfExamination();
         } else {
@@ -336,15 +335,13 @@ public abstract class Menus {
             }
         }
 
+        System.out.println(Colors.BLUE + "============== Choose free hour from Calendar ============= Doctor "
+                + DBase.doctorsMap.get(docID)+ " ======================================" + Colors.RESET);
+
         Map<Integer, String> choiceFreeDateMap = new HashMap<>();
         Map<Integer,String> choiceFreeTimeMap = new HashMap<>();
 
-        System.out.println(FunctionsText.leftFrameFixedLengthIn(
-                "============== Choose free hour from Calendar ============= Doctor " + DBase.doctorsMap.get(docID)+
-                        " ======================================",50,Colors.BLUE));
-
         ArrayList<String> appTimes = new ArrayList<>();
-
         ArrayList<String> min = new ArrayList<>();
         min.add("00"); min.add("20"); min.add("40"); //when convert int to min "00" become 0 (ugly)
 
@@ -389,19 +386,19 @@ public abstract class Menus {
             }
         }
 
-        getUserChoiceForNewAppointment(choiceFreeDateMap, choiceFreeTimeMap, countFreeOptions, docID, appID, typeExamination);
+        getUserChoiceForNewAppointment(choiceFreeDateMap, choiceFreeTimeMap, countFreeOptions, docID, isNewApp, appID, typeExamination);
 
         System.out.println(Colors.BLUE +"Operation confirmed!"+Colors.RESET);
     }
 
-    private static void getUserChoiceForNewAppointment(Map<Integer,String> mapDate, Map<Integer,String> mapTime, int cnt, int docID, int appID, int typeExm){
+    private static void getUserChoiceForNewAppointment(Map<Integer,String> mapDate, Map<Integer,String> mapTime, int cnt, int docID, boolean isNewApp, int appID, int typeExm){
         int patientID;
         if (DBase.currentUser instanceof Patient){
             int choice = getChoice(cnt);
             patientID = ((Patient) DBase.currentUser).id;
             boolean isIAMFree =  CheckInputData.checkIsChosenAppDataTimePatientIsFree(mapDate.get(choice),mapTime.get(choice),patientID);
             if (isIAMFree){
-                if (appID ==0){
+                if (isNewApp){
                     Appointment newApp = new Appointment(patientID,docID,DBase.EXAMINATIONS[typeExm-1], mapDate.get(choice),mapTime.get(choice));
                     DBase.appointments.add(newApp);
                 } else {
@@ -413,18 +410,19 @@ public abstract class Menus {
                 System.out.println( Colors.RED+
                         "You have another appointment in this moment. Please choose again!"+
                         Colors.RESET);
-                getUserChoiceForNewAppointment(mapDate, mapTime, cnt, docID, appID, typeExm);
+                getUserChoiceForNewAppointment(mapDate, mapTime, cnt, docID, isNewApp, appID, typeExm);
             }
-        } else System.out.println("Only patient can add new appointment!");
+        }
+        else System.out.println("Only patient can add new appointment!");
     }
 
     private static int getChoice(int maxChoice){
-        String t = "Enter your choice:";
+        String t = Colors.BLUE +"Enter your choice:"+Colors.RESET;
         int choice = 0;
         while (choice<1||choice>maxChoice){
-            System.out.println(t);
+            System.out.print(t);
             choice = CheckInputData.inputPositiveInteger();
-            t = "Invalid input number. Try again!";
+            t = Colors.RED+"Invalid input number. Try again!"+Colors.RESET;
         }
         return choice;
     }

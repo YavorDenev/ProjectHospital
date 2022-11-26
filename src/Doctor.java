@@ -89,7 +89,15 @@ public class Doctor extends User {
 
         while (txt.length()<50) txt += "=";
         return txt;
+    }
 
+    public String formattedToListOfDoctors(){
+        String txt="";
+        txt += FunctionsText.leftFrameFixedOnLength("id:" + id,7);
+        txt += FunctionsText.leftFrameFixedOnLengthColored(firstName + " " + lastName, 30,Colors.CYAN);
+        txt += FunctionsText.leftFrameFixedOnLengthColored(" (" + speciality +") ",18, Colors.RED);
+
+        return txt;
     }
 
     public static void showDocHeader(int docId, String notice){
