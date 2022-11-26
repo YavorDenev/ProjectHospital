@@ -111,7 +111,7 @@ public abstract class Menus {
             case 17 -> Hospital.showPatientsByDate(choseDataForViewPatients());
 
             case 18 -> {
-                menu18ChangeAppointment();
+                changeDateTimeOfAppointment();
                 Write.writeAppointmentsData(DBase.APPOINTMENTS_FILE);
                 DBase.setActiveDays();
             }
@@ -300,7 +300,7 @@ public abstract class Menus {
         }
     }
 
-    private static void menu18ChangeAppointment(){
+    private static void changeDateTimeOfAppointment(){
         Map<Integer, Appointment> myApps = new HashMap<>();
 
         System.out.println("Which your appointment you wish to change:");
@@ -335,8 +335,7 @@ public abstract class Menus {
         if (isNewApp){
             docID = selectDoctorID();
             typeExamination = enterTypeOfExamination();
-        }
-        else {
+        } else {
             for (Appointment app : DBase.appointments){  //For old Appointment get doctor from app.id
                 if (app.getId()==oldAppID) {
                     docID = app.getDoctorID();
