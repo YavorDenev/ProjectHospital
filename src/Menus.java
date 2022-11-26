@@ -64,8 +64,14 @@ public abstract class Menus {
             case 4 -> Authorize.loginAsBoss();
             case 5 -> {
                 System.out.println("Please enter you first name, last name, age and gender.");
-                DBase.currentUser = Anonymous.registerAsNewPatient(enterFirstName(), enterLastName(), enterAge(), enterSex());
-                Write.writePatientsData(DBase.PATIENTS_FILE);
+                String firstName = enterFirstName();
+                String lastName = enterLastName();
+                int age = enterAge();
+                String sex = enterSex();
+                if (confirm()) {
+                    DBase.currentUser = Anonymous.registerAsNewPatient(firstName, lastName, age, sex);
+                    Write.writePatientsData(DBase.PATIENTS_FILE);
+                } else new Anonymous();
             }
             case 6 -> Hospital.showSpecialities();
             case 7 -> Hospital.showDoctors();
@@ -165,13 +171,13 @@ public abstract class Menus {
         return false;
     }
 
-    private static String enterLastName(){
-        System.out.print("Enter last name:");
+    private static String enterFirstName(){
+        System.out.print("Enter first name:");
         return CheckInputData.inputAlphabeticalNonSpacesString();
     }
 
-    private static String enterFirstName(){
-        System.out.print("Enter first name:");
+    private static String enterLastName(){
+        System.out.print("Enter last name:");
         return CheckInputData.inputAlphabeticalNonSpacesString();
     }
 
