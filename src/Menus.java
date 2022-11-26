@@ -169,8 +169,7 @@ public abstract class Menus {
 
     private static int enterAge(){
         System.out.println("Enter age:");
-        int age = CheckInputData.inputPositiveInteger();
-        return age;
+        return CheckInputData.inputPositiveInteger();
     }
 
     private static String enterSex(){
