@@ -1,5 +1,5 @@
 appointment_id,patient_id,type_of_examination,date,time,doctor_id+
-1,1,initial,10-12-2022,1400,9
+1,1,initial,02-12-2022,1400,9
 2,1,secondary,04-12-2022,1700,5
 3,2,secondary,02-12-2022,1140,4
 4,2,consultation,28-11-2022,900,9
@@ -500,3 +500,7 @@ appointment_id,patient_id,type_of_examination,date,time,doctor_id+
 499,489,consultation,01-12-2022,1800,8
 500,490,procedure,02-12-2022,1120,20
 501,501,initial,04-12-2022,1600,2
+502,500,initial,10-12-2022,1600,2
+503,500,initial,10-12-2022,1620,9
+504,500,initial,10-12-2022,920,2
+505,500,initial,10-12-2022,900,24

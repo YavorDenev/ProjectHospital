@@ -229,4 +229,18 @@ public abstract class Read {
         return "unknown"; //Can't recognize sex
     }
 
+    public static void showIntroPictureFile(String filename){
+        String line = "";
+
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(filename));
+            while ((line = br.readLine()) != null) {
+                System.out.println(line);
+            }
+        } catch (IOException e1) {
+            System.out.println("File " + filename + " not found!");
+            System.exit(0);
+        }
+    }
+
 }

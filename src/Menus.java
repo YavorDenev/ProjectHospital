@@ -120,7 +120,8 @@ public abstract class Menus {
             }
 
             case 19 -> {
-                serveNewAppointmentQuery(true, 0);
+                while(!patientBookAnAppointment(true, 0)){};
+                //if man chose gynecology then loop
                 Write.writeAppointmentsData(DBase.APPOINTMENTS_FILE);
                 DBase.setActiveDays();
             }
@@ -163,6 +164,21 @@ public abstract class Menus {
         return false;
     }
 
+    private static void enterNewDoctor(){
+        printBlueNotice("Please enter the names, age, gender and speciality of the doctor you wish to add.");
+        String firstName = enterFirstName();
+        String lastName = enterLastName();
+        int age = enterAge();
+        String sex = enterSexForDoctors();
+        String speciality = enterSpeciality();
+        if (confirm()) {
+            Boss b = (Boss) DBase.currentUser;
+            b.addDoctor(firstName, lastName, age, sex, speciality);
+            Write.writeDoctorsData(DBase.DOCTORS_FILE);
+            Read.getDoctorsFromFile(DBase.DOCTORS_FILE);
+        }
+    }
+
     private static String enterFirstName(){
         printBlueInputNotice("Enter first name:");
         return CheckInputData.inputAlphabeticalNonSpacesString();
@@ -193,7 +209,7 @@ public abstract class Menus {
     }
 
     private static String enterSexForDoctors(){
-        printBlueInputNotice("Enter gender:");
+        printBlueNotice("Enter gender:");
         System.out.println("1) male");
         System.out.println("2) female");
         int sexChoice = CheckInputData.inputPositiveInteger();
@@ -308,16 +324,22 @@ public abstract class Menus {
 
         int choice = getChoice(cntOptions);
 
-        serveNewAppointmentQuery(false, myApps.get(choice).getId()); //show calendar to change
+        patientBookAnAppointment(false, myApps.get(choice).getId()); //show calendar to change
     }
 
-    private static void serveNewAppointmentQuery(boolean isNewApp, int appID){
+    private static boolean patientBookAnAppointment(boolean isNewApp, int appID){
 
         int docID = 0;
         int typeExamination=1;
         if (isNewApp){
             docID = selectDoctorID();
-            typeExamination = enterTypeOfExamination();
+            if (!DBase.currentUser.sex.equals("female")){
+                if (DBase.doctorsMap.get(docID).speciality.equals("gynecology")){
+                    printRedWarning("You cant book appointment for gynecology");
+                    return false;
+                }
+            }
+            else typeExamination = enterTypeOfExamination();
         } else {
             for (Appointment app : DBase.appointments){  //For old Appointment get doctor from app.id
                 if (app.getId()== appID) {
@@ -381,6 +403,8 @@ public abstract class Menus {
         getUserChoiceForNewAppointment(choiceFreeDateMap, choiceFreeTimeMap, countFreeOptions, docID, isNewApp, appID, typeExamination);
 
         printBlueNotice("Operation confirmed!");
+
+        return true; //method must be not void because we need exit when man chose gynecology option
     }
 
     private static void getUserChoiceForNewAppointment(Map<Integer,String> mapDate, Map<Integer,String> mapTime, int cnt, int docID, boolean isNewApp, int appID, int typeExm){
@@ -432,21 +456,6 @@ public abstract class Menus {
             }
         }
         return true;
-    }
-
-    private static void enterNewDoctor(){
-        printBlueNotice("Please enter the names, age, gender and speciality of the doctor you wish to add.");
-        String firstName = enterFirstName();
-        String lastName = enterLastName();
-        int age = enterAge();
-        String sex = enterSexForDoctors();
-        String speciality = enterSpeciality();
-        if (confirm()) {
-            Boss b = (Boss) DBase.currentUser;
-            b.addDoctor(firstName, lastName, age, sex, speciality);
-            Write.writeDoctorsData(DBase.DOCTORS_FILE);
-            Read.getDoctorsFromFile(DBase.DOCTORS_FILE);
-        }
     }
 
     private static void printBlueInputNotice(String txt){
