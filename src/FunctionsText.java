@@ -16,6 +16,14 @@ public abstract class FunctionsText {
         System.out.print(color+result+Colors.RESET);
     }
 
+    public static String getRightAlignmentColoredText(String txt, int len, String color) {
+        String result = txt;
+        while (result.length()<len){
+            result = " " + result;
+        }
+         return color+result+Colors.RESET;
+    }
+
 
     public static String leftFrameFixedLengthIn(String str, int length)
     {

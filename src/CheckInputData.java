@@ -49,5 +49,30 @@ public abstract class CheckInputData {
         return str;
     }
 
+    public static boolean checkDoctorWithThisIDExist(int docID){
+        for (Doctor d: DBase.doctors) {
+            if (d.id==docID) return true;
+        }
+        if (docID!=0) System.out.println("Doctor with this id does not exist!");
+        //when docID = 0 this happens before any user choice because while (!true) loop
+        return false;
+    }
+
+
+    public static boolean checkIsChosenAppDataTimePatientIsFree(String date, String time, int patID){
+
+        boolean result = true;
+        for (Appointment app: DBase.appointments){
+            if (app.patientID==patID && app.date.equals(date)){
+                String[] resTime = time.split(":");
+                int intTime = 100*Integer.parseInt(resTime[0]) +Integer.parseInt(resTime[1]) ;
+                if (intTime==app.time){
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
 
 }
