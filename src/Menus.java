@@ -429,10 +429,12 @@ public abstract class Menus {
     }
 
     private static int getChoice(int maxChoice){
-        System.out.print("Enter your choice:");
-        int choice = scn.nextInt();
+        String t = "Enter your choice:";
+        int choice = 0;
         while (choice<1||choice>maxChoice){
+            System.out.println(t);
             choice = CheckInputData.inputPositiveInteger();
+            t = "Invalid input number. Try again!";
         }
         return choice;
     }
