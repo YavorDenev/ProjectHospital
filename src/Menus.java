@@ -12,7 +12,7 @@ public abstract class Menus {
         String userType = "";
 
         int lastAction = -1;
-        while (lastAction!=21) {
+        while (lastAction!=22) {
 
             try {
                 userType = String.valueOf(DBase.currentUser.getClass().getField("userType").get(DBase.currentUser));
@@ -100,7 +100,7 @@ public abstract class Menus {
                 }
                 Hospital.showPatientsByDocNames(docFirstName, docLastName);
             }
-            case 16 -> Hospital.showPatientsBySpeciality(choseSpeciality());
+            case 16 -> Hospital.showPatientsBySpeciality(enterSpeciality());
             case 17 -> Hospital.showPatientsByDate(choseDataForViewPatients());
 
             case 18 -> {
@@ -121,10 +121,10 @@ public abstract class Menus {
                 DBase.setActiveDays();
             }
 
-            case 21 -> {  // ------> добавяне на Доктор  --------------------- TODO
-                //-------- избор от конзолата на параметрите на Доктор
+            case 21 -> {
+                System.out.println("Please enter the names, age, gender and specialty of the doctor you wish to add.");
                 Boss b = (Boss) DBase.currentUser;
-                //b.addDoctor(firstName, lastName, age, sex, speciality); <------ подават се вкараните от конзолата параметри
+                b.addDoctor(enterFirstName(), enterLastName(), enterAge(), enterSex(), enterSpeciality());
                 Write.writeDoctorsData(DBase.DOCTORS_FILE);
                 Read.getDoctorsFromFile(DBase.DOCTORS_FILE);
             }
@@ -157,7 +157,37 @@ public abstract class Menus {
         return false;
     }
 
-    private static String choseSpeciality(){
+    private static String enterLastName(){
+        System.out.print("Enter last name:");
+        return CheckInputData.inputAlphabeticalNonSpacesString();
+    }
+
+    private static String enterFirstName(){
+        System.out.print("Enter first name:");
+        return CheckInputData.inputAlphabeticalNonSpacesString();
+    }
+
+    private static int enterAge(){
+        System.out.println("Enter age:");
+        int age = CheckInputData.inputPositiveInteger();
+        return age;
+    }
+
+    private static String enterSex(){
+        System.out.println("Enter gender:");
+        System.out.println("1) male");
+        System.out.println("2) female");
+        System.out.println("3),... another");
+        int sexChoice = CheckInputData.inputPositiveInteger();
+        String sex = "unknown";
+        switch (sexChoice){
+            case 1 -> sex = "male";
+            case 2 -> sex = "female";
+        }
+        return sex;
+    }
+
+    private static String enterSpeciality(){
         Map<Integer, String> specMap = new HashMap<>();
 
         int br =0;
@@ -170,7 +200,7 @@ public abstract class Menus {
         int choice = 0;
         String valid = "";
         while (choice>br||choice<1){
-            System.out.print("Please enter" + valid + " number of speciality:");
+            System.out.print("Enter" + valid + " number of speciality:");
             choice = CheckInputData.inputPositiveInteger();
             valid = " a valid";
         }
