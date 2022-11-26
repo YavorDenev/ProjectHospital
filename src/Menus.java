@@ -117,7 +117,7 @@ public abstract class Menus {
             }
 
             case 19 -> {
-                showFreeOptionsByDoctorID(true,0);
+                generateAppointment(true,0);
                 Write.writeAppointmentsData(DBase.APPOINTMENTS_FILE);
                 DBase.setActiveDays();
             }
@@ -317,11 +317,11 @@ public abstract class Menus {
 
         int choice = getChoice(br);
 
-        showFreeOptionsByDoctorID(false, myApps.get(choice).getId()); //show calendar to change
+        generateAppointment(false, myApps.get(choice).getId()); //show calendar to change
 
     }
 
-    private static void showFreeOptionsByDoctorID(boolean isNewApp,int oldAppID){
+    private static void generateAppointment(boolean isNewApp, int oldAppID){
         //FOR ADD/CHANGE APPOINTMENT BY USER
 
         //when isNewApp is true > Add New Appointment
