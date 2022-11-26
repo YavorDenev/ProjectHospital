@@ -327,9 +327,6 @@ public abstract class Menus {
         //when isNewApp is true > Add New Appointment
         //when isNewApp is false > change oldAppID to new one
 
-        Map<Integer, String> choiceFreeDateMap = new HashMap<>();
-        Map<Integer,String> choiceFreeTimeMap = new HashMap<>();
-
         int docID = 0;
         int typeExamination=1;
         if (isNewApp){
@@ -343,6 +340,9 @@ public abstract class Menus {
                 }
             }
         }
+
+        Map<Integer, String> choiceFreeDateMap = new HashMap<>();
+        Map<Integer,String> choiceFreeTimeMap = new HashMap<>();
 
         System.out.println(FunctionsText.leftFrameFixedLengthIn(
                 "============== Choose free hour from Calendar ============= Doctor " + DBase.doctorsMap.get(docID)+
@@ -361,7 +361,8 @@ public abstract class Menus {
             }
         }
 
-        int countTimes = 0; int countFreeOptions = 0;
+        int countTimes = 0;
+        int countFreeOptions = 0;
         boolean isFreeTime;
 
         for (int i = 0; i<DBase.activeDays.size() ; i++){
@@ -399,7 +400,6 @@ public abstract class Menus {
     }
 
     private static void getUserChoiceForNewAppointment(Map<Integer,String> mapDate, Map<Integer,String> mapTime, int cnt, int docID, boolean isNewApp, int oldAppID, int typeExm){
-
         int patientID;
         if (DBase.currentUser instanceof Patient){
             int choice = getChoice(cnt);
@@ -409,22 +409,18 @@ public abstract class Menus {
                 if (isNewApp){
                     Appointment newApp = new Appointment(patientID,docID,DBase.EXAMINATIONS[typeExm-1], mapDate.get(choice),mapTime.get(choice));
                     DBase.appointments.add(newApp);
-                }
-                else {
+                } else {
                     String[] resTime = mapTime.get(choice).split(":");
                     int intTime = 100*Integer.parseInt(resTime[0]) +Integer.parseInt(resTime[1]) ;
                     ((Patient) DBase.currentUser).changeAppointmentsDateTime(oldAppID, mapDate.get(choice), intTime);
                 }
-            }
-            else {
+            } else {
                 System.out.println( Colors.RED+
                         "You have another appointment in this moment. Please choose again!"+
                         Colors.RESET);
                 getUserChoiceForNewAppointment(mapDate, mapTime, cnt, docID, isNewApp, oldAppID, typeExm);
             }
-
-        }
-        else System.out.println("Only patient can add new appointment!");
+        } else System.out.println("Only patient can add new appointment!");
     }
 
     private static int getChoice(int maxChoice){
@@ -454,6 +450,5 @@ public abstract class Menus {
 
         return true;
     }
-
 
 }
