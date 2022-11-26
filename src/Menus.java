@@ -133,7 +133,7 @@ public abstract class Menus {
                 String firstName = enterFirstName();
                 String lastName = enterLastName();
                 int age = enterAge();
-                String sex = enterSexforDoctors();
+                String sex = enterSexForDoctors();
                 String speciality = enterSpeciality();
                 if (confirm()) {
                     Boss b = (Boss) DBase.currentUser;
@@ -200,7 +200,7 @@ public abstract class Menus {
         return sex;
     }
 
-    private static String enterSexforDoctors(){
+    private static String enterSexForDoctors(){
         System.out.println("Enter gender:");
         System.out.println("1) male");
         System.out.println("2) female");
@@ -242,6 +242,15 @@ public abstract class Menus {
             finalChoice = CheckInputData.inputPositiveInteger();
         }
         return finalChoice == 2;
+    }
+
+    private static int enterTypeOfExamination(){
+        System.out.println("Please choice type of examination:");
+        System.out.println("1)"+ DBase.EXAMINATIONS[0]);
+        System.out.println("2)"+ DBase.EXAMINATIONS[1]);
+        System.out.println("3)"+ DBase.EXAMINATIONS[2]);
+        System.out.println("4)"+ DBase.EXAMINATIONS[3]);
+        return getChoice(4);
     }
 
     private static String choseDataForViewPatients(){
@@ -321,17 +330,11 @@ public abstract class Menus {
         Map<Integer, String> choiceFreeDateMap = new HashMap<>();
         Map<Integer,String> choiceFreeTimeMap = new HashMap<>();
 
-        int docID = 0; int typeExamination=1;
+        int docID = 0;
+        int typeExamination=1;
         if (isNewApp){
-            while (docID> DBase.maxDoctorID || docID<1){  //For new Appointment chose doctor
-                docID = selectDoctorID();
-                System.out.println("Please choice type of examination:");
-                System.out.println("1)"+ DBase.EXAMINATIONS[0]);
-                System.out.println("2)"+ DBase.EXAMINATIONS[1]);
-                System.out.println("3)"+ DBase.EXAMINATIONS[2]);
-                System.out.println("4)"+ DBase.EXAMINATIONS[3]);
-                typeExamination = getChoice(4);
-            }
+            docID = selectDoctorID();
+            typeExamination = enterTypeOfExamination();
         }
         else {
             for (Appointment app : DBase.appointments){  //For old Appointment get doctor from app.id
