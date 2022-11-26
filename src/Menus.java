@@ -156,7 +156,7 @@ public abstract class Menus {
 
     private static int selectDoctorID(){
         int docID = 0;
-        while (docID> DBase.maxDoctorID || docID<1){
+        while (!CheckInputData.checkDoctorWithThisIDExist(docID)){
             System.out.print("Please enter doctor_id:");
             docID = CheckInputData.inputPositiveInteger();
         }
@@ -324,10 +324,7 @@ public abstract class Menus {
         int docID = 0; int typeExamination=1;
         if (isNewApp){
             while (docID> DBase.maxDoctorID || docID<1){  //For new Appointment chose doctor
-                System.out.print("Please enter doctor_id:");
-                while (!CheckInputData.checkDoctorWithThisIDExist(docID)){
-                    docID = CheckInputData.inputPositiveInteger();
-                }
+                docID = selectDoctorID();
                 System.out.println("Please choice type of examination:");
                 System.out.println("1)"+ DBase.EXAMINATIONS[0]);
                 System.out.println("2)"+ DBase.EXAMINATIONS[1]);
