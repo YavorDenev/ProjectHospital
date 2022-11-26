@@ -2,7 +2,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Read.showIntroPictureFile("intro150.txt");
+        Read.showIntroPictureFile("intro150width.txt");
 
         Read.getAppointmentsFromFile(DBase.APPOINTMENTS_FILE);
         Read.getDoctorsFromFile(DBase.DOCTORS_FILE);
@@ -15,12 +15,6 @@ public class Main {
         Boss Katev = new Boss("Martin", "Katev", 46, "m", "Katev" );
 
         DBase.currentUser =  new Anonymous(); // final original login
-
-        //HARD LOGIN //TODO REMOVE
-         DBase.currentUser =  Katev; // hard login
-        // DBase.currentUser =  DBase.doctorsMap.get(2);  // hard login
-        // DBase.currentUser =  DBase.patients.get(1);
-
 
         Menus.startPoint();
 
