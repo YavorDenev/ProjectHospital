@@ -117,7 +117,7 @@ public abstract class Menus {
             }
 
             case 19 -> {
-                generateAppointment(true,0);
+                generateAppointment(0);
                 Write.writeAppointmentsData(DBase.APPOINTMENTS_FILE);
                 DBase.setActiveDays();
             }
@@ -317,24 +317,19 @@ public abstract class Menus {
 
         int choice = getChoice(br);
 
-        generateAppointment(false, myApps.get(choice).getId()); //show calendar to change
-
+        generateAppointment(myApps.get(choice).getId()); //show calendar to change
     }
 
-    private static void generateAppointment(boolean isNewApp, int oldAppID){
-        //FOR ADD/CHANGE APPOINTMENT BY USER
-
-        //when isNewApp is true > Add New Appointment
-        //when isNewApp is false > change oldAppID to new one
-
+    private static void generateAppointment(int appID){
+        // if appID=0 -- change appointment
         int docID = 0;
         int typeExamination=1;
-        if (isNewApp){
+        if (appID ==0){
             docID = selectDoctorID();
             typeExamination = enterTypeOfExamination();
         } else {
             for (Appointment app : DBase.appointments){  //For old Appointment get doctor from app.id
-                if (app.getId()==oldAppID) {
+                if (app.getId()== appID) {
                     docID = app.getDoctorID();
                     break;
                 }
@@ -394,31 +389,31 @@ public abstract class Menus {
             }
         }
 
-        getUserChoiceForNewAppointment(choiceFreeDateMap, choiceFreeTimeMap, countFreeOptions, docID, isNewApp, oldAppID, typeExamination);
+        getUserChoiceForNewAppointment(choiceFreeDateMap, choiceFreeTimeMap, countFreeOptions, docID, appID, typeExamination);
 
         System.out.println(Colors.BLUE +"Operation confirmed!"+Colors.RESET);
     }
 
-    private static void getUserChoiceForNewAppointment(Map<Integer,String> mapDate, Map<Integer,String> mapTime, int cnt, int docID, boolean isNewApp, int oldAppID, int typeExm){
+    private static void getUserChoiceForNewAppointment(Map<Integer,String> mapDate, Map<Integer,String> mapTime, int cnt, int docID, int appID, int typeExm){
         int patientID;
         if (DBase.currentUser instanceof Patient){
             int choice = getChoice(cnt);
             patientID = ((Patient) DBase.currentUser).id;
             boolean isIAMFree =  CheckInputData.checkIsChosenAppDataTimePatientIsFree(mapDate.get(choice),mapTime.get(choice),patientID);
             if (isIAMFree){
-                if (isNewApp){
+                if (appID ==0){
                     Appointment newApp = new Appointment(patientID,docID,DBase.EXAMINATIONS[typeExm-1], mapDate.get(choice),mapTime.get(choice));
                     DBase.appointments.add(newApp);
                 } else {
                     String[] resTime = mapTime.get(choice).split(":");
                     int intTime = 100*Integer.parseInt(resTime[0]) +Integer.parseInt(resTime[1]) ;
-                    ((Patient) DBase.currentUser).changeAppointmentsDateTime(oldAppID, mapDate.get(choice), intTime);
+                    ((Patient) DBase.currentUser).changeAppointmentsDateTime(appID, mapDate.get(choice), intTime);
                 }
             } else {
                 System.out.println( Colors.RED+
                         "You have another appointment in this moment. Please choose again!"+
                         Colors.RESET);
-                getUserChoiceForNewAppointment(mapDate, mapTime, cnt, docID, isNewApp, oldAppID, typeExm);
+                getUserChoiceForNewAppointment(mapDate, mapTime, cnt, docID, appID, typeExm);
             }
         } else System.out.println("Only patient can add new appointment!");
     }
@@ -435,7 +430,6 @@ public abstract class Menus {
     }
 
     private static boolean checkDoctorApps(int docID, String date, String time){
-
         for (Appointment app: DBase.appointments){
             if (docID == app.doctorID && app.date.equals(date)) {
                 String appTime = Integer.toString(app.time);
@@ -447,7 +441,6 @@ public abstract class Menus {
                 }
             }
         }
-
         return true;
     }
 
