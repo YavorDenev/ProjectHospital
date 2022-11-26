@@ -117,7 +117,7 @@ public abstract class Menus {
             }
 
             case 19 -> {
-                generateAppointment(true,0);
+                generateAppointment(0);
                 Write.writeAppointmentsData(DBase.APPOINTMENTS_FILE);
                 DBase.setActiveDays();
             }
@@ -317,11 +317,11 @@ public abstract class Menus {
 
         int choice = getChoice(br);
 
-        generateAppointment(false, myApps.get(choice).getId()); //show calendar to change
+        generateAppointment(myApps.get(choice).getId()); //show calendar to change
 
     }
 
-    private static void generateAppointment(boolean isNewApp, int oldAppID){
+    private static void generateAppointment(int oldAppID){
         //FOR ADD/CHANGE APPOINTMENT BY USER
 
         //when isNewApp is true > Add New Appointment
@@ -329,7 +329,7 @@ public abstract class Menus {
 
         int docID = 0;
         int typeExamination=1;
-        if (isNewApp){
+        if (oldAppID==0){
             docID = selectDoctorID();
             typeExamination = enterTypeOfExamination();
         } else {
@@ -394,19 +394,19 @@ public abstract class Menus {
             }
         }
 
-        getUserChoiceForNewAppointment(choiceFreeDateMap, choiceFreeTimeMap, countFreeOptions, docID, isNewApp, oldAppID, typeExamination);
+        getUserChoiceForNewAppointment(choiceFreeDateMap, choiceFreeTimeMap, countFreeOptions, docID, oldAppID, typeExamination);
 
         System.out.println(Colors.BLUE +"Operation confirmed!"+Colors.RESET);
     }
 
-    private static void getUserChoiceForNewAppointment(Map<Integer,String> mapDate, Map<Integer,String> mapTime, int cnt, int docID, boolean isNewApp, int oldAppID, int typeExm){
+    private static void getUserChoiceForNewAppointment(Map<Integer,String> mapDate, Map<Integer,String> mapTime, int cnt, int docID, int oldAppID, int typeExm){
         int patientID;
         if (DBase.currentUser instanceof Patient){
             int choice = getChoice(cnt);
             patientID = ((Patient) DBase.currentUser).id;
             boolean isIAMFree =  CheckInputData.checkIsChosenAppDataTimePatientIsFree(mapDate.get(choice),mapTime.get(choice),patientID);
             if (isIAMFree){
-                if (isNewApp){
+                if (oldAppID==0){
                     Appointment newApp = new Appointment(patientID,docID,DBase.EXAMINATIONS[typeExm-1], mapDate.get(choice),mapTime.get(choice));
                     DBase.appointments.add(newApp);
                 } else {
@@ -418,7 +418,7 @@ public abstract class Menus {
                 System.out.println( Colors.RED+
                         "You have another appointment in this moment. Please choose again!"+
                         Colors.RESET);
-                getUserChoiceForNewAppointment(mapDate, mapTime, cnt, docID, isNewApp, oldAppID, typeExm);
+                getUserChoiceForNewAppointment(mapDate, mapTime, cnt, docID, oldAppID, typeExm);
             }
         } else System.out.println("Only patient can add new appointment!");
     }
