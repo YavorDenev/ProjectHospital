@@ -92,8 +92,8 @@ public class Appointment {
                 Colors.RESET +
                 FunctionsText.leftFrameFixedLengthIn(typeOfExamination,15) +
                 FunctionsText.leftFrameFixedLengthIn(date,14) +
-                FunctionsText.leftFrameFixedLengthIn(time/100 + ":" + leadingZero + time%100,8)+
-                FunctionsText.leftFrameFixedLengthIn("doctor id:" + doctorID,16) ;
+                FunctionsText.leftFrameFixedLengthIn(time/100 + ":" + leadingZero + time%100,8) + " | " +
+                FunctionsText.getRightAlignmentColoredText(DBase.doctorsMap.get(doctorID).toString(),24, Colors.BLUE) ;
     }
 
     private String getColorBySex(String sex){

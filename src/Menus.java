@@ -104,16 +104,13 @@ public abstract class Menus {
             case 17 -> Hospital.showPatientsByDate(choseDataForViewPatients());
 
             case 18 -> {
-                //--------> промяна дата-час на Appointment -------------------- TODO
-                //---------- избор от конзолата на Дата и час
-                Patient p = (Patient) DBase.currentUser;
-                //p.changeAppointmentsDateTime(3, "99-99-9999", 9999); <------ подават се вкараните от конзолата параметри
+                menu18ChangeAppointment();
                 Write.writeAppointmentsData(DBase.APPOINTMENTS_FILE);
                 DBase.setActiveDays();
             }
 
             case 19 -> {
-                showFreeOptionsByDoctorID();
+                showFreeOptionsByDoctorID(true,0);
                 Write.writeAppointmentsData(DBase.APPOINTMENTS_FILE);
                 DBase.setActiveDays();
             }
@@ -227,14 +224,58 @@ public abstract class Menus {
         }
     }
 
-    private static void showFreeOptionsByDoctorID(){  //FOR ADD APPOINTMENT BY USER
+    private static void menu18ChangeAppointment(){
+        Map<Integer, Appointment> myApps = new HashMap<>();
+
+        System.out.println("Which your appointment you wish to change:");
+        int br = 0;
+        if (DBase.currentUser instanceof Patient)  {
+            for (Appointment app : DBase.appointments) {
+                if (app.patientID == ((Patient) DBase.currentUser).id){
+                    br++;
+                    System.out.println(br+")"+ app.toString());
+                    myApps.put(br,app);
+                }
+            }
+        }
+
+        int choice = getChoice(br);
+
+        showFreeOptionsByDoctorID(false, myApps.get(choice).getId()); //show calendar to change
+
+    }
+
+    private static void showFreeOptionsByDoctorID(boolean isNewApp,int oldAppID){
+        //FOR ADD/CHANGE APPOINTMENT BY USER
+
+        //when isNewApp is true > Add New Appointment
+        //when isNewApp is false > change oldAppID to new one
+
         Map<Integer, String> choiceFreeDateMap = new HashMap<>();
         Map<Integer,String> choiceFreeTimeMap = new HashMap<>();
 
-        int docID=0;
-        while (docID> DBase.maxDoctorID || docID<1){
-            System.out.print("Please enter doctor_id:");
-            docID = CheckInputData.inputPositiveInteger();
+        int docID = 0; int typeExamination=1;
+        if (isNewApp){
+            while (docID> DBase.maxDoctorID || docID<1){  //For new Appointment chose doctor
+                System.out.print("Please enter doctor_id:");
+                while (!CheckInputData.checkDoctorWithThisIDExist(docID)){
+                    docID = CheckInputData.inputPositiveInteger();
+                }
+                System.out.println("Please choice type of examination:");
+                System.out.println("1)"+ DBase.EXAMINATIONS[0]);
+                System.out.println("2)"+ DBase.EXAMINATIONS[1]);
+                System.out.println("3)"+ DBase.EXAMINATIONS[2]);
+                System.out.println("4)"+ DBase.EXAMINATIONS[3]);
+                typeExamination = getChoice(4);
+            }
+        }
+        else {
+            for (Appointment app : DBase.appointments){  //For old Appointment get doctor from app.id
+                if (app.getId()==oldAppID) {
+                    docID = app.getDoctorID();
+                    break;
+                }
+            }
         }
 
         System.out.println(FunctionsText.leftFrameFixedLengthIn(
@@ -286,26 +327,47 @@ public abstract class Menus {
             }
         }
 
-        getUserChoiceForNewAppointment(choiceFreeDateMap, choiceFreeTimeMap, countFreeOptions, docID);
+        getUserChoiceForNewAppointment(choiceFreeDateMap, choiceFreeTimeMap, countFreeOptions, docID, isNewApp, oldAppID, typeExamination);
+
+        System.out.println(Colors.BLUE +"Operation confirmed!"+Colors.RESET);
     }
 
-    private static void getUserChoiceForNewAppointment(Map<Integer,String> mapDate, Map<Integer,String> mapTime, int cnt, int docID){
-
-
-
-        System.out.print("Enter your choice:");
-        int choice = scn.nextInt();
-        while (choice<1||choice>cnt){
-            choice = CheckInputData.inputPositiveInteger();
-        }
+    private static void getUserChoiceForNewAppointment(Map<Integer,String> mapDate, Map<Integer,String> mapTime, int cnt, int docID, boolean isNewApp, int oldAppID, int typeExm){
 
         int patientID;
         if (DBase.currentUser instanceof Patient){
+            int choice = getChoice(cnt);
             patientID = ((Patient) DBase.currentUser).id;
-            Appointment newApp = new Appointment(patientID,docID,"initial", mapDate.get(choice),mapTime.get(choice));
-            DBase.appointments.add(newApp);
+            boolean isIAMFree =  CheckInputData.checkIsChosenAppDataTimePatientIsFree(mapDate.get(choice),mapTime.get(choice),patientID);
+            if (isIAMFree){
+                if (isNewApp){
+                    Appointment newApp = new Appointment(patientID,docID,DBase.EXAMINATIONS[typeExm-1], mapDate.get(choice),mapTime.get(choice));
+                    DBase.appointments.add(newApp);
+                }
+                else {
+                    String[] resTime = mapTime.get(choice).split(":");
+                    int intTime = 100*Integer.parseInt(resTime[0]) +Integer.parseInt(resTime[1]) ;
+                    ((Patient) DBase.currentUser).changeAppointmentsDateTime(oldAppID, mapDate.get(choice), intTime);
+                }
+            }
+            else {
+                System.out.println( Colors.RED+
+                        "You have another appointment in this moment. Please choose again!"+
+                        Colors.RESET);
+                getUserChoiceForNewAppointment(mapDate, mapTime, cnt, docID, isNewApp, oldAppID, typeExm);
+            }
+
         }
         else System.out.println("Only patient can add new appointment!");
+    }
+
+    private static int getChoice(int maxChoice){
+        System.out.print("Enter your choice:");
+        int choice = scn.nextInt();
+        while (choice<1||choice>maxChoice){
+            choice = CheckInputData.inputPositiveInteger();
+        }
+        return choice;
     }
 
     private static boolean checkDoctorApps(int docID, String date, String time){

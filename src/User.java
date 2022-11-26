@@ -12,4 +12,5 @@ public abstract class User {
         this.age = age;
         this.sex = sex;
     }
+
 }
