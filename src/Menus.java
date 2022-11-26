@@ -124,10 +124,17 @@ public abstract class Menus {
 
             case 21 -> {
                 System.out.println("Please enter the names, age, gender and speciality of the doctor you wish to add.");
-                Boss b = (Boss) DBase.currentUser;
-                b.addDoctor(enterFirstName(), enterLastName(), enterAge(), enterSex(), enterSpeciality());
-                Write.writeDoctorsData(DBase.DOCTORS_FILE);
-                Read.getDoctorsFromFile(DBase.DOCTORS_FILE);
+                String firstName = enterFirstName();
+                String lastName = enterLastName();
+                int age = enterAge();
+                String sex = enterSex();
+                String speciality = enterSpeciality();
+                if (confirm()) {
+                    Boss b = (Boss) DBase.currentUser;
+                    b.addDoctor(firstName, lastName, age, sex, speciality);
+                    Write.writeDoctorsData(DBase.DOCTORS_FILE);
+                    Read.getDoctorsFromFile(DBase.DOCTORS_FILE);
+                }
             }
         }
     }
@@ -205,6 +212,17 @@ public abstract class Menus {
             valid = " a valid";
         }
         return specMap.get(choice);
+    }
+
+    private static boolean confirm() {
+        System.out.println("*** Confirm your operation!***");
+        int finalChoice = 0;
+        while(finalChoice!=1 && finalChoice!=2){
+            System.out.println("1) Reject operation");
+            System.out.println("2) Finish operation");
+            finalChoice = CheckInputData.inputPositiveInteger();
+        }
+        return finalChoice == 2;
     }
 
     private static String choseDataForViewPatients(){
