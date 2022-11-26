@@ -3,16 +3,13 @@ import java.util.*;
 public abstract class Menus {
     static Scanner scn = new Scanner(System.in);
     static ArrayList<Integer> allowedActions = new ArrayList<>();
+    static Map<Integer, Integer> optionsMap = new HashMap<>();  // <option showed, real option num from file>
 
     public static void startPoint() {
 
-        String GREEN = "\033[1;32m";
-        String RESET_COLOR = "\033[0m";
-
         String userType = "";
 
-        int lastAction = -1;
-        while (lastAction!=22) {
+        while (true) {  //exit is option in menu
 
             try {
                 userType = String.valueOf(DBase.currentUser.getClass().getField("userType").get(DBase.currentUser));
@@ -21,14 +18,13 @@ public abstract class Menus {
                 System.out.println(exc.getMessage());
             }
 
-            System.out.println("\n======== " + GREEN + "WELCOME " + userType + " " + DBase.currentUser.firstName
+            System.out.println("\n======== " + Colors.GREEN + "WELCOME " + userType + " " + DBase.currentUser.firstName
                     + " " + DBase.currentUser.lastName
-                    + RESET_COLOR + " ========");
+                    + Colors.RESET + " ========");
 
             showCurrentUserAllowedActions();
             int choice = enterUserChoice();
             doRequest(choice);
-            lastAction = choice;
         }
     }
 
@@ -38,32 +34,39 @@ public abstract class Menus {
         if (DBase.currentUser instanceof Doctor)  allowedActions = Doctor.allowedActions;
         if (DBase.currentUser instanceof Boss)  allowedActions = Boss.allowedActions;
 
+        Map<Integer,Integer> tmpOptionsMap = new HashMap<>();
+        int optCounter = 0;
         for (int act: allowedActions){
-            System.out.println(act + ") "+ DBase.allowedActions[act]);
+            optCounter++;
+            System.out.println(optCounter + ") "+ DBase.allowedActions[act]);
+            tmpOptionsMap.put(optCounter, act);
         }
+       optionsMap = tmpOptionsMap;
     }
 
     static int enterUserChoice(){
-        System.out.print("Please enter your choice:");
+
+        printBlueInputNotice("Please enter your choice:");
         int ch = CheckInputData.inputNotNegativeInteger();
-        for (int action: allowedActions) {   // > check is number from allowedActions
-            if(action==ch) return ch;
+
+        if (!optionsMap.containsKey(ch)) { //when chosen option is not in optionsMap
+            printRedWarning("This option is not in list! Please try again!");
+            enterUserChoice();
         }
-        System.out.println("Wrong number!");
-        enterUserChoice();
-        return 0;
+        return ch;
     }
 
     static void doRequest(int choice){
 
-        switch (choice) {
+        int realChoice = optionsMap.get(choice);
+        switch (realChoice) {
             case 0 -> System.exit(0);
             case 1 -> DBase.currentUser = new Anonymous();
             case 2 -> Authorize.loginAsPatient();
             case 3 -> Authorize.loginAsDoctor();
             case 4 -> Authorize.loginAsBoss();
             case 5 -> {
-                System.out.println("Please enter you first name, last name, age and gender.");
+                printBlueNotice("Please enter you first name, last name, age and gender.");
                 String firstName = enterFirstName();
                 String lastName = enterLastName();
                 int age = enterAge();
@@ -86,7 +89,7 @@ public abstract class Menus {
                 }
             }
             case 11 -> {
-                System.out.print("Please enter patient_id:");
+                printBlueInputNotice("Please enter patient_id:");
                 int patId = CheckInputData.inputPositiveInteger();
                 Patient.showAppointmentsByPatientId(patId);
             }
@@ -98,12 +101,12 @@ public abstract class Menus {
                 String docLastName = "";
                 boolean isCorrectDoctorNames = false;
                 while (!isCorrectDoctorNames){
-                    System.out.print("Please enter doctor first name:");
+                    printBlueInputNotice("Please enter doctor first name:");
                     docFirstName = scn.nextLine();
-                    System.out.print("Please enter doctor last name:");
+                    printBlueInputNotice("Please enter doctor last name:");
                     docLastName = scn.nextLine();
                     isCorrectDoctorNames = isSuchADoctorInHospital(docFirstName,docLastName);
-                    if (!isCorrectDoctorNames) System.out.println("Doctor not found. Please try again.");
+                    if (!isCorrectDoctorNames) printRedWarning("Doctor not found. Please try again.");
                 }
                 Hospital.showPatientsByDocNames(docFirstName, docLastName);
             }
@@ -129,18 +132,7 @@ public abstract class Menus {
             }
 
             case 21 -> {
-                System.out.println("Please enter the names, age, gender and speciality of the doctor you wish to add.");
-                String firstName = enterFirstName();
-                String lastName = enterLastName();
-                int age = enterAge();
-                String sex = enterSexForDoctors();
-                String speciality = enterSpeciality();
-                if (confirm()) {
-                    Boss b = (Boss) DBase.currentUser;
-                    b.addDoctor(firstName, lastName, age, sex, speciality);
-                    Write.writeDoctorsData(DBase.DOCTORS_FILE);
-                    Read.getDoctorsFromFile(DBase.DOCTORS_FILE);
-                }
+                enterNewDoctor();
             }
         }
     }
@@ -148,7 +140,7 @@ public abstract class Menus {
     private static String selectSortDirection(){
         int chSort = 0;
         while (chSort!=1 && chSort!=2){
-            System.out.print("1-Up 2-Down. Enter your option:");
+            printBlueInputNotice("1-Up 2-Down. Enter your option:");
             chSort = CheckInputData.inputPositiveInteger();
         }
         return  (chSort==1) ? "Up":"Down";
@@ -157,7 +149,7 @@ public abstract class Menus {
     private static int selectDoctorID(){
         int docID = 0;
         while (!CheckInputData.checkDoctorWithThisIDExist(docID)){
-            System.out.print("Please enter doctor_id:");
+            printBlueInputNotice("Please enter doctor_id:");
             docID = CheckInputData.inputPositiveInteger();
         }
         return docID;
@@ -172,25 +164,25 @@ public abstract class Menus {
     }
 
     private static String enterFirstName(){
-        System.out.print("Enter first name:");
+        printBlueInputNotice("Enter first name:");
         return CheckInputData.inputAlphabeticalNonSpacesString();
     }
 
     private static String enterLastName(){
-        System.out.print("Enter last name:");
+        printBlueInputNotice("Enter last name:");
         return CheckInputData.inputAlphabeticalNonSpacesString();
     }
 
     private static int enterAge(){
-        System.out.println("Enter age:");
+        printBlueInputNotice("Enter age:");
         return CheckInputData.inputPositiveInteger();
     }
 
     private static String enterSex(){
-        System.out.println("Enter gender:");
+        printBlueNotice("Enter gender:");
         System.out.println("1) male");
         System.out.println("2) female");
-        System.out.println("3),... another");
+        System.out.println("3) ... maybe later");
         int sexChoice = CheckInputData.inputPositiveInteger();
         String sex = "unknown";
         switch (sexChoice){
@@ -201,7 +193,7 @@ public abstract class Menus {
     }
 
     private static String enterSexForDoctors(){
-        System.out.println("Enter gender:");
+        printBlueInputNotice("Enter gender:");
         System.out.println("1) male");
         System.out.println("2) female");
         int sexChoice = CheckInputData.inputPositiveInteger();
@@ -216,17 +208,17 @@ public abstract class Menus {
     private static String enterSpeciality(){
         Map<Integer, String> specMap = new HashMap<>();
 
-        int br =0;
+        int cntOptions = 0;
         for (Speciality sp : DBase.specialities){
-            br++;
-            System.out.println(br+")"+sp.name);
-            specMap.put(sp.id,sp.name);
+            cntOptions++;
+            System.out.println(cntOptions+") " + sp.name);
+            specMap.put(sp.id, sp.name);
         }
 
         int choice = 0;
         String valid = "";
-        while (choice>br||choice<1){
-            System.out.print("Enter" + valid + " number of speciality:");
+        while (choice>cntOptions||choice<1){
+            printBlueInputNotice("Enter" + valid + " number of speciality:");
             choice = CheckInputData.inputPositiveInteger();
             valid = " a valid";
         }
@@ -234,7 +226,7 @@ public abstract class Menus {
     }
 
     private static boolean confirm() {
-        System.out.println("*** Confirm your operation!***");
+        printBlueNotice("*** Confirm your operation!***");
         int finalChoice = 0;
         while(finalChoice!=1 && finalChoice!=2){
             System.out.println("1) Reject operation");
@@ -245,7 +237,7 @@ public abstract class Menus {
     }
 
     private static int enterTypeOfExamination(){
-        System.out.println("Please choice type of examination:");
+        printBlueNotice("Please choice type of examination:");
         System.out.println("1)"+ DBase.EXAMINATIONS[0]);
         System.out.println("2)"+ DBase.EXAMINATIONS[1]);
         System.out.println("3)"+ DBase.EXAMINATIONS[2]);
@@ -259,10 +251,10 @@ public abstract class Menus {
 
         String notice = "Chose data to view patients list:";
         for (int i=0 ; i<DBase.activeDays.size() ; i++){
-            System.out.println((i+1) + ")" + DBase.activeDays.get(i));
+            System.out.println((i+1) + ") " + DBase.activeDays.get(i));
         }
         while (choice> DBase.activeDays.size()||choice<1){
-            System.out.print(notice);
+            printBlueInputNotice(notice);
             choice = CheckInputData.inputPositiveInteger();
             notice = "Please select one of the dates listed above:";
         }
@@ -285,24 +277,24 @@ public abstract class Menus {
             }
         }
 
-        if (cntOptions == 0) System.out.println(Colors.RED + "You have no appointments!" + Colors.RESET);
+        if (cntOptions == 0) printRedWarning("You have no appointments!");
         else {
             int choice;
             do {
-                System.out.print("Please enter appointment to reject:");
+                printBlueNotice("Please enter appointment to reject:");
                 choice = CheckInputData.inputPositiveInteger();
             } while (choice > cntOptions);
 
             DBase.appointments.remove(choiceMap.get(choice));
             System.out.println();
-            System.out.println(choiceMap.get(choice) + Colors.RED + "was removed" + Colors.RESET);
+            System.out.println(choiceMap.get(choice) + Colors.RED + " WAS REMOVED!" + Colors.RESET);
         }
     }
 
     private static void changeDateTimeOfAppointment(){
         Map<Integer, Appointment> myApps = new HashMap<>();
 
-        System.out.println(Colors.BLUE+"Which your appointment you wish to change:"+Colors.RESET);
+        printBlueNotice("Which your appointment you wish to change?");
         int cntOptions = 0;
         if (DBase.currentUser instanceof Patient)  {
             for (Appointment app : DBase.appointments) {
@@ -335,8 +327,8 @@ public abstract class Menus {
             }
         }
 
-        System.out.println(Colors.BLUE + "============== Choose free hour from Calendar ============= Doctor "
-                + DBase.doctorsMap.get(docID)+ " ======================================" + Colors.RESET);
+       printBlueNotice("============== Choose free hour from Calendar ============= Doctor "
+                + DBase.doctorsMap.get(docID)+ " ======================================");
 
         Map<Integer, String> choiceFreeDateMap = new HashMap<>();
         Map<Integer,String> choiceFreeTimeMap = new HashMap<>();
@@ -348,7 +340,7 @@ public abstract class Menus {
         //gen start app times
         for (int h=9;h<=18;h++){
             for (String m : min){
-                if (h!=12) appTimes.add( Integer.toString(h) + ":" + m);
+                if (h!=12) appTimes.add(Integer.toString(h) + ":" + m);
                 //h=12 dinner time
             }
         }
@@ -388,7 +380,7 @@ public abstract class Menus {
 
         getUserChoiceForNewAppointment(choiceFreeDateMap, choiceFreeTimeMap, countFreeOptions, docID, isNewApp, appID, typeExamination);
 
-        System.out.println(Colors.BLUE +"Operation confirmed!"+Colors.RESET);
+        printBlueNotice("Operation confirmed!");
     }
 
     private static void getUserChoiceForNewAppointment(Map<Integer,String> mapDate, Map<Integer,String> mapTime, int cnt, int docID, boolean isNewApp, int appID, int typeExm){
@@ -407,23 +399,23 @@ public abstract class Menus {
                     ((Patient) DBase.currentUser).changeAppointmentsDateTime(appID, mapDate.get(choice), intTime);
                 }
             } else {
-                System.out.println( Colors.RED+
-                        "You have another appointment in this moment. Please choose again!"+
-                        Colors.RESET);
+                printRedWarning("You have another appointment in this moment. Please choose again!");
                 getUserChoiceForNewAppointment(mapDate, mapTime, cnt, docID, isNewApp, appID, typeExm);
             }
         }
-        else System.out.println("Only patient can add new appointment!");
+        else printRedWarning("Only patient can add new appointment!");
     }
 
     private static int getChoice(int maxChoice){
-        String t = Colors.BLUE +"Enter your choice:"+Colors.RESET;
+
+        String msg = Colors.BLUE + "Enter your choice:" + Colors.RESET;
         int choice = 0;
-        while (choice<1||choice>maxChoice){
-            System.out.print(t);
+        while (choice<1 || choice>maxChoice){
+            System.out.print(msg);
             choice = CheckInputData.inputPositiveInteger();
-            t = Colors.RED+"Invalid input number. Try again!"+Colors.RESET;
+            msg = Colors.RED+"Invalid input number. Try again!"+Colors.RESET;
         }
+
         return choice;
     }
 
@@ -442,4 +434,36 @@ public abstract class Menus {
         return true;
     }
 
+    private static void enterNewDoctor(){
+        printBlueNotice("Please enter the names, age, gender and speciality of the doctor you wish to add.");
+        String firstName = enterFirstName();
+        String lastName = enterLastName();
+        int age = enterAge();
+        String sex = enterSexForDoctors();
+        String speciality = enterSpeciality();
+        if (confirm()) {
+            Boss b = (Boss) DBase.currentUser;
+            b.addDoctor(firstName, lastName, age, sex, speciality);
+            Write.writeDoctorsData(DBase.DOCTORS_FILE);
+            Read.getDoctorsFromFile(DBase.DOCTORS_FILE);
+        }
+    }
+
+    private static void printBlueInputNotice(String txt){
+        String msg = Colors.BLUE;
+        msg += txt+Colors.RESET;
+        System.out.print(msg);
+    }
+
+    private static void printBlueNotice(String txt){
+        String msg = Colors.BLUE;
+        msg += txt+Colors.RESET;
+        System.out.println(msg);
+    }
+
+    private static void printRedWarning(String txt){
+        String msg = Colors.RED;
+        msg += txt + Colors.RESET;
+        System.out.println(msg);
+    }
 }
