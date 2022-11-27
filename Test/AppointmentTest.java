@@ -19,7 +19,7 @@ public class AppointmentTest {
         Read.getAppointmentsFromFile("appointments.txt");
         Read.getPatientsFromFile("patients.txt");
         Appointment app = DBase.appointments.get(0);
-        String expected = "Anna-Maria, Alexandrova";
+        String expected = "anna-maria alexandrova";
         String actual = app.getPatientNames();
         assertEquals(expected, actual);
     }

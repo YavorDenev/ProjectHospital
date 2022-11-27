@@ -53,7 +53,7 @@ public class Appointment {
     public String getPatientNames() {
         for (Patient p: DBase.patients) {
             if (this.patientID==p.id) {
-                return p.firstName + ", " + p.lastName;
+                return p.firstName.toLowerCase() + " " + p.lastName.toLowerCase();
             }
         }
         return "";
