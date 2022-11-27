@@ -82,15 +82,6 @@ public class Doctor extends User {
                 " (" + speciality +")" ;
     }
 
-    public String toString50() {
-        //for good look in sorted orders
-        String txt = "";
-        txt += firstName + " " + lastName + " id:" + id +  " (" + speciality +") " ;
-
-        while (txt.length()<50) txt += "=";
-        return txt;
-    }
-
     public String formattedToListOfDoctors(){
         String txt="";
         txt += FunctionsText.leftFrameFixedOnLength("id:" + id,7);
@@ -105,4 +96,12 @@ public class Doctor extends User {
                 " " + notice + Colors.RESET);
     }
 
+    private String toString50() {
+        //for good look in sorted orders
+        String txt = "";
+        txt += firstName + " " + lastName + " id:" + id +  " (" + speciality +") " ;
+
+        while (txt.length()<50) txt += "=";
+        return txt;
+    }
 }

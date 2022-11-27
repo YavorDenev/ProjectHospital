@@ -119,8 +119,7 @@ public abstract class Menus {
                 DBase.setActiveDays();
             }
             case 19 -> {
-                while(!patientBookAnAppointment(true, 0)){};
-                //if man chose gynecology then loop
+                while(!patientBookAnAppointment(true, 0)){};  //if man chose gynecology then loop
                 Write.writeAppointmentsData(DBase.APPOINTMENTS_FILE);
                 DBase.setActiveDays();
             }
