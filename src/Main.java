@@ -5,12 +5,10 @@ public class Main {
         Read.showIntroPictureFile("intro150width.txt");
 
         System.out.println("");
-        System.out.println("");
         System.out.println("================================================================");
         System.out.println("==================  WELCOME TO OUR HOSPITAL  ===================");
         System.out.println("================================================================");
         System.out.println("");
-
 
         Read.getAppointmentsFromFile(DBase.APPOINTMENTS_FILE);
         Read.getDoctorsFromFile(DBase.DOCTORS_FILE);

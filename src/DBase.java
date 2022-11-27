@@ -1,35 +1,26 @@
 import java.util.*;
 
-public abstract class DBase {
+public class DBase {
+    private DBase(){}
 
     public static final String APPOINTMENTS_FILE = "appointments.txt";
     public static final String DOCTORS_FILE = "doctors.txt";
     public static final String PATIENTS_FILE = "patients.txt";
     public static final String SPECIALTIES_FILE = "specialities.txt";
     public static final String ALLOWED_ACTIONS_FILE = "arrayListUserAllowedActions.txt";
-
-    public static final String[] EXAMINATIONS = {"initial",
-                                                "secondary",
-                                                "consultation",
-                                                "procedure"};
-    public static User currentUser;
+    public static final String[] EXAMINATIONS = {"initial", "secondary", "consultation", "procedure"};
 
     public static Map<Integer, String> patientsMap = new HashMap<Integer, String>();
-    //update when 1) read from file; 2) from constructor when new patient object is created
-
+                    //update when 1) read from file; 2) from constructor when new patient object is created
     public static Map<Integer, Doctor> doctorsMap = new HashMap<Integer, Doctor>();
-    //update when 1) read from file
+                    //update when 1) read from file
 
+    public static User currentUser;
     public static List<Boss> bosses = new ArrayList<>();
-
     public static List<Doctor> doctors = new ArrayList<>();
-
     public static List<Patient> patients = new ArrayList<>();
-
     public static List<Speciality> specialities = new ArrayList<>();
-
     public static List<Appointment> appointments = new ArrayList<>();
-
     public static String[] allowedActions = new String[23];
 
     public static int maxDoctorID = 0;

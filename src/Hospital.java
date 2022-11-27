@@ -1,4 +1,5 @@
-public abstract class Hospital {
+public class Hospital {
+    private Hospital(){}
 
     public static void showDoctors() {
         System.out.println("");
