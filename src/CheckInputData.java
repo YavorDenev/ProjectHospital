@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
-public abstract class CheckInputData {
+public class CheckInputData {
+    private CheckInputData(){}
 
     public static int inputPositiveInteger() {
         Scanner sc = new Scanner(System.in);

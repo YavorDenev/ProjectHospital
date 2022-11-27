@@ -1,6 +1,8 @@
 import java.util.*;
 
-public abstract class Menus {
+public class Menus {
+    private Menus(){}
+
     static Scanner scn = new Scanner(System.in);
     static ArrayList<Integer> allowedActions = new ArrayList<>();
     static Map<Integer, Integer> optionsMap = new HashMap<>();  // <option showed, real option num from file>

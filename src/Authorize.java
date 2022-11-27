@@ -1,8 +1,10 @@
 import java.util.Scanner;
 
-public abstract class Authorize {
+public class Authorize {
 
     static Scanner scn = new Scanner(System.in);
+
+    private Authorize(){}
 
     public static void loginAsPatient() {
         System.out.print("Please enter your first name:");

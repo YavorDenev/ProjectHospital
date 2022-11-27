@@ -3,7 +3,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public abstract class Read {
+public class Read {
+    private Read(){}
 
     public static void getSpecialitiesFromFile(String filename){
         String line = "";

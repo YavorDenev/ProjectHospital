@@ -1,4 +1,5 @@
-public abstract class FunctionsText {
+public class FunctionsText {
+    private FunctionsText(){}
 
     public static String rightAlignmentColoredText(String txt, int len, String color) {
         String result = txt;

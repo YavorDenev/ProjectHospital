@@ -1,7 +1,8 @@
 import java.io.FileOutputStream;
 import java.io.PrintStream;
 
-public abstract class Write {
+public class Write {
+    private Write(){}
 
     public static void writeAppointmentsData(String filename){
         String[] appArray = new String[DBase.appointments.size()+1];
