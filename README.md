@@ -1,5 +1,5 @@
 # Явор Денев и Мартин Катев представят...
- ! [Earth] (https://raw.githubusercontent.com/YavorDenev/ProjectHospital/master/HelpFiles/Hospital.JPG)
+ ![Hospital] (https://raw.githubusercontent.com/YavorDenev/ProjectHospital/master/HelpFiles/Hospital.JPG)
  
  **Общи изисквания**
 
