@@ -499,4 +499,3 @@ patient_id,first_name,last_name,age,sex
 498,Borian,Goleshevski,23,m
 499,Bianka,Mehmedova,63,f
 500,Fuliyan,Ahmed,22,u
-501,aa-aa,bbbb,33,f

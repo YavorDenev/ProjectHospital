@@ -179,17 +179,17 @@ public abstract class Menus {
     }
 
     private static String enterFirstName(){
-        printBlueInputNotice("Enter first name:");
+        System.out.print("Enter first name:");
         return CheckInputData.inputAlphabeticalNonSpacesString();
     }
 
     private static String enterLastName(){
-        printBlueInputNotice("Enter last name:");
+        System.out.print("Enter last name:");
         return CheckInputData.inputAlphabeticalNonSpacesString();
     }
 
     private static int enterAge(){
-        printBlueInputNotice("Enter age:");
+        System.out.print("Enter age:");
         return CheckInputData.inputPositiveInteger();
     }
 
