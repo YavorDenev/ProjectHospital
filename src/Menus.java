@@ -47,7 +47,7 @@ public abstract class Menus {
     static int enterUserChoice(){
 
         printBlueInputNotice("Please enter your choice:");
-        int ch = CheckInputData.inputNotNegativeInteger();
+        int ch = CheckInputData.inputPositiveInteger();
 
         if (!optionsMap.containsKey(ch)) { //when chosen option is not in optionsMap
             printRedWarning("This option is not in list! Please try again!");

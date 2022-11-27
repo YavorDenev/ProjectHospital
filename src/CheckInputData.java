@@ -16,20 +16,6 @@ public abstract class CheckInputData {
         return num;
     }
 
-    public static int inputNotNegativeInteger() {
-        Scanner sc = new Scanner(System.in);
-        while (!(sc.hasNextInt())) {
-            printRedWarning("Invalid input. Try again!");
-            sc.nextLine();
-        }
-        int num = sc.nextInt();
-        while (num < 0) {
-            printRedWarning("Invalid input number. Try again!");
-            num = inputPositiveInteger();
-        }
-        return num;
-    }
-
     public static String inputAlphabeticalNonSpacesString() {
         Scanner sc = new Scanner(System.in);
         String str = sc.nextLine();
