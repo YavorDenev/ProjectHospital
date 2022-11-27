@@ -129,4 +129,5 @@
 - Промяна на датата/часа на записан час (по подадено appointment\_id)
 - Отказване от записан час (по подадено appointment\_id)
 
+# Реализираното от нас:
  ![DefaultUserAllowedActions](https://github.com/YavorDenev/ProjectHospital/blob/master/HelpFiles/DefaultUserAllowedActions.PNG)
