@@ -118,23 +118,18 @@ public abstract class Menus {
                 Write.writeAppointmentsData(DBase.APPOINTMENTS_FILE);
                 DBase.setActiveDays();
             }
-
             case 19 -> {
                 while(!patientBookAnAppointment(true, 0)){};
                 //if man chose gynecology then loop
                 Write.writeAppointmentsData(DBase.APPOINTMENTS_FILE);
                 DBase.setActiveDays();
             }
-
             case 20 -> {
                 choseAppointmentToRemove();
                 Write.writeAppointmentsData(DBase.APPOINTMENTS_FILE);
                 DBase.setActiveDays();
             }
-
-            case 21 -> {
-                enterNewDoctor();
-            }
+            case 21 -> enterNewDoctor();
         }
     }
 
@@ -408,26 +403,23 @@ public abstract class Menus {
     }
 
     private static void getUserChoiceForNewAppointment(Map<Integer,String> mapDate, Map<Integer,String> mapTime, int cnt, int docID, boolean isNewApp, int appID, int typeExm){
-        int patientID;
         if (DBase.currentUser instanceof Patient){
             int choice = getChoice(cnt);
-            patientID = ((Patient) DBase.currentUser).id;
+            String[] resTime = mapTime.get(choice).split(":");
+            int intTime = 100*Integer.parseInt(resTime[0]) +Integer.parseInt(resTime[1]) ;
+            int patientID = ((Patient) DBase.currentUser).id;
             boolean isIAMFree =  CheckInputData.checkIsChosenAppDataTimePatientIsFree(mapDate.get(choice),mapTime.get(choice),patientID);
             if (isIAMFree){
-                if (isNewApp){
-                    Appointment newApp = new Appointment(patientID,docID,DBase.EXAMINATIONS[typeExm-1], mapDate.get(choice),mapTime.get(choice));
-                    DBase.appointments.add(newApp);
+                if (isNewApp) {
+                    ((Patient) DBase.currentUser).addAppointment(docID,DBase.EXAMINATIONS[typeExm-1], mapDate.get(choice),intTime);
                 } else {
-                    String[] resTime = mapTime.get(choice).split(":");
-                    int intTime = 100*Integer.parseInt(resTime[0]) +Integer.parseInt(resTime[1]) ;
                     ((Patient) DBase.currentUser).changeAppointmentsDateTime(appID, mapDate.get(choice), intTime);
                 }
             } else {
                 printRedWarning("You have another appointment in this moment. Please choose again!");
                 getUserChoiceForNewAppointment(mapDate, mapTime, cnt, docID, isNewApp, appID, typeExm);
             }
-        }
-        else printRedWarning("Only patient can add new appointment!");
+        } else printRedWarning("Only patient can add new appointment!");
     }
 
     private static int getChoice(int maxChoice){
