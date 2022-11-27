@@ -128,3 +128,5 @@
 - Визуализация на всички записани часове за текущия пациент
 - Промяна на датата/часа на записан час (по подадено appointment\_id)
 - Отказване от записан час (по подадено appointment\_id)
+
+ ![DefaultUserAllowedActions](https://github.com/YavorDenev/ProjectHospital/blob/master/HelpFiles/DefaultUserAllowedActions.PNG)
