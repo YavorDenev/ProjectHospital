@@ -6,7 +6,7 @@ public abstract class Authorize {
 
     public static void loginAsPatient() {
         System.out.print("Please enter your first name:");
-        String fName = scn.nextLine();
+        String fName = CheckInputData.inputAlphabeticalNonSpacesString();
         System.out.print("Please enter your patient_id:");
         int id = CheckInputData.inputPositiveInteger();
 
@@ -26,7 +26,7 @@ public abstract class Authorize {
 
     public static void loginAsDoctor() {
         System.out.print("Please enter your first name:");
-        String fName = scn.nextLine();
+        String fName = CheckInputData.inputAlphabeticalNonSpacesString();
 
         System.out.print("Please enter your doctor_id:");
         int id = CheckInputData.inputPositiveInteger();
@@ -47,7 +47,7 @@ public abstract class Authorize {
 
     public static void loginAsBoss() {
         System.out.print("Please enter your first name:");
-        String fName = scn.nextLine();
+        String fName = CheckInputData.inputAlphabeticalNonSpacesString();
         System.out.print("Please enter your password:");
         String password = scn.nextLine();
 

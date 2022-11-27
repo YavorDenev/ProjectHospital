@@ -72,7 +72,7 @@ public abstract class Hospital {
     private static void printBlueNotice(String txt){
         String msg = Colors.BLUE;
         msg += txt+Colors.RESET;
-        System.out.print(msg);
+        System.out.println(msg);
     }
 
     private static void printRedWarning(String txt){
