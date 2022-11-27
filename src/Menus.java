@@ -60,7 +60,11 @@ public abstract class Menus {
 
         int realChoice = optionsMap.get(choice);
         switch (realChoice) {
-            case 0 -> System.exit(0);
+            case 0 -> {
+                System.out.println();
+                System.out.println("========  Goodbye! Welcome to us again.  ========");
+                System.exit(0);
+            }
             case 1 -> DBase.currentUser = new Anonymous();
             case 2 -> Authorize.loginAsPatient();
             case 3 -> Authorize.loginAsDoctor();
