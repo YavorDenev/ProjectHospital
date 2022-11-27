@@ -115,20 +115,21 @@ public abstract class Menus {
                 Hospital.showPatientsByDocNames(docFirstName, docLastName);
             }
             case 16 -> Hospital.showPatientsBySpeciality(enterSpeciality());
-            case 17 -> Hospital.showPatientsByDate(choseDataForViewPatients());
+            case 17 -> Hospital.showPatientsByDate(chooseDataForViewPatients());
 
-            case 18 -> {
+            case 18 -> { //Edit appointment by ID
                 changeDateTimeOfAppointment();
                 Write.writeAppointmentsData(DBase.APPOINTMENTS_FILE);
                 DBase.setActiveDays();
             }
-            case 19 -> {
-                while(!patientBookAnAppointment(true, 0)){};  //if man chose gynecology then loop
+            case 19 -> { //Add new appointment
+                while(!patientBookAnAppointment(true, 0)) {};
+                        //loop until correct chose (for example if men/unknown choose gynecology)
                 Write.writeAppointmentsData(DBase.APPOINTMENTS_FILE);
                 DBase.setActiveDays();
             }
             case 20 -> {
-                choseAppointmentToRemove();
+                chooseAppointmentToRemove();
                 Write.writeAppointmentsData(DBase.APPOINTMENTS_FILE);
                 DBase.setActiveDays();
             }
@@ -259,7 +260,7 @@ public abstract class Menus {
         return getChoice(4);
     }
 
-    private static String choseDataForViewPatients(){
+    private static String chooseDataForViewPatients(){
         int choice = 0;
         System.out.println();
 
@@ -275,7 +276,8 @@ public abstract class Menus {
         return DBase.activeDays.get(choice-1);
     }
 
-    private static void choseAppointmentToRemove(){
+
+    private static void chooseAppointmentToRemove(){
 
         Map<Integer,Appointment> choiceMap = new HashMap<>();
         int cntOptions =0;
