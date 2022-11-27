@@ -42,16 +42,6 @@ public class Appointment {
         this.time = time;
     }
 
-    public Appointment(int patientID, int doctorID, String typeOfExamination, String date, String time) {
-        this.id = generateAppId();
-        this.patientID = patientID;
-        this.doctorID = doctorID;
-        this.typeOfExamination = typeOfExamination;
-        this.date = date;
-        String[] resTime = time.split(":");
-        this.time = 100*Integer.parseInt(resTime[0]) +Integer.parseInt(resTime[1]) ;
-    }
-
     private int generateAppId() {
         int id = 0;
         for (Appointment app: DBase.appointments) {
