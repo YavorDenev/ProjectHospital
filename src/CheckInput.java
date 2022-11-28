@@ -17,6 +17,18 @@ public class CheckInput {
         return num;
     }
 
+    public static int inputMaxInt(int maxInt){
+        String msg = Colors.BLUE + "Enter your choice:" + Colors.RESET;
+        int choice = 0;
+        while (choice<1 || choice>maxInt){
+            System.out.print(msg);
+            choice = inputPositiveInteger();
+            msg = Colors.RED + "Invalid input number. Try again!" + Colors.RESET;
+        }
+
+        return choice;
+    }
+
     public static String inputAlphabeticalNonSpacesString() {
         Scanner sc = new Scanner(System.in);
         String str = sc.nextLine();

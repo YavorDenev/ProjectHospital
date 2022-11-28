@@ -140,7 +140,7 @@ public class Menus {
     private static String selectSortDirection(){
         int chSort = 0;
         printBlueInputNotice("1-Up 2-Down. ");
-        chSort = inputMaxInt(2);
+        chSort = CheckInput.inputMaxInt(2);
         return  (chSort==1) ? "Up":"Down";
     }
 
@@ -209,7 +209,7 @@ public class Menus {
         printBlueNotice("Enter gender:");
         System.out.println("1) male");
         System.out.println("2) female");
-        int sexChoice = inputMaxInt(2);
+        int sexChoice = CheckInput.inputMaxInt(2);
         String sex = "unknown";
         switch (sexChoice){
             case 1 -> sex = "male";
@@ -229,7 +229,7 @@ public class Menus {
             specMap.put(sp.id, sp.name);
         }
 
-        int choice = inputMaxInt(cntOptions);
+        int choice = CheckInput.inputMaxInt(cntOptions);
         return specMap.get(choice);
     }
 
@@ -237,7 +237,7 @@ public class Menus {
         printBlueNotice("*** Confirm your operation!***");
         System.out.println("1) Reject operation");
         System.out.println("2) Finish operation");
-        return inputMaxInt(2) == 2;
+        return CheckInput.inputMaxInt(2) == 2;
     }
 
     private static int enterTypeOfExamination(){
@@ -246,7 +246,7 @@ public class Menus {
         System.out.println("2)"+ DBase.EXAMINATIONS[1]);
         System.out.println("3)"+ DBase.EXAMINATIONS[2]);
         System.out.println("4)"+ DBase.EXAMINATIONS[3]);
-        return inputMaxInt(4);
+        return CheckInput.inputMaxInt(4);
     }
 
     private static String chooseDataForViewPatients(){
@@ -256,7 +256,7 @@ public class Menus {
             System.out.println((i+1) + ") " + DBase.activeDays.get(i));
         }
 
-        int choice = inputMaxInt(DBase.activeDays.size());
+        int choice = CheckInput.inputMaxInt(DBase.activeDays.size());
         return DBase.activeDays.get(choice-1);
     }
 
@@ -306,7 +306,7 @@ public class Menus {
             }
         }
 
-        int choice = inputMaxInt(cntOptions);
+        int choice = CheckInput.inputMaxInt(cntOptions);
 
         patientBookAnAppointment(false, myApps.get(choice).getId()); //show calendar to change
     }
@@ -393,7 +393,7 @@ public class Menus {
 
     private static void getUserChoiceForNewAppointment(Map<Integer,String> mapDate, Map<Integer,String> mapTime, int cnt, int docID, boolean isNewApp, int appID, int typeExm){
         if (DBase.currentUser instanceof Patient){
-            int choice = inputMaxInt(cnt);
+            int choice = CheckInput.inputMaxInt(cnt);
             String[] resTime = mapTime.get(choice).split(":");
             int intTime = 100*Integer.parseInt(resTime[0]) +Integer.parseInt(resTime[1]) ;
             int patientID = ((Patient) DBase.currentUser).id;
@@ -409,18 +409,6 @@ public class Menus {
                 getUserChoiceForNewAppointment(mapDate, mapTime, cnt, docID, isNewApp, appID, typeExm);
             }
         } else printRedWarning("Only patient can add new appointment!");
-    }
-
-    private static int inputMaxInt(int maxInt){
-        String msg = Colors.BLUE + "Enter your choice:" + Colors.RESET;
-        int choice = 0;
-        while (choice<1 || choice>maxInt){
-            System.out.print(msg);
-            choice = CheckInput.inputPositiveInteger();
-            msg = Colors.RED+"Invalid input number. Try again!"+Colors.RESET;
-        }
-
-        return choice;
     }
 
     private static boolean checkDoctorApps(int docID, String date, String time){
