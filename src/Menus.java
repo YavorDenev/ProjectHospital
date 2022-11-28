@@ -52,7 +52,7 @@ public class Menus {
 
         if (!optionsMap.containsKey(ch)) { //when chosen option is not in optionsMap
             printRedWarning("This option is not in list! Please try again!");
-            enterUserChoice();
+            ch = enterUserChoice();
         }
         return ch;
     }
@@ -140,10 +140,12 @@ public class Menus {
 
     private static String selectSortDirection(){
         int chSort = 0;
-        while (chSort!=1 && chSort!=2){
-            printBlueInputNotice("1-Up 2-Down. Enter your option:");
-            chSort = CheckInputData.inputPositiveInteger();
-        }
+        printBlueInputNotice("1-Up 2-Down. ");
+        chSort = getMaxInt(2);
+        //while (chSort!=1 && chSort!=2){
+        //    printBlueInputNotice("1-Up 2-Down. Enter your option:");
+        //    chSort = CheckInputData.inputPositiveInteger();
+        //}
         return  (chSort==1) ? "Up":"Down";
     }
 
@@ -212,7 +214,7 @@ public class Menus {
         printBlueNotice("Enter gender:");
         System.out.println("1) male");
         System.out.println("2) female");
-        int sexChoice = getChoice(2);
+        int sexChoice = getMaxInt(2);
         String sex = "unknown";
         switch (sexChoice){
             case 1 -> sex = "male";
@@ -258,7 +260,7 @@ public class Menus {
         System.out.println("2)"+ DBase.EXAMINATIONS[1]);
         System.out.println("3)"+ DBase.EXAMINATIONS[2]);
         System.out.println("4)"+ DBase.EXAMINATIONS[3]);
-        return getChoice(4);
+        return getMaxInt(4);
     }
 
     private static String chooseDataForViewPatients(){
@@ -323,7 +325,7 @@ public class Menus {
             }
         }
 
-        int choice = getChoice(cntOptions);
+        int choice = getMaxInt(cntOptions);
 
         patientBookAnAppointment(false, myApps.get(choice).getId()); //show calendar to change
     }
@@ -410,7 +412,7 @@ public class Menus {
 
     private static void getUserChoiceForNewAppointment(Map<Integer,String> mapDate, Map<Integer,String> mapTime, int cnt, int docID, boolean isNewApp, int appID, int typeExm){
         if (DBase.currentUser instanceof Patient){
-            int choice = getChoice(cnt);
+            int choice = getMaxInt(cnt);
             String[] resTime = mapTime.get(choice).split(":");
             int intTime = 100*Integer.parseInt(resTime[0]) +Integer.parseInt(resTime[1]) ;
             int patientID = ((Patient) DBase.currentUser).id;
@@ -428,7 +430,7 @@ public class Menus {
         } else printRedWarning("Only patient can add new appointment!");
     }
 
-    private static int getChoice(int maxChoice){
+    private static int getMaxInt(int maxChoice){
 
         String msg = Colors.BLUE + "Enter your choice:" + Colors.RESET;
         int choice = 0;

@@ -6,6 +6,7 @@ public class CheckInputData {
     public static int inputPositiveInteger() {
         Scanner sc = new Scanner(System.in);
         while (!(sc.hasNextInt())) {
+
             printRedWarning("Invalid input. Try again!");
             sc.nextLine();
         }
