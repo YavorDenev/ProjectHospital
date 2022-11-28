@@ -19,4 +19,3 @@ doctor_id,first_name,last_name,speciality,age,sex
 18,Selin,Kenan,ophthalmology,27,f
 19,Nazli,Kerim,surgery,25,f
 20,Ali,Vefa,surgery,27,m
-21,qq,ww,Anesthesiology,22,m

@@ -30,7 +30,7 @@ public class Menus {
         }
     }
 
-    static void showCurrentUserAllowedActions() {
+    private static void showCurrentUserAllowedActions() {
         if (DBase.currentUser instanceof Anonymous)  allowedActions = Anonymous.allowedActions;
         if (DBase.currentUser instanceof Patient)  allowedActions = Patient.allowedActions;
         if (DBase.currentUser instanceof Doctor)  allowedActions = Doctor.allowedActions;
@@ -46,7 +46,7 @@ public class Menus {
        optionsMap = tmpOptionsMap;
     }
 
-    static int enterUserChoice(){
+    private static int enterUserChoice(){
         printBlueInputNotice("Please enter your choice:");
         int ch = CheckInput.inputPositiveInteger();
         if (!optionsMap.containsKey(ch)) { //when chosen option is not in optionsMap
@@ -56,7 +56,7 @@ public class Menus {
         return ch;
     }
 
-    static void doRequest(int choice){
+    private static void doRequest(int choice){
 
         int realChoice = optionsMap.get(choice);
         switch (realChoice) {
@@ -235,13 +235,9 @@ public class Menus {
 
     private static boolean confirm() {
         printBlueNotice("*** Confirm your operation!***");
-        int finalChoice = 0;
-        while(finalChoice!=1 && finalChoice!=2){
-            System.out.println("1) Reject operation");
-            System.out.println("2) Finish operation");
-            finalChoice = CheckInput.inputPositiveInteger();
-        }
-        return finalChoice == 2;
+        System.out.println("1) Reject operation");
+        System.out.println("2) Finish operation");
+        return inputMaxInt(2) == 2;
     }
 
     private static int enterTypeOfExamination(){
