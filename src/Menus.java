@@ -101,18 +101,11 @@ public class Menus {
             case 13 -> Doctor.showSortedDocApptsByCriteria(selectDoctorID(), selectSortDirection(), SortCriteria.PATIENT_NAMES);
             case 14 -> Doctor.showSortedDocApptsByCriteria(selectDoctorID(), selectSortDirection(), SortCriteria.PATIENT_ID);
             case 15 -> {
-                String docFirstName = "";
-                String docLastName = "";
-                boolean isCorrectDoctorNames = false;
-                while (!isCorrectDoctorNames){
-                    printBlueInputNotice("Please enter doctor first name:");
-                    docFirstName = scn.nextLine();
-                    printBlueInputNotice("Please enter doctor last name:");
-                    docLastName = scn.nextLine();
-                    isCorrectDoctorNames = isSuchADoctorInHospital(docFirstName,docLastName);
-                    if (!isCorrectDoctorNames) printRedWarning("Doctor not found. Please try again.");
-                }
-                Hospital.showPatientsByDocNames(docFirstName, docLastName);
+                printBlueInputNotice("Please enter the doctor's names.\n");
+                String firstName = enterFirstName();
+                String lastName = enterLastName();
+                if ( ! isSuchADoctorInHospital(firstName,lastName)) printRedWarning("There is no doctor with such names! Please try again.");
+                else Hospital.showPatientsByDocNames(firstName, lastName);
             }
             case 16 -> Hospital.showPatientsBySpeciality(enterSpeciality());
             case 17 -> Hospital.showPatientsByDate(chooseDataForViewPatients());
