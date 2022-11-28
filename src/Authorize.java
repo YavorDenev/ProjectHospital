@@ -8,9 +8,9 @@ public class Authorize {
 
     public static void loginAsPatient() {
         System.out.print("Please enter your first name:");
-        String fName = CheckInputData.inputAlphabeticalNonSpacesString();
+        String fName = CheckInput.inputAlphabeticalNonSpacesString();
         System.out.print("Please enter your patient_id:");
-        int id = CheckInputData.inputPositiveInteger();
+        int id = CheckInput.inputPositiveInteger();
 
         Patient foundUser = null;
         boolean successLogin = false;
@@ -28,9 +28,9 @@ public class Authorize {
 
     public static void loginAsDoctor() {
         System.out.print("Please enter your first name:");
-        String fName = CheckInputData.inputAlphabeticalNonSpacesString();
+        String fName = CheckInput.inputAlphabeticalNonSpacesString();
         System.out.print("Please enter your doctor_id:");
-        int id = CheckInputData.inputPositiveInteger();
+        int id = CheckInput.inputPositiveInteger();
 
         Doctor foundUser = null;
         boolean successLogin = false;
@@ -48,7 +48,7 @@ public class Authorize {
 
     public static void loginAsBoss() {
         System.out.print("Please enter your first name:");
-        String fName = CheckInputData.inputAlphabeticalNonSpacesString();
+        String fName = CheckInput.inputAlphabeticalNonSpacesString();
         System.out.print("Please enter your password:");
         String password = scn.nextLine();
 

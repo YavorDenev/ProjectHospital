@@ -48,7 +48,7 @@ public class Menus {
 
     static int enterUserChoice(){
         printBlueInputNotice("Please enter your choice:");
-        int ch = CheckInputData.inputPositiveInteger();
+        int ch = CheckInput.inputPositiveInteger();
         if (!optionsMap.containsKey(ch)) { //when chosen option is not in optionsMap
             printRedWarning("This option is not in list! Please try again!");
             ch = enterUserChoice();
@@ -94,7 +94,7 @@ public class Menus {
             }
             case 11 -> {
                 printBlueInputNotice("Please enter patient_id:");
-                int patId = CheckInputData.inputPositiveInteger();
+                int patId = CheckInput.inputPositiveInteger();
                 Patient.showAppointmentsByPatientId(patId);
             }
             case 12 -> Doctor.showSortedDocApptsByCriteria(selectDoctorID(), selectSortDirection(), SortCriteria.DATE_TIME);
@@ -146,9 +146,9 @@ public class Menus {
 
     private static int selectDoctorID(){
         int docID = 0;
-        while (!CheckInputData.checkDoctorWithThisIDExist(docID)){
+        while (!CheckInput.checkDoctorWithThisIDExist(docID)){
             printBlueInputNotice("Please enter doctor_id:");
-            docID = CheckInputData.inputPositiveInteger();
+            docID = CheckInput.inputPositiveInteger();
         }
         return docID;
     }
@@ -178,17 +178,17 @@ public class Menus {
 
     private static String enterFirstName(){
         System.out.print("Enter first name:");
-        return CheckInputData.inputAlphabeticalNonSpacesString();
+        return CheckInput.inputAlphabeticalNonSpacesString();
     }
 
     private static String enterLastName(){
         System.out.print("Enter last name:");
-        return CheckInputData.inputAlphabeticalNonSpacesString();
+        return CheckInput.inputAlphabeticalNonSpacesString();
     }
 
     private static int enterAge(){
         System.out.print("Enter age:");
-        return CheckInputData.inputPositiveInteger();
+        return CheckInput.inputPositiveInteger();
     }
 
     private static String enterSex(){
@@ -196,7 +196,7 @@ public class Menus {
         System.out.println("1) male");
         System.out.println("2) female");
         System.out.println("3) ... maybe later");
-        int sexChoice = CheckInputData.inputPositiveInteger();
+        int sexChoice = CheckInput.inputPositiveInteger();
         String sex = "unknown";
         switch (sexChoice){
             case 1 -> sex = "male";
@@ -239,7 +239,7 @@ public class Menus {
         while(finalChoice!=1 && finalChoice!=2){
             System.out.println("1) Reject operation");
             System.out.println("2) Finish operation");
-            finalChoice = CheckInputData.inputPositiveInteger();
+            finalChoice = CheckInput.inputPositiveInteger();
         }
         return finalChoice == 2;
     }
@@ -286,7 +286,7 @@ public class Menus {
             int choice;
             do {
                 printBlueNotice("Please enter appointment to reject:");
-                choice = CheckInputData.inputPositiveInteger();
+                choice = CheckInput.inputPositiveInteger();
             } while (choice > cntOptions);
 
             DBase.appointments.remove(choiceMap.get(choice));
@@ -401,7 +401,7 @@ public class Menus {
             String[] resTime = mapTime.get(choice).split(":");
             int intTime = 100*Integer.parseInt(resTime[0]) +Integer.parseInt(resTime[1]) ;
             int patientID = ((Patient) DBase.currentUser).id;
-            boolean isIAMFree =  CheckInputData.checkIsChosenAppDataTimePatientIsFree(mapDate.get(choice),mapTime.get(choice),patientID);
+            boolean isIAMFree =  CheckInput.checkIsChosenAppDataTimePatientIsFree(mapDate.get(choice),mapTime.get(choice),patientID);
             if (isIAMFree){
                 if (isNewApp) {
                     ((Patient) DBase.currentUser).addAppointment(docID,DBase.EXAMINATIONS[typeExm-1], mapDate.get(choice),intTime);
@@ -420,7 +420,7 @@ public class Menus {
         int choice = 0;
         while (choice<1 || choice>maxInt){
             System.out.print(msg);
-            choice = CheckInputData.inputPositiveInteger();
+            choice = CheckInput.inputPositiveInteger();
             msg = Colors.RED+"Invalid input number. Try again!"+Colors.RESET;
         }
 
