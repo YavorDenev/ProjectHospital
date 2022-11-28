@@ -3,16 +3,13 @@ import java.util.*;
 public class Menus {
     private Menus(){}
 
-    static Scanner scn = new Scanner(System.in);
     static ArrayList<Integer> allowedActions = new ArrayList<>();
     static Map<Integer, Integer> optionsMap = new HashMap<>();  // <option showed, real option num from file>
 
     public static void startPoint() {
-
         String userType = "";
 
         while (true) {  //exit is option in menu
-
             try {
                 userType = String.valueOf(DBase.currentUser.getClass().getField("userType").get(DBase.currentUser));
             }
@@ -104,7 +101,7 @@ public class Menus {
                 printBlueNotice("Please enter the doctor's names.");
                 String firstName = enterFirstName();
                 String lastName = enterLastName();
-                if ( ! isSuchADoctorInHospital(firstName,lastName)) printRedWarning("There is no doctor with such names! Please try again.");
+                if ( ! isDoctorWithSuchNames(firstName,lastName)) printRedWarning("There is no doctor with such names! Please try again.");
                 else Hospital.showPatientsByDocNames(firstName, lastName);
             }
             case 16 -> Hospital.showPatientsBySpeciality(enterSpeciality());
@@ -143,7 +140,7 @@ public class Menus {
         return docID;
     }
 
-    private static boolean isSuchADoctorInHospital(String firstName, String lastName){
+    private static boolean isDoctorWithSuchNames(String firstName, String lastName){
         for (Doctor doc: DBase.doctors){
             boolean check = (firstName.equalsIgnoreCase(doc.firstName)) && (lastName.equalsIgnoreCase(doc.lastName));
             if (check) return true;
@@ -412,21 +409,15 @@ public class Menus {
         return true;
     }
 
-    private static void printBlueInputNotice(String txt){
-        String msg = Colors.BLUE;
-        msg += txt+Colors.RESET;
-        System.out.print(msg);
+    public static void printBlueInputNotice(String txt){
+        System.out.print(Colors.BLUE + txt + Colors.RESET);
     }
 
-    private static void printBlueNotice(String txt){
-        String msg = Colors.BLUE;
-        msg += txt+Colors.RESET;
-        System.out.println(msg);
+    public static void printBlueNotice(String txt){
+        System.out.println(Colors.BLUE + txt + Colors.RESET);
     }
 
-    private static void printRedWarning(String txt){
-        String msg = Colors.RED;
-        msg += txt + Colors.RESET;
-        System.out.println(msg);
+    public static void printRedWarning(String txt){
+        System.out.println(Colors.RED + txt + Colors.RESET);
     }
 }
