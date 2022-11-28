@@ -110,14 +110,13 @@ public class Menus {
             case 16 -> Hospital.showPatientsBySpeciality(enterSpeciality());
             case 17 -> Hospital.showPatientsByDate(chooseDataForViewPatients());
 
-            case 18 -> { //Edit appointment by ID
+            case 18 -> {
                 changeDateTimeOfAppointment();
                 Write.writeAppointmentsData(DBase.APPOINTMENTS_FILE);
                 DBase.setActiveDays();
             }
-            case 19 -> { //Add new appointment
-                while(!patientBookAnAppointment(true, 0)) {};
-                        //loop until correct chose (for example if men/unknown choose gynecology)
+            case 19 -> {   //Add new appointment
+                while(!patientBookAnAppointment(true, 0)) {};   //loop until correct chose (for example if men/unknown choose gynecology)
                 Write.writeAppointmentsData(DBase.APPOINTMENTS_FILE);
                 DBase.setActiveDays();
             }
@@ -131,10 +130,8 @@ public class Menus {
     }
 
     private static String selectSortDirection(){
-        int chSort = 0;
         printBlueInputNotice("1-Up 2-Down. ");
-        chSort = CheckInput.inputMaxInt(2);
-        return  (chSort==1) ? "Up":"Down";
+        return (CheckInput.inputMaxInt(2) == 1) ? "Up" : "Down";
     }
 
     private static int selectDoctorID(){
@@ -332,13 +329,11 @@ public class Menus {
 
         ArrayList<String> appTimes = new ArrayList<>();
         ArrayList<String> min = new ArrayList<>();
-        min.add("00"); min.add("20"); min.add("40"); //when convert int to min "00" become 0 (ugly)
+        min.add("00"); min.add("20"); min.add("40");  //when convert int to min "00" become 0 (ugly)
 
-        //gen start app times
-        for (int h=9;h<=18;h++){
+        for (int h=9; h<=18; h++){   //gen start app times
             for (String m : min){
-                if (h!=12) appTimes.add(Integer.toString(h) + ":" + m);
-                //h=12 dinner time
+                if (h!=12) appTimes.add(h + ":" + m);   //h=12 dinner time
             }
         }
 
