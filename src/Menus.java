@@ -262,7 +262,6 @@ public class Menus {
 
 
     private static void chooseAppointmentToRemove(){
-
         Map<Integer,Appointment> choiceMap = new HashMap<>();
         int cntOptions =0;
         for (Appointment app: DBase.appointments) {
@@ -279,15 +278,14 @@ public class Menus {
 
         if (cntOptions == 0) printRedWarning("You have no appointments!");
         else {
-            int choice;
-            do {
-                printBlueNotice("Please enter appointment to reject:");
-                choice = CheckInput.inputPositiveInteger();
-            } while (choice > cntOptions);
+            printBlueNotice("Please select number of appointment to reject. ");
+            int choice = CheckInput.inputMaxInt(cntOptions);
 
-            DBase.appointments.remove(choiceMap.get(choice));
-            System.out.println();
-            System.out.println(choiceMap.get(choice) + Colors.RED + " WAS REMOVED!" + Colors.RESET);
+            if (confirm()) {
+                DBase.appointments.remove(choiceMap.get(choice));
+                System.out.println();
+                System.out.println(choiceMap.get(choice) + Colors.RED + " WAS REMOVED!" + Colors.RESET);
+            }
         }
     }
 
