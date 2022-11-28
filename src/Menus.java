@@ -47,7 +47,6 @@ public class Menus {
     }
 
     static int enterUserChoice(){
-
         printBlueInputNotice("Please enter your choice:");
         int ch = CheckInputData.inputPositiveInteger();
 
@@ -213,7 +212,7 @@ public class Menus {
         printBlueNotice("Enter gender:");
         System.out.println("1) male");
         System.out.println("2) female");
-        int sexChoice = CheckInputData.inputPositiveInteger();
+        int sexChoice = getChoice(2);
         String sex = "unknown";
         switch (sexChoice){
             case 1 -> sex = "male";

@@ -15,35 +15,34 @@ public class Authorize {
         Patient foundUser = null;
         boolean successLogin = false;
         for (Patient p : DBase.patients){
-           if (p.id == id && p.firstName.toUpperCase().equals(fName.toUpperCase())){
+           if (p.id == id && p.firstName.equalsIgnoreCase(fName)){
                successLogin = true;
                foundUser = p;
                break;
            }
         }
 
-        if (!successLogin) System.out.println("wrong name or id, please try again!");
+        if (!successLogin) System.out.println("Wrong name or id, please try again!");
         else DBase.currentUser = foundUser;
     }
 
     public static void loginAsDoctor() {
         System.out.print("Please enter your first name:");
         String fName = CheckInputData.inputAlphabeticalNonSpacesString();
-
         System.out.print("Please enter your doctor_id:");
         int id = CheckInputData.inputPositiveInteger();
 
         Doctor foundUser = null;
         boolean successLogin = false;
         for (Doctor doc : DBase.doctors){
-            if (doc.id == id && doc.firstName.toUpperCase().equals(fName.toUpperCase())){
+            if (doc.id == id && doc.firstName.equalsIgnoreCase(fName)){
                 successLogin = true;
                 foundUser = doc;
                 break;
             }
         }
 
-        if (!successLogin) System.out.println("wrong name or id, please try again!");
+        if (!successLogin) System.out.println("Wrong name or id, please try again!");
         else DBase.currentUser = foundUser;
     }
 
