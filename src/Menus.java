@@ -254,18 +254,13 @@ public class Menus {
     }
 
     private static String chooseDataForViewPatients(){
-        int choice = 0;
-        System.out.println();
+        printBlueInputNotice("Please select data to view patients list:\n");
 
-        String notice = "Chose data to view patients list:";
         for (int i=0 ; i<DBase.activeDays.size() ; i++){
             System.out.println((i+1) + ") " + DBase.activeDays.get(i));
         }
-        while (choice> DBase.activeDays.size()||choice<1){
-            printBlueInputNotice(notice);
-            choice = CheckInputData.inputPositiveInteger();
-            notice = "Please select one of the dates listed above:";
-        }
+
+        int choice = inputMaxInt(DBase.activeDays.size());
         return DBase.activeDays.get(choice-1);
     }
 
