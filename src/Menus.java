@@ -49,7 +49,6 @@ public class Menus {
     static int enterUserChoice(){
         printBlueInputNotice("Please enter your choice:");
         int ch = CheckInputData.inputPositiveInteger();
-
         if (!optionsMap.containsKey(ch)) { //when chosen option is not in optionsMap
             printRedWarning("This option is not in list! Please try again!");
             ch = enterUserChoice();
@@ -141,11 +140,7 @@ public class Menus {
     private static String selectSortDirection(){
         int chSort = 0;
         printBlueInputNotice("1-Up 2-Down. ");
-        chSort = getMaxInt(2);
-        //while (chSort!=1 && chSort!=2){
-        //    printBlueInputNotice("1-Up 2-Down. Enter your option:");
-        //    chSort = CheckInputData.inputPositiveInteger();
-        //}
+        chSort = inputMaxInt(2);
         return  (chSort==1) ? "Up":"Down";
     }
 
@@ -214,7 +209,7 @@ public class Menus {
         printBlueNotice("Enter gender:");
         System.out.println("1) male");
         System.out.println("2) female");
-        int sexChoice = getMaxInt(2);
+        int sexChoice = inputMaxInt(2);
         String sex = "unknown";
         switch (sexChoice){
             case 1 -> sex = "male";
@@ -224,8 +219,9 @@ public class Menus {
     }
 
     private static String enterSpeciality(){
-        Map<Integer, String> specMap = new HashMap<>();
+        printBlueInputNotice("Please select speciality:\n");
 
+        Map<Integer, String> specMap = new HashMap<>();
         int cntOptions = 0;
         for (Speciality sp : DBase.specialities){
             cntOptions++;
@@ -233,13 +229,7 @@ public class Menus {
             specMap.put(sp.id, sp.name);
         }
 
-        int choice = 0;
-        String valid = "";
-        while (choice>cntOptions||choice<1){
-            printBlueInputNotice("Enter" + valid + " number of speciality:");
-            choice = CheckInputData.inputPositiveInteger();
-            valid = " a valid";
-        }
+        int choice = inputMaxInt(cntOptions);
         return specMap.get(choice);
     }
 
@@ -260,7 +250,7 @@ public class Menus {
         System.out.println("2)"+ DBase.EXAMINATIONS[1]);
         System.out.println("3)"+ DBase.EXAMINATIONS[2]);
         System.out.println("4)"+ DBase.EXAMINATIONS[3]);
-        return getMaxInt(4);
+        return inputMaxInt(4);
     }
 
     private static String chooseDataForViewPatients(){
@@ -325,7 +315,7 @@ public class Menus {
             }
         }
 
-        int choice = getMaxInt(cntOptions);
+        int choice = inputMaxInt(cntOptions);
 
         patientBookAnAppointment(false, myApps.get(choice).getId()); //show calendar to change
     }
@@ -412,7 +402,7 @@ public class Menus {
 
     private static void getUserChoiceForNewAppointment(Map<Integer,String> mapDate, Map<Integer,String> mapTime, int cnt, int docID, boolean isNewApp, int appID, int typeExm){
         if (DBase.currentUser instanceof Patient){
-            int choice = getMaxInt(cnt);
+            int choice = inputMaxInt(cnt);
             String[] resTime = mapTime.get(choice).split(":");
             int intTime = 100*Integer.parseInt(resTime[0]) +Integer.parseInt(resTime[1]) ;
             int patientID = ((Patient) DBase.currentUser).id;
@@ -430,11 +420,10 @@ public class Menus {
         } else printRedWarning("Only patient can add new appointment!");
     }
 
-    private static int getMaxInt(int maxChoice){
-
+    private static int inputMaxInt(int maxInt){
         String msg = Colors.BLUE + "Enter your choice:" + Colors.RESET;
         int choice = 0;
-        while (choice<1 || choice>maxChoice){
+        while (choice<1 || choice>maxInt){
             System.out.print(msg);
             choice = CheckInputData.inputPositiveInteger();
             msg = Colors.RED+"Invalid input number. Try again!"+Colors.RESET;
