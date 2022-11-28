@@ -101,7 +101,7 @@ public class Menus {
             case 13 -> Doctor.showSortedDocApptsByCriteria(selectDoctorID(), selectSortDirection(), SortCriteria.PATIENT_NAMES);
             case 14 -> Doctor.showSortedDocApptsByCriteria(selectDoctorID(), selectSortDirection(), SortCriteria.PATIENT_ID);
             case 15 -> {
-                printBlueInputNotice("Please enter the doctor's names.\n");
+                printBlueNotice("Please enter the doctor's names.");
                 String firstName = enterFirstName();
                 String lastName = enterLastName();
                 if ( ! isSuchADoctorInHospital(firstName,lastName)) printRedWarning("There is no doctor with such names! Please try again.");
@@ -170,17 +170,17 @@ public class Menus {
     }
 
     private static String enterFirstName(){
-        System.out.print("Enter first name:");
+        printBlueInputNotice("Enter first name:");
         return CheckInput.inputAlphabeticalNonSpacesString();
     }
 
     private static String enterLastName(){
-        System.out.print("Enter last name:");
+        printBlueInputNotice("Enter last name:");
         return CheckInput.inputAlphabeticalNonSpacesString();
     }
 
     private static int enterAge(){
-        System.out.print("Enter age:");
+        printBlueInputNotice("Enter age:");
         return CheckInput.inputPositiveInteger();
     }
 
@@ -212,7 +212,7 @@ public class Menus {
     }
 
     private static String enterSpeciality(){
-        printBlueInputNotice("Please select speciality:\n");
+        printBlueNotice("Please select speciality:");
 
         Map<Integer, String> specMap = new HashMap<>();
         int cntOptions = 0;
@@ -243,7 +243,7 @@ public class Menus {
     }
 
     private static String chooseDataForViewPatients(){
-        printBlueInputNotice("Please select data to view patients list:\n");
+        printBlueNotice("Please select data to view patients list:");
 
         for (int i=0 ; i<DBase.activeDays.size() ; i++){
             System.out.println((i+1) + ") " + DBase.activeDays.get(i));
