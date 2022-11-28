@@ -3,16 +3,13 @@ import java.util.*;
 public class Menus {
     private Menus(){}
 
-    static Scanner scn = new Scanner(System.in);
     static ArrayList<Integer> allowedActions = new ArrayList<>();
     static Map<Integer, Integer> optionsMap = new HashMap<>();  // <option showed, real option num from file>
 
     public static void startPoint() {
-
         String userType = "";
 
         while (true) {  //exit is option in menu
-
             try {
                 userType = String.valueOf(DBase.currentUser.getClass().getField("userType").get(DBase.currentUser));
             }
@@ -30,7 +27,7 @@ public class Menus {
         }
     }
 
-    static void showCurrentUserAllowedActions() {
+    private static void showCurrentUserAllowedActions() {
         if (DBase.currentUser instanceof Anonymous)  allowedActions = Anonymous.allowedActions;
         if (DBase.currentUser instanceof Patient)  allowedActions = Patient.allowedActions;
         if (DBase.currentUser instanceof Doctor)  allowedActions = Doctor.allowedActions;
@@ -46,19 +43,17 @@ public class Menus {
        optionsMap = tmpOptionsMap;
     }
 
-    static int enterUserChoice(){
-
+    private static int enterUserChoice(){
         printBlueInputNotice("Please enter your choice:");
-        int ch = CheckInputData.inputPositiveInteger();
-
+        int ch = CheckInput.inputPositiveInteger();
         if (!optionsMap.containsKey(ch)) { //when chosen option is not in optionsMap
             printRedWarning("This option is not in list! Please try again!");
-            enterUserChoice();
+            ch = enterUserChoice();
         }
         return ch;
     }
 
-    static void doRequest(int choice){
+    private static void doRequest(int choice){
 
         int realChoice = optionsMap.get(choice);
         switch (realChoice) {
@@ -96,37 +91,29 @@ public class Menus {
             }
             case 11 -> {
                 printBlueInputNotice("Please enter patient_id:");
-                int patId = CheckInputData.inputPositiveInteger();
+                int patId = CheckInput.inputPositiveInteger();
                 Patient.showAppointmentsByPatientId(patId);
             }
             case 12 -> Doctor.showSortedDocApptsByCriteria(selectDoctorID(), selectSortDirection(), SortCriteria.DATE_TIME);
             case 13 -> Doctor.showSortedDocApptsByCriteria(selectDoctorID(), selectSortDirection(), SortCriteria.PATIENT_NAMES);
             case 14 -> Doctor.showSortedDocApptsByCriteria(selectDoctorID(), selectSortDirection(), SortCriteria.PATIENT_ID);
             case 15 -> {
-                String docFirstName = "";
-                String docLastName = "";
-                boolean isCorrectDoctorNames = false;
-                while (!isCorrectDoctorNames){
-                    printBlueInputNotice("Please enter doctor first name:");
-                    docFirstName = scn.nextLine();
-                    printBlueInputNotice("Please enter doctor last name:");
-                    docLastName = scn.nextLine();
-                    isCorrectDoctorNames = isSuchADoctorInHospital(docFirstName,docLastName);
-                    if (!isCorrectDoctorNames) printRedWarning("Doctor not found. Please try again.");
-                }
-                Hospital.showPatientsByDocNames(docFirstName, docLastName);
+                printBlueNotice("Please enter the doctor's names.");
+                String firstName = enterFirstName();
+                String lastName = enterLastName();
+                if ( ! isDoctorWithSuchNames(firstName,lastName)) printRedWarning("There is no doctor with such names! Please try again.");
+                else Hospital.showPatientsByDocNames(firstName, lastName);
             }
             case 16 -> Hospital.showPatientsBySpeciality(enterSpeciality());
             case 17 -> Hospital.showPatientsByDate(chooseDataForViewPatients());
 
-            case 18 -> { //Edit appointment by ID
+            case 18 -> {
                 changeDateTimeOfAppointment();
                 Write.writeAppointmentsData(DBase.APPOINTMENTS_FILE);
                 DBase.setActiveDays();
             }
-            case 19 -> { //Add new appointment
-                while(!patientBookAnAppointment(true, 0)) {};
-                        //loop until correct chose (for example if men/unknown choose gynecology)
+            case 19 -> {   //Add new appointment
+                while(!patientBookAnAppointment(true, 0)) {};   //loop until correct chose (for example if men/unknown choose gynecology)
                 Write.writeAppointmentsData(DBase.APPOINTMENTS_FILE);
                 DBase.setActiveDays();
             }
@@ -140,24 +127,20 @@ public class Menus {
     }
 
     private static String selectSortDirection(){
-        int chSort = 0;
-        while (chSort!=1 && chSort!=2){
-            printBlueInputNotice("1-Up 2-Down. Enter your option:");
-            chSort = CheckInputData.inputPositiveInteger();
-        }
-        return  (chSort==1) ? "Up":"Down";
+        printBlueInputNotice("1-Up 2-Down. ");
+        return (CheckInput.inputMaxInt(2) == 1) ? "Up" : "Down";
     }
 
     private static int selectDoctorID(){
         int docID = 0;
-        while (!CheckInputData.checkDoctorWithThisIDExist(docID)){
+        while (!CheckInput.checkDoctorWithThisIDExist(docID)){
             printBlueInputNotice("Please enter doctor_id:");
-            docID = CheckInputData.inputPositiveInteger();
+            docID = CheckInput.inputPositiveInteger();
         }
         return docID;
     }
 
-    private static boolean isSuchADoctorInHospital(String firstName, String lastName){
+    private static boolean isDoctorWithSuchNames(String firstName, String lastName){
         for (Doctor doc: DBase.doctors){
             boolean check = (firstName.equalsIgnoreCase(doc.firstName)) && (lastName.equalsIgnoreCase(doc.lastName));
             if (check) return true;
@@ -181,18 +164,18 @@ public class Menus {
     }
 
     private static String enterFirstName(){
-        System.out.print("Enter first name:");
-        return CheckInputData.inputAlphabeticalNonSpacesString();
+        printBlueInputNotice("Enter first name:");
+        return CheckInput.inputAlphabeticalNonSpacesString();
     }
 
     private static String enterLastName(){
-        System.out.print("Enter last name:");
-        return CheckInputData.inputAlphabeticalNonSpacesString();
+        printBlueInputNotice("Enter last name:");
+        return CheckInput.inputAlphabeticalNonSpacesString();
     }
 
     private static int enterAge(){
-        System.out.print("Enter age:");
-        return CheckInputData.inputPositiveInteger();
+        printBlueInputNotice("Enter age:");
+        return CheckInput.inputPositiveInteger();
     }
 
     private static String enterSex(){
@@ -200,7 +183,7 @@ public class Menus {
         System.out.println("1) male");
         System.out.println("2) female");
         System.out.println("3) ... maybe later");
-        int sexChoice = CheckInputData.inputPositiveInteger();
+        int sexChoice = CheckInput.inputPositiveInteger();
         String sex = "unknown";
         switch (sexChoice){
             case 1 -> sex = "male";
@@ -213,7 +196,7 @@ public class Menus {
         printBlueNotice("Enter gender:");
         System.out.println("1) male");
         System.out.println("2) female");
-        int sexChoice = CheckInputData.inputPositiveInteger();
+        int sexChoice = CheckInput.inputMaxInt(2);
         String sex = "unknown";
         switch (sexChoice){
             case 1 -> sex = "male";
@@ -223,8 +206,9 @@ public class Menus {
     }
 
     private static String enterSpeciality(){
-        Map<Integer, String> specMap = new HashMap<>();
+        printBlueNotice("Please select speciality:");
 
+        Map<Integer, String> specMap = new HashMap<>();
         int cntOptions = 0;
         for (Speciality sp : DBase.specialities){
             cntOptions++;
@@ -232,25 +216,15 @@ public class Menus {
             specMap.put(sp.id, sp.name);
         }
 
-        int choice = 0;
-        String valid = "";
-        while (choice>cntOptions||choice<1){
-            printBlueInputNotice("Enter" + valid + " number of speciality:");
-            choice = CheckInputData.inputPositiveInteger();
-            valid = " a valid";
-        }
+        int choice = CheckInput.inputMaxInt(cntOptions);
         return specMap.get(choice);
     }
 
     private static boolean confirm() {
         printBlueNotice("*** Confirm your operation!***");
-        int finalChoice = 0;
-        while(finalChoice!=1 && finalChoice!=2){
-            System.out.println("1) Reject operation");
-            System.out.println("2) Finish operation");
-            finalChoice = CheckInputData.inputPositiveInteger();
-        }
-        return finalChoice == 2;
+        System.out.println("1) Reject operation");
+        System.out.println("2) Finish operation");
+        return CheckInput.inputMaxInt(2) == 2;
     }
 
     private static int enterTypeOfExamination(){
@@ -259,28 +233,22 @@ public class Menus {
         System.out.println("2)"+ DBase.EXAMINATIONS[1]);
         System.out.println("3)"+ DBase.EXAMINATIONS[2]);
         System.out.println("4)"+ DBase.EXAMINATIONS[3]);
-        return getChoice(4);
+        return CheckInput.inputMaxInt(4);
     }
 
     private static String chooseDataForViewPatients(){
-        int choice = 0;
-        System.out.println();
+        printBlueNotice("Please select data to view patients list:");
 
-        String notice = "Chose data to view patients list:";
         for (int i=0 ; i<DBase.activeDays.size() ; i++){
             System.out.println((i+1) + ") " + DBase.activeDays.get(i));
         }
-        while (choice> DBase.activeDays.size()||choice<1){
-            printBlueInputNotice(notice);
-            choice = CheckInputData.inputPositiveInteger();
-            notice = "Please select one of the dates listed above:";
-        }
+
+        int choice = CheckInput.inputMaxInt(DBase.activeDays.size());
         return DBase.activeDays.get(choice-1);
     }
 
 
     private static void chooseAppointmentToRemove(){
-
         Map<Integer,Appointment> choiceMap = new HashMap<>();
         int cntOptions =0;
         for (Appointment app: DBase.appointments) {
@@ -297,15 +265,14 @@ public class Menus {
 
         if (cntOptions == 0) printRedWarning("You have no appointments!");
         else {
-            int choice;
-            do {
-                printBlueNotice("Please enter appointment to reject:");
-                choice = CheckInputData.inputPositiveInteger();
-            } while (choice > cntOptions);
+            printBlueNotice("Please select number of appointment to reject. ");
+            int choice = CheckInput.inputMaxInt(cntOptions);
 
-            DBase.appointments.remove(choiceMap.get(choice));
-            System.out.println();
-            System.out.println(choiceMap.get(choice) + Colors.RED + " WAS REMOVED!" + Colors.RESET);
+            if (confirm()) {
+                DBase.appointments.remove(choiceMap.get(choice));
+                System.out.println();
+                System.out.println(choiceMap.get(choice) + Colors.RED + " WAS REMOVED!" + Colors.RESET);
+            }
         }
     }
 
@@ -324,7 +291,7 @@ public class Menus {
             }
         }
 
-        int choice = getChoice(cntOptions);
+        int choice = CheckInput.inputMaxInt(cntOptions);
 
         patientBookAnAppointment(false, myApps.get(choice).getId()); //show calendar to change
     }
@@ -359,13 +326,11 @@ public class Menus {
 
         ArrayList<String> appTimes = new ArrayList<>();
         ArrayList<String> min = new ArrayList<>();
-        min.add("00"); min.add("20"); min.add("40"); //when convert int to min "00" become 0 (ugly)
+        min.add("00"); min.add("20"); min.add("40");  //when convert int to min "00" become 0 (ugly)
 
-        //gen start app times
-        for (int h=9;h<=18;h++){
+        for (int h=9; h<=18; h++){   //gen start app times
             for (String m : min){
-                if (h!=12) appTimes.add(Integer.toString(h) + ":" + m);
-                //h=12 dinner time
+                if (h!=12) appTimes.add(h + ":" + m);   //h=12 dinner time
             }
         }
 
@@ -411,11 +376,11 @@ public class Menus {
 
     private static void getUserChoiceForNewAppointment(Map<Integer,String> mapDate, Map<Integer,String> mapTime, int cnt, int docID, boolean isNewApp, int appID, int typeExm){
         if (DBase.currentUser instanceof Patient){
-            int choice = getChoice(cnt);
+            int choice = CheckInput.inputMaxInt(cnt);
             String[] resTime = mapTime.get(choice).split(":");
             int intTime = 100*Integer.parseInt(resTime[0]) +Integer.parseInt(resTime[1]) ;
             int patientID = ((Patient) DBase.currentUser).id;
-            boolean isIAMFree =  CheckInputData.checkIsChosenAppDataTimePatientIsFree(mapDate.get(choice),mapTime.get(choice),patientID);
+            boolean isIAMFree =  CheckInput.checkIsChosenAppDataTimePatientIsFree(mapDate.get(choice),mapTime.get(choice),patientID);
             if (isIAMFree){
                 if (isNewApp) {
                     ((Patient) DBase.currentUser).addAppointment(docID,DBase.EXAMINATIONS[typeExm-1], mapDate.get(choice),intTime);
@@ -427,19 +392,6 @@ public class Menus {
                 getUserChoiceForNewAppointment(mapDate, mapTime, cnt, docID, isNewApp, appID, typeExm);
             }
         } else printRedWarning("Only patient can add new appointment!");
-    }
-
-    private static int getChoice(int maxChoice){
-
-        String msg = Colors.BLUE + "Enter your choice:" + Colors.RESET;
-        int choice = 0;
-        while (choice<1 || choice>maxChoice){
-            System.out.print(msg);
-            choice = CheckInputData.inputPositiveInteger();
-            msg = Colors.RED+"Invalid input number. Try again!"+Colors.RESET;
-        }
-
-        return choice;
     }
 
     private static boolean checkDoctorApps(int docID, String date, String time){
@@ -457,21 +409,15 @@ public class Menus {
         return true;
     }
 
-    private static void printBlueInputNotice(String txt){
-        String msg = Colors.BLUE;
-        msg += txt+Colors.RESET;
-        System.out.print(msg);
+    public static void printBlueInputNotice(String txt){
+        System.out.print(Colors.BLUE + txt + Colors.RESET);
     }
 
-    private static void printBlueNotice(String txt){
-        String msg = Colors.BLUE;
-        msg += txt+Colors.RESET;
-        System.out.println(msg);
+    public static void printBlueNotice(String txt){
+        System.out.println(Colors.BLUE + txt + Colors.RESET);
     }
 
-    private static void printRedWarning(String txt){
-        String msg = Colors.RED;
-        msg += txt + Colors.RESET;
-        System.out.println(msg);
+    public static void printRedWarning(String txt){
+        System.out.println(Colors.RED + txt + Colors.RESET);
     }
 }

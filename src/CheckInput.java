@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
-public class CheckInputData {
-    private CheckInputData(){}
+public class CheckInput {
+    private CheckInput(){}
 
     public static int inputPositiveInteger() {
         Scanner sc = new Scanner(System.in);
@@ -15,6 +15,18 @@ public class CheckInputData {
             num = inputPositiveInteger();
         }
         return num;
+    }
+
+    public static int inputMaxInt(int maxInt){
+        String msg = Colors.BLUE + "Enter your choice:" + Colors.RESET;
+        int choice = 0;
+        while (choice<1 || choice>maxInt){
+            System.out.print(msg);
+            choice = inputPositiveInteger();
+            msg = Colors.RED + "Invalid input number. Try again!" + Colors.RESET;
+        }
+
+        return choice;
     }
 
     public static String inputAlphabeticalNonSpacesString() {

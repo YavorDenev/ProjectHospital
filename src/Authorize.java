@@ -7,50 +7,49 @@ public class Authorize {
     private Authorize(){}
 
     public static void loginAsPatient() {
-        System.out.print("Please enter your first name:");
-        String fName = CheckInputData.inputAlphabeticalNonSpacesString();
-        System.out.print("Please enter your patient_id:");
-        int id = CheckInputData.inputPositiveInteger();
+        Menus.printBlueInputNotice("Please enter your first name:");
+        String fName = CheckInput.inputAlphabeticalNonSpacesString();
+        Menus.printBlueInputNotice("Please enter your patient_id:");
+        int id = CheckInput.inputPositiveInteger();
 
         Patient foundUser = null;
         boolean successLogin = false;
         for (Patient p : DBase.patients){
-           if (p.id == id && p.firstName.toUpperCase().equals(fName.toUpperCase())){
+           if (p.id == id && p.firstName.equalsIgnoreCase(fName)){
                successLogin = true;
                foundUser = p;
                break;
            }
         }
 
-        if (!successLogin) System.out.println("wrong name or id, please try again!");
+        if (!successLogin) Menus.printRedWarning("Wrong name or id, please try again!");
         else DBase.currentUser = foundUser;
     }
 
     public static void loginAsDoctor() {
-        System.out.print("Please enter your first name:");
-        String fName = CheckInputData.inputAlphabeticalNonSpacesString();
-
-        System.out.print("Please enter your doctor_id:");
-        int id = CheckInputData.inputPositiveInteger();
+        Menus.printBlueInputNotice("Please enter your first name:");
+        String fName = CheckInput.inputAlphabeticalNonSpacesString();
+        Menus.printBlueInputNotice("Please enter your doctor_id:");
+        int id = CheckInput.inputPositiveInteger();
 
         Doctor foundUser = null;
         boolean successLogin = false;
         for (Doctor doc : DBase.doctors){
-            if (doc.id == id && doc.firstName.toUpperCase().equals(fName.toUpperCase())){
+            if (doc.id == id && doc.firstName.equalsIgnoreCase(fName)){
                 successLogin = true;
                 foundUser = doc;
                 break;
             }
         }
 
-        if (!successLogin) System.out.println("wrong name or id, please try again!");
+        if (!successLogin) Menus.printRedWarning("Wrong name or id, please try again!");
         else DBase.currentUser = foundUser;
     }
 
     public static void loginAsBoss() {
-        System.out.print("Please enter your first name:");
-        String fName = CheckInputData.inputAlphabeticalNonSpacesString();
-        System.out.print("Please enter your password:");
+        Menus.printBlueInputNotice("Please enter your first name:");
+        String fName = CheckInput.inputAlphabeticalNonSpacesString();
+        Menus.printBlueInputNotice("Please enter your password:");
         String password = scn.nextLine();
 
         Boss foundUser = null;
@@ -63,7 +62,8 @@ public class Authorize {
             }
         }
 
-        if (!successLogin) System.out.println("Wrong name or password, please try again!");
+        if (!successLogin) Menus.printRedWarning("Wrong name or password, please try again!");
         else DBase.currentUser = foundUser;
     }
+
 }
